@@ -1,0 +1,62 @@
+{
+    "name":"Midway",
+    "version":"1.3.15",
+    "description":"Never end your class midway through the lesson ever again!",
+    
+    "icons": {
+        "16":"icons/midway-icon-16.png",
+        "32":"icons/midway-icon-32.png",
+        "36":"icons/midway-icon-36.png",
+        "48":"icons/midway-icon-48.png",
+        "57":"icons/midway-icon-57.png",
+        "60":"icons/midway-icon-60.png",
+        "70":"icons/midway-icon-70.png",
+        "72":"icons/midway-icon-72.png",
+        "76":"icons/midway-icon-76.png",
+        "96":"icons/midway-icon-96.png",
+        "114":"icons/midway-icon-114.png",
+        "120":"icons/midway-icon-120.png",
+        "144":"icons/midway-icon-144.png",
+        "150":"icons/midway-icon-150.png",
+        "152":"icons/midway-icon-152.png",
+        "180":"icons/midway-icon-180.png",
+        "192":"icons/midway-icon-192.png",
+        "310":"icons/midway-icon-310.png"
+    },
+    
+    "browser_action": {
+        "default_icon": {
+            "16":"icons/midway-ext-icon-16.png",
+            "32":"icons/midway-ext-icon-32.png",
+            "36":"icons/midway-ext-icon-36.png",
+            "48":"icons/midway-ext-icon-48.png",
+            "57":"icons/midway-ext-icon-57.png",
+            "60":"icons/midway-ext-icon-60.png",
+            "70":"icons/midway-ext-icon-70.png",
+            "72":"icons/midway-ext-icon-72.png",
+            "76":"icons/midway-ext-icon-76.png",
+            "96":"icons/midway-ext-icon-96.png",
+            "114":"icons/midway-ext-icon-114.png",
+            "120":"icons/midway-ext-icon-120.png",
+            "144":"icons/midway-ext-icon-144.png",
+            "150":"icons/midway-ext-icon-150.png",
+            "152":"icons/midway-ext-icon-152.png",
+            "180":"icons/midway-ext-icon-180.png",
+            "192":"icons/midway-ext-icon-192.png",
+            "310":"icons/midway-ext-icon-310.png"
+        },
+        "default_popup": "popup.html",
+        "default_title": "Midway"
+    },
+    
+    "content_scripts": [
+        {
+            "matches": ["http://*/*","https://*/*"],
+            "css": ["css/timer-base.css"],
+            "js": ["js/timer-payload.js", "js/timer-base.js"],
+            "run_at":"document_end"
+        }
+    ],
+    
+    "manifest_version": 2
+}
