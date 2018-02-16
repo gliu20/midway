@@ -1,2 +1,2 @@
 # midway
-For scarsdale schools only. Never end you class midway through the lesson ever again.
+For scarsdale schools only. Never end your class midway through the lesson ever again.
