@@ -6,40 +6,61 @@ function timeUpdate () {
   
   var timeTable = [
     {
-      "time":531,
-      "period":"Period 1"
+      "531":"Period 1",
+      "587":"Period 2",
+      "643":"Period 3",
+      "699":"Period 4",
+      "750":"1st Lunch",
+      "801":"Period 5A",
+      "852":"2nd Lunch",
+      "903":"Period 5B",
+      "954":"Period 7"
     },
     {
-      "time":587,
-      "period":"Period 2"
+      "531":"Period 1",
+      "587":"Period 2",
+      "597":"Homeroom",
+      "653":"Period 3",
+      "709":"Period 4",
+      "760":"1st Lunch",
+      "811":"Period 5A",
+      "862":"2nd Lunch",
+      "913":"Period 5B",
+      "964":"Period 7"
     },
     {
-      "time":643,
-      "period":"Period 3"
+      "531":"Period 1",
+      "587":"Period 2",
+      "643":"Period 3",
+      "699":"Period 4",
+      "750":"1st Lunch",
+      "801":"Period 5A",
+      "852":"2nd Lunch",
+      "903":"Period 5B",
+      "954":"Period 7"
     },
     {
-      "time":699,
-      "period":"Period 4"
+      "531":"Period 1",
+      "587":"Period 2",
+      "597":"Homeroom",
+      "653":"Period 3",
+      "709":"Period 4",
+      "760":"1st Lunch",
+      "811":"Period 5A",
+      "862":"2nd Lunch",
+      "913":"Period 5B",
+      "964":"Period 7"
     },
     {
-      "time":750,
-      "period":"1st Lunch"
-    },
-    {
-      "time":801,
-      "period":"Period 5A"
-    },
-    {
-      "time":852,
-      "period":"2nd Lunch"
-    },
-    {
-      "time":903,
-      "period":"Period 5B"
-    },
-    {
-      "time":954,
-      "period":"Period 7"
+      "531":"Period 1",
+      "587":"Period 2",
+      "643":"Period 3",
+      "699":"Period 4",
+      "750":"1st Lunch",
+      "801":"Period 5A",
+      "852":"2nd Lunch",
+      "903":"Period 5B",
+      "954":"Period 7"
     },
   ]
   
