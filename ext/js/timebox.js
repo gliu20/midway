@@ -32,11 +32,10 @@
 	m.style.zIndex = "99999999";
 	document.body.appendChild(m);
 	
-	var s = document.createElement('script');
-	s.textContent = 'document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-OyOZQ5nBzEf3wxsbh1HS-close").addEventListener("click",function () {document.querySelector("midway-time-box").shadowRoot.querySelector(".midway-OyOZQ5nBzEf3wxsbh1HS-top").remove()});';
+	//attach close events
+	document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-OyOZQ5nBzEf3wxsbh1HS-close").addEventListener("click",function () {document.querySelector("midway-time-box").shadowRoot.querySelector(".midway-OyOZQ5nBzEf3wxsbh1HS-top").remove()});
 	
-	document.body.appendChild(s);
-	
+	//make drag
 	(function(b){function c(e){e=e||window.event;a=d-e.clientX;f=g-e.clientY;d=e.clientX;g=e.clientY;b.style.top=b.offsetTop-f+"px";b.style.left=b.offsetLeft-a+"px"}function h(){document.onmouseup=null;document.onmousemove=null}var a=0,f=0,d=0,g=0;b.onmousedown=function(a){a=a||window.event;d=a.clientX;g=a.clientY;document.onmouseup=h;document.onmousemove=c}})(document.querySelector("midway-time-box"));
 
 })();
