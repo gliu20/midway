@@ -64,7 +64,17 @@
 	function timeUpdate () {
   
  	 function formatTime (mins) {
-		  return Math.floor(mins / 60) % 12 + ":" + (mins % 60); 
+		 function addZero(num) {
+			 num = num.toString();
+			 if (num.length < 2) {
+				 num = "0" + num;
+			 }
+			 if (num.length < 2) {
+				 num = "0" + num;
+			 }
+			 return num;
+		 }
+		  return Math.floor(mins / 60) % 12 + ":" + addZero(mins % 60); 
  	 }
   
  	 function distNum (a,b) {
