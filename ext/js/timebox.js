@@ -26,10 +26,10 @@
 	customElements.define('midway-time-box',Midway);
 
 	var m = document.createElement('midway-time-box');
-	m.style.position = "absolute";
+	m.style.position = "fixed";
 	m.style.top = "0px";
 	m.style.left = "0px";
-	m.style.zIndex = "999";
+	m.style.zIndex = "99999999";
 	document.body.appendChild(m);
 	
 	var s = document.createElement('script');
