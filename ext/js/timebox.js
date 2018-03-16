@@ -30,6 +30,10 @@
 	m.style.top = "0px";
 	m.style.left = "0px";
 	m.style.zIndex = "999";
-	m.innerHTML = '<script>document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-OyOZQ5nBzEf3wxsbh1HS-close").addEventListener("click",function () {document.querySelector("midway-time-box").shadowRoot.querySelector(".midway-OyOZQ5nBzEf3wxsbh1HS-top").remove()});</script>';
 	document.body.appendChild(m);
+	
+	var s = document.createElement('script');
+	s.textContent = 'document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-OyOZQ5nBzEf3wxsbh1HS-close").addEventListener("click",function () {document.querySelector("midway-time-box").shadowRoot.querySelector(".midway-OyOZQ5nBzEf3wxsbh1HS-top").remove()});';
+	
+	document.body.appendChild(s);
 })();
