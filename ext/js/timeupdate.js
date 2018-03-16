@@ -1,5 +1,11 @@
 function timeUpdate () {
+  
+  function distNum (a,b) {
+    return Math.abs(b - a)
+  }
+  
   var currTime = new Date();
+  var day = currTime.getDay() - 1;
   var hrs = currTime.getHours();
   var min = currTime.getMinutes();
   var minsFromDayStart = hrs * 60 + min;
@@ -64,5 +70,14 @@ function timeUpdate () {
     },
   ]
   
-  
+  if (!!timeTable[day]) {//check to make sure it is school day
+    var currentSmallestDist = 1000000000000000000000000000000;
+    var ans = 1000000000000000000000000000000;
+    for (var timeInMins in timeTable[day]) {
+      if (distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
+        ans = timeInMins;
+      }
+    }
+    console.log(ans)
+  }
 }
