@@ -76,78 +76,80 @@
   	var hrs = currTime.getHours();
   	var min = currTime.getMinutes();
   	var minsFromDayStart = hrs * 60 + min;
-  
+  [531, 587, 643, 699, 784, 839, 895];
+[531, 587, 597, 653, 709, 794, 849, 905]
   	var timeTable = [
     	{
-     	 "531":"Period 1",
-      	"587":"Period 2",
-     	 "643":"Period 3",
-     	 "699":"Period 4",
-    	  "750":"1st Lunch",
-   	   "801":"Period 5A",
-    	  "852":"2nd Lunch",
-   	   "903":"Period 5B",
-   	   "954":"Period 7"
+     		"531":"Period 1",
+      		"587":"Period 2",
+     	 	"643":"Period 3",
+     	 	"699":"Period 4",
+    	  	"729":"1st Lunch",
+   	   	"784":"Period 5A",
+    	  	"758":"2nd Lunch",
+   	   	"784":"Period 5B",
+   		"895":"Period 7"
     	},
-   	 {
-     	 "531":"Period 1",
-   	   "587":"Period 2",
-    	  "597":"Homeroom",
-      	"653":"Period 3",
-     	 "709":"Period 4",
-     	 "760":"1st Lunch",
-      	"811":"Period 5A",
-     	 "862":"2nd Lunch",
-    	  "913":"Period 5B",
-    	  "964":"Period 7"
+   	     	{
+     		"531":"Period 1",
+      		"587":"Period 2",
+		"597":"Homeroom",
+     	 	"653":"Period 3",
+     	 	"709":"Period 4",
+    	  	"739":"1st Lunch",
+   	   	"794":"Period 5A",
+    	  	"768":"2nd Lunch",
+   	   	"794":"Period 5B",
+   		"905":"Period 7"
     	},
     	{
-     	 "531":"Period 1",
-     	 "587":"Period 2",
-      "643":"Period 3",
-      "699":"Period 4",
-      "750":"1st Lunch",
-      "801":"Period 5A",
-      "852":"2nd Lunch",
-      "903":"Period 5B",
-      "954":"Period 7"
-    },
+     		"531":"Period 1",
+      		"587":"Period 2",
+     	 	"643":"Period 3",
+     	 	"699":"Period 4",
+    	  	"729":"1st Lunch",
+   	   	"784":"Period 5A",
+    	  	"758":"2nd Lunch",
+   	   	"784":"Period 5B",
+   		"895":"Period 7"
+    	},
     {
-      "531":"Period 1",
-      "587":"Period 2",
-      "597":"Homeroom",
-      "653":"Period 3",
-      "709":"Period 4",
-      "760":"1st Lunch",
-      "811":"Period 5A",
-      "862":"2nd Lunch",
-      "913":"Period 5B",
-      "964":"Period 7"
-    },
-    {
-      "531":"Period 1",
-      "587":"Period 2",
-      "643":"Period 3",
-      "699":"Period 4",
-      "750":"1st Lunch",
-      "801":"Period 5A",
-      "852":"2nd Lunch",
-      "903":"Period 5B",
-      "954":"Period 7"
-    },
+     		"531":"Period 1",
+      		"587":"Period 2",
+		"597":"Homeroom",
+     	 	"653":"Period 3",
+     	 	"709":"Period 4",
+    	  	"739":"1st Lunch",
+   	   	"794":"Period 5A",
+    	  	"768":"2nd Lunch",
+   	   	"794":"Period 5B",
+   		"905":"Period 7"
+    	},
+        	{
+     		"531":"Period 1",
+      		"587":"Period 2",
+     	 	"643":"Period 3",
+     	 	"699":"Period 4",
+    	  	"729":"1st Lunch",
+   	   	"784":"Period 5A",
+    	  	"758":"2nd Lunch",
+   	   	"784":"Period 5B",
+   		"895":"Period 7"
+    	},
   ]
   
   if (!!timeTable[day]) {//check to make sure it is school day
     var currentSmallestDist = 1000000000000000000000000000000;
     var ans = 1000000000000000000000000000000;
     for (var timeInMins in timeTable[day]) {
-      if (distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
+	    
+      if (Number(timeInMins) < minsFromDayStart && distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
         ans = timeInMins;
         currentSmallestDist = distNum(Number(timeInMins), minsFromDayStart);
       }
     }
     document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(ans);
-	document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = timeTable[day][ans]; 
+    document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = timeTable[day][ans]; 
   }
 }
 })();
