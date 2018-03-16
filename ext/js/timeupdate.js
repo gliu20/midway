@@ -76,6 +76,7 @@ function timeUpdate () {
     for (var timeInMins in timeTable[day]) {
       if (distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
         ans = timeInMins;
+        currentSmallestDist = distNum(Number(timeInMins), minsFromDayStart);
       }
     }
     console.log(ans)
