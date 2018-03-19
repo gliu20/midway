@@ -77,89 +77,100 @@
 		  return Math.floor(mins / 60) % 12 + ":" + addZero(mins % 60); 
  	 }
   
- 	 function distNum (a,b) {
+ 	function distNum (a,b) {
   	  return Math.abs(b - a)
   	}
   
-  	var currTime = new Date();
-  	var day = currTime.getDay() - 1;
-  	var hrs = currTime.getHours();
-  	var min = currTime.getMinutes();
-  	var minsFromDayStart = hrs * 60 + min;
-  [531, 587, 643, 699, 784, 839, 895];
-[531, 587, 597, 653, 709, 794, 849, 905]
-  	var timeTable = [
-    	{
-     		"531":"Period 1",
-      		"587":"Period 2",
-     	 	"643":"Period 3",
-     	 	"699":"Period 4",
-    	  	"729":"1st Lunch",
-   	   	"784":"Period 5A",
-    	  	"758":"2nd Lunch",
-   	   	"784":"Period 5B",
-   		"895":"Period 7"
-    	},
-   	     	{
-     		"531":"Period 1",
-      		"587":"Period 2",
-		"597":"Homeroom",
-     	 	"653":"Period 3",
-     	 	"709":"Period 4",
-    	  	"739":"1st Lunch",
-   	   	"794":"Period 5A",
-    	  	"768":"2nd Lunch",
-   	   	"794":"Period 5B",
-   		"905":"Period 7"
-    	},
-    	{
-     		"531":"Period 1",
-      		"587":"Period 2",
-     	 	"643":"Period 3",
-     	 	"699":"Period 4",
-    	  	"729":"1st Lunch",
-   	   	"784":"Period 5A",
-    	  	"758":"2nd Lunch",
-   	   	"784":"Period 5B",
-   		"895":"Period 7"
-    	},
-    {
-     		"531":"Period 1",
-      		"587":"Period 2",
-		"597":"Homeroom",
-     	 	"653":"Period 3",
-     	 	"709":"Period 4",
-    	  	"739":"1st Lunch",
-   	   	"794":"Period 5A",
-    	  	"768":"2nd Lunch",
-   	   	"794":"Period 5B",
-   		"905":"Period 7"
-    	},
-        	{
-     		"531":"Period 1",
-      		"587":"Period 2",
-     	 	"643":"Period 3",
-     	 	"699":"Period 4",
-    	  	"729":"1st Lunch",
-   	   	"784":"Period 5A",
-    	  	"758":"2nd Lunch",
-   	   	"784":"Period 5B",
-   		"895":"Period 7"
-    	},
-  ]
+  	//var currTime = new Date();
+  	//var day = currTime.getDay() - 1;
+  	//var hrs = currTime.getHours();
+  	//var min = currTime.getMinutes();
+  	//var minsFromDayStart = hrs * 60 + min;
+  //[531, 587, 643, 699, 784, 839, 895];
+//[531, 587, 597, 653, 709, 794, 849, 905]
+  	//var timeTable = [
+    	//{
+     	//	"531":"Period 1",
+      	//	"587":"Period 2",
+     	// 	"643":"Period 3",
+     	// 	"699":"Period 4",
+    	//  	"729":"1st Lunch",
+   	//  	"784":"Period 5A",
+    	//  	"758":"2nd Lunch",
+   	//   	"784":"Period 5B",
+   	//	"895":"Period 7"
+    	//},
+   	  //   	{
+     	////	"531":"Period 1",
+      		//"587":"Period 2",
+		//"597":"Homeroom",
+     	// 	"653":"Period 3",
+     	 ///	"709":"Period 4",
+    	  //	"739":"1st Lunch",
+   	   ///	"794":"Period 5A",
+    	  	//"768":"2nd Lunch",
+  /// 	   	"794":"Period 5B",
+   //		"905":"Period 7"
+    //	},
+    //	{
+     //		"531":"Period 1",
+      //		"587":"Period 2",
+     	// 	"643":"Period 3",
+     	 //	"699":"Period 4",
+    	  //	"729":"1st Lunch",
+   	   ///	"784":"Period 5A",
+    	  	//"758":"2nd Lunch",
+//   	   	"784":"Period 5B",
+  // 		"895":"Period 7"
+    //	},
+    //{
+     //		"531":"Period 1",
+      //		"587":"Period 2",
+	//	"597":"Homeroom",
+     	 ///	"653":"Period 3",
+     	 //	"709":"Period 4",
+    	  //	"739":"1st Lunch",
+   	   //	"794":"Period 5A",
+    	  //	"768":"2nd Lunch",
+   	   //	"794":"Period 5B",
+   		//"905":"Period 7"
+//    	},
+  //      	{
+    // 		"531":"Period 1",
+      //		"587":"Period 2",
+     	// 	"643":"Period 3",
+     	 //	"699":"Period 4",
+    	  //	"729":"1st Lunch",
+   	   //	"784":"Period 5A",
+    	  //	"758":"2nd Lunch",
+   	   //	"784":"Period 5B",
+   		//"895":"Period 7"
+    	//},
+  //]
   
-  if (!!timeTable[day]) {//check to make sure it is school day
-    var currentSmallestDist = 1000000000000000000000000000000;
-    var ans = 1000000000000000000000000000000;
-    for (var timeInMins in timeTable[day]) {
+  //if (!!timeTable[day]) {//check to make sure it is school day
+  //  var currentSmallestDist = 1000000000000000000000000000000;
+  //  var ans = 1000000000000000000000000000000;
+  //  for (var timeInMins in timeTable[day]) {
 	    
-      if (Number(timeInMins) < minsFromDayStart && distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
-        ans = timeInMins;
-        currentSmallestDist = distNum(Number(timeInMins), minsFromDayStart);
-      }
-    }
-    document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(ans);
-    document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = timeTable[day][ans]; 
-  }
+ //     if (Number(timeInMins) < minsFromDayStart && distNum(Number(timeInMins), minsFromDayStart) < currentSmallestDist) {
+//        ans = timeInMins;
+   //     currentSmallestDist = distNum(Number(timeInMins), minsFromDayStart);
+   //   }
+   // }
+  //  document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(ans);
+  //  document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = timeTable[day][ans]; 
+ // }
+		
+    var timeTable = [
+	    {
+		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"]
+		    "periodEnd":["8:51","9:47","10:43","11:39","12:09","12:34","1:04","1:59","2:55"]
+	    },
+	    {
+		    "periodName":["Period 1","Period 2","Homeroom","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"]
+		    "periodEnd":["8:51","9:47","9:57","10:53","11:49","12:19","12:44","1:14","2:09","3:05"]
+	    },
+    ]
 }
 })();
