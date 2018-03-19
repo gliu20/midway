@@ -164,13 +164,25 @@
 		
     var timeTable = [
 	    {
-		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"]
-		    "periodEnd":["8:51","9:47","10:43","11:39","12:09","12:34","1:04","1:59","2:55"]
+		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
+		    "periodEnd":[531, 587, 643, 699, 729, 754, 784, 839, 895]
 	    },
 	    {
-		    "periodName":["Period 1","Period 2","Homeroom","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"]
-		    "periodEnd":["8:51","9:47","9:57","10:53","11:49","12:19","12:44","1:14","2:09","3:05"]
+		    "periodName":["Period 1","Period 2","Homeroom","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
+		    "periodEnd":[531, 587, 597, 653, 709, 739, 764, 794, 849, 905]
 	    },
+	    {
+		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
+		    "periodEnd":[531, 587, 643, 699, 729, 754, 784, 839, 895]
+	    },
+	    {
+		    "periodName":["Period 1","Period 2","Homeroom","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
+		    "periodEnd":[531, 587, 597, 653, 709, 739, 764, 794, 849, 905]
+	    },
+	    {
+		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
+		    "periodEnd":[531, 587, 643, 699, 729, 754, 784, 839, 895]
+	    }
     ]
 }
 })();
