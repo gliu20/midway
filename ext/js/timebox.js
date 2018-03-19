@@ -32,8 +32,8 @@
 
   var m = document.createElement('midway-time-box');
   m.style.position = "fixed";
-  m.style.top = "0px";
-  m.style.left = "0px";
+  m.style.top = "-999px";
+  m.style.left = "-999px";
   m.style.zIndex = "99999999";
   document.body.appendChild(m);
 
