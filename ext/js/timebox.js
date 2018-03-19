@@ -81,11 +81,11 @@
   	  return Math.abs(b - a)
   	}
   
-  	//var currTime = new Date();
-  	//var day = currTime.getDay() - 1;
-  	//var hrs = currTime.getHours();
-  	//var min = currTime.getMinutes();
-  	//var minsFromDayStart = hrs * 60 + min;
+  	var currTime = new Date();
+  	var day = currTime.getDay() - 1;
+  	var hrs = currTime.getHours();
+  	var min = currTime.getMinutes();
+  	var minsFromDayStart = hrs * 60 + min;
   //[531, 587, 643, 699, 784, 839, 895];
 //[531, 587, 597, 653, 709, 794, 849, 905]
   	//var timeTable = [
@@ -183,6 +183,17 @@
 		    "periodName":["Period 1","Period 2","Period 3","Period 4","1st Lunch","1st Class","Period 5","Period 6","Period 7"],
 		    "periodEnd":[531, 587, 643, 699, 729, 754, 784, 839, 895]
 	    }
-    ]
+    ];
+		
+    var periodEnd = timeTable[day]["periodEnd"];
+    for (var i = 0; i < periodEnd.length; i++) {
+	    if (periodEnd[i] > minsFromDayStart) {
+		    break;
+	    }
+    }
+    var currPeriodEnd = periodEnd[i];
+		var currPeriodName = timeTable[day]["periodName"][i];
+    document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(currPeriodEnd);
+		document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = currPeriodName;
 }
 })();
