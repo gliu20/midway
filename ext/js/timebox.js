@@ -133,7 +133,7 @@
         }
         return num;
       }
-      return Math.floor(mins / 60) % 12 + ":" + addZero(mins % 60);
+      return (Math.floor(mins / 60) % 12 || 12) + ":" + addZero(mins % 60);
     }
 
     //function distNum(a, b) {
