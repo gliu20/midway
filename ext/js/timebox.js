@@ -103,12 +103,12 @@
     timeUpdate();
   }, 100);
 
-  setTimeout(function() {
-    clearInterval(main);
-    main = setInterval(function() {
-      timeUpdate();
-    }, 5000);
-  }, 5000)
+  //setTimeout(function() {
+  //  clearInterval(main);
+  //  main = setInterval(function() {
+  //    timeUpdate();
+  //  }, 5000);
+  //}, 5000)
 
   window.onblur = function() {
     clearInterval(main)
@@ -117,7 +117,7 @@
   window.onfocus = function() {
     main = setInterval(function() {
       timeUpdate();
-    }, 5000);
+    }, 100);
   }
 
   function timeUpdate() {
@@ -211,9 +211,11 @@
 })();
 (function () {
   window.onload = function () {
-    var m = document.querySelector("midway-time-box");
+    setTimeout(function () {
+      var m = document.querySelector("midway-time-box");
         
-    if (m.style.top == "-999px") m.style.top = "0px";
-    if (m.style.left == "-999px") m.style.left = "0px";
+      if (m.style.top == "-999px") m.style.top = "0px";
+      if (m.style.left == "-999px") m.style.left = "0px";
+    },150);
   }
 })();
