@@ -81,7 +81,7 @@ var a = b;
 var x = Number(a.style.top.substr(0,a.style.top.length-2));
 var y = Number(a.style.left.substr(0,a.style.left.length-2));
 //stop if hidden
-      if (x == -999 & y = -999) return;
+      if (x == -999 & y == -999) return;
       
 var w = document.body.offsetHeight > innerHeight ? innerHeight : document.body.offsetHeight
 var h = document.body.offsetWidth > innerWidth ? innerWidth : document.body.offsetWidth
