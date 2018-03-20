@@ -42,8 +42,8 @@
     .shadowRoot.querySelector("#midway-OyOZQ5nBzEf3wxsbh1HS-close")
     .addEventListener("click", function() {
       var m = document.querySelector("midway-time-box");
-      m.style.top = "-999px";
-      m.style.left = "-999px";
+      m.style.top = "-1000px";
+      m.style.left = "-1000px";
   });
 
   //make drag
