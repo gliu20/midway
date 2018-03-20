@@ -173,8 +173,9 @@
         document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = currPeriodName;
         
         var m = document.querySelector("midway-time-box");
-        m.style.top = "-999px";
-        m.style.left = "-999px";
+        
+        if (m.style.top == "-999px") m.style.top = "0px";
+        if (m.style.left == "-999px") m.style.left = "0px";
       }
       else {
         var m = document.querySelector("midway-time-box");
