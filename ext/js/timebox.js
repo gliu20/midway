@@ -168,7 +168,7 @@
       var currPeriodEnd = periodEnd[i];
       var currPeriodName = timeTable[day]["periodName"][i];
     
-      if (!!currPeriodEnd && !!currPeriodName) {
+      //if (!!currPeriodEnd && !!currPeriodName) {
         document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(currPeriodEnd);
         document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = currPeriodName;
         
@@ -176,12 +176,12 @@
         
         if (m.style.top == "-999px") m.style.top = "0px";
         if (m.style.left == "-999px") m.style.left = "0px";
-      }
-      else {
+      //}
+      //else {
         var m = document.querySelector("midway-time-box");
         //m.style.top = "-999px";
         //m.style.left = "999px";
-      }
+      //}
     }
     else {
       var m = document.querySelector("midway-time-box");
