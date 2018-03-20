@@ -76,24 +76,24 @@
       }
     })();
     //make sure not offscreen
-    setInterval(function(){
-var a = b;
-var x = Number(a.style.top.substr(0,a.style.top.length-2));
-var y = Number(a.style.left.substr(0,a.style.left.length-2));
+//    setInterval(function(){
+//var a = b;
+//var x = Number(a.style.top.substr(0,a.style.top.length-2));
+//var y = Number(a.style.left.substr(0,a.style.left.length-2));
 //stop if hidden
-      if (x == -999 & y == -999) return;
+//      if (x == -999 & y == -999) return;
       
-var w = document.body.offsetHeight > innerHeight ? innerHeight : document.body.offsetHeight
-var h = document.body.offsetWidth > innerWidth ? innerWidth : document.body.offsetWidth
+//var w = document.body.offsetHeight > innerHeight ? innerHeight : document.body.offsetHeight
+//var h = document.body.offsetWidth > innerWidth ? innerWidth : document.body.offsetWidth
 
-if (x > w-a.clientHeight) x = w-a.clientHeight;
-if (y > h-a.clientWidth) y = h-a.clientWidth;
-if (x < 0) x = 0;
-if (y < 0) y = 0;
-a.style.top = x + "px";
-a.style.left = y + "px";
+//if (x > w-a.clientHeight) x = w-a.clientHeight;
+//if (y > h-a.clientWidth) y = h-a.clientWidth;
+//if (x < 0) x = 0;
+//if (y < 0) y = 0;
+//a.style.top = x + "px";
+//a.style.left = y + "px";
 
-},50)
+//},50)
     
   })(document.querySelector("midway-time-box"));
 
