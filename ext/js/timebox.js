@@ -43,7 +43,7 @@
     .addEventListener("click", function() {
       var m = document.querySelector("midway-time-box");
       m.style.top = "-999px";
-      m.style.left = "999px";
+      m.style.left = "-999px";
   });
 
   //make drag
