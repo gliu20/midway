@@ -151,7 +151,7 @@
     var day = currTime.getDay();
     var hrs = currTime.getHours();
     var min = currTime.getMinutes();
-    var minsFromDayStart = hrs * 60 + min;
+    var minsFromDayStart = window["midwayMins"] || hrs * 60 + min;
 
     var timeTable = [
       {},
