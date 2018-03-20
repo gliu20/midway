@@ -215,6 +215,5 @@
         
     if (m.style.top == "-999px") m.style.top = "0px";
     if (m.style.left == "-999px") m.style.left = "0px";
-  }, 300)
-}
+  }
 })();
