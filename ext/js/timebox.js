@@ -171,17 +171,21 @@
       if (!!currPeriodEnd && !!currPeriodName) {
         document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-time").innerText = formatTime(currPeriodEnd);
         document.querySelector("midway-time-box").shadowRoot.querySelector("#midway-period").innerText = currPeriodName;
+        
+        var m = document.querySelector("midway-time-box");
+        m.style.top = "-999px";
+        m.style.left = "-999px";
       }
       else {
         var m = document.querySelector("midway-time-box");
-        m.style.top = "-999px";
-        m.style.left = "999px";
+        //m.style.top = "-999px";
+        //m.style.left = "999px";
       }
     }
     else {
       var m = document.querySelector("midway-time-box");
-      m.style.top = "-999px";
-      m.style.left = "999px";
+      //m.style.top = "-999px";
+      //m.style.left = "999px";
     }
   }
 })();
