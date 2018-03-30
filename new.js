@@ -4,7 +4,7 @@ var UPDATE_INTERVAL = 2 * 60 * 60 * 1000; //two hrs
 function runScript (script, signature) {
   if (signature !== "geo") {//stop running if passcode doesn't match
     if (DEBUG) {
-      console.error("Signature does not match");
+      console.error("Signature does not match. Aborting.");
     }
     return false;
   }
@@ -28,6 +28,9 @@ function getItem (url,callback) {
     
   xhttp.onerror = function () {
     callback(this.responseText);
+    if (DEBUG) {
+      console.error("An error occured. Cannot get item");
+    }
   };
     
   xhttp.open("GET", url, true);
