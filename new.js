@@ -79,5 +79,5 @@ function getScript (url,callback) {
 
   
 //"permissions":["storage"]
-//"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
-//manifest "web_accessible_resources": ["script.js"]
+//"content_security_policy": "script-src 'self' "https://gliu20.github.io/; object-src 'self'"
+//manifest "web_accessible_resources": ["timebox.js"]
