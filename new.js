@@ -19,7 +19,26 @@ function runScript (script, signature) {
   }
 }
 
-function getItem (url,callback) {
+function getCachedScript (url,callback) {
+  var defaultCache = {};
+  defaultCache[url] = {code:"",lastUpdated:0};
+  
+  chrome.storage.local.get(defaultCache, function (items) {
+    if (Date.now() - items[url].lastUpdated > UPDATE_INTERVAL) {
+      getScript(url,function (code) {
+        if(!code) {//no new version available
+          return;
+        }
+        items[url] = {lastUpdated: Date.now(), code: code}
+        chrome.storage.local.set(items);//update with new code
+      });
+    }
+    
+    callback(items[url].code);
+  });
+}
+
+function getScript (url,callback) {
   var xhttp = new XMLHttpRequest();
     
   xhttp.onload = function () {//get item
@@ -37,6 +56,7 @@ function getItem (url,callback) {
   xhttp.send();
 }
 
+  
 //"permissions":["storage"]
 //"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 //manifest "web_accessible_resources": ["script.js"]
