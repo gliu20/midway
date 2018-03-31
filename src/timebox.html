@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings</title>
+<style>
+html,body {margin:0;padding:0;background:#fff;user-select:none;cursor:default;font-family:Ubuntu,Arial,sans-serif;font-size:13px;line-height:1;}
+h1,h2,h3,h4,h5,h6,p{margin:0;display: block;}
+h1 {font-size: 2em;font-weight: bold;}
+
+.window-header {height:32px;background:rgba(0,0,0,0.12);-webkit-app-region: drag}
+.window-header-button {float:right;height:32px;width:32px;border:none;background-color:rgba(0,0,0,0);color:#fff;-webkit-app-region: no-drag}
+.window-header-button:focus {outline:0}
+.window-header-button:hover {background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}
+.window-header-button:active {background-color:rgba(0,0,0,0.16);color:rgb(200,200,200)}
+.top {background:#5892dc}
+.top-info-expand {margin:4.5px;margin-right:0;height:32px;width:32px;border:none;border-radius:999px;background-color:rgba(0,0,0,0);color:#fff;}
+.top-info-expand:focus {outline:0}
+.top-info-expand:hover {background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}
+.top-info-expand:active {background-color:rgba(0,0,0,0.16);color:rgb(200,200,200)}
+#close {background-image:url(close.png);background-size:32px;}
+#hide {background-image:url(hide.png);background-size:32px;}
+#expand {background-image:url(expand.png);background-size:32px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <header class="window-header">
+    <button id="close" class="window-header-button"></button>
+    <button id="hide" class="window-header-button"></button>
+  </header>
+  <div style="padding:15px;color:#fff;display:flex;">
+    <div style="display:inline-block;flex:999;">
+      <h1>8:51</h1>
+      <p>Period 1, 36 mins left</p>
+    </div>
+    <div style="display:none;flex:1;">
+      <button id="expand" class="top-info-expand"></button>
+    </div>
+  </div>
+</header>
+
+<div style="width:100%;">
+
+</div>
+<script src="timebox.js"></script>
+</body>
+</html>

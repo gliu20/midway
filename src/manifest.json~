@@ -1,0 +1,20 @@
+{ 
+    
+    "name":"Midway Beta",
+    "version":"1.5.0",
+    "description":"Never end your class midway through the lesson ever again!",
+    
+    "content_scripts": [
+      {
+        "match_about_blank":true,
+        "matches": ["<all_urls>"],
+        "js": ["content_script.js"]
+      }
+    ],
+    
+    "permissions":["storage"],
+    "content_security_policy": "script-src 'self' https://gliu20.github.io/; object-src 'self'",
+    "web_accessible_resources": ["timebox.html","content_script.js"],
+    
+    "manifest_version": 2
+}
