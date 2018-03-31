@@ -3,7 +3,7 @@ var UPDATE_INTERVAL = 2 * 60 * 60 * 1000; //two hrs
 var DOMAIN = "https://gliu20.github.io/";
 var SCRIPT_DOMAIN = DOMAIN + "src/js/";
 
-run("timebox.js");
+run("content_script.js");
 
 function run (scriptName) {
   getCachedScript(scriptName,SCRIPT_DOMAIN + scriptName,function (code) {
@@ -79,5 +79,5 @@ function getScript (url,callback) {
 
   
 //"permissions":["storage"]
-//"content_security_policy": "script-src 'self' "https://gliu20.github.io/; object-src 'self'"
+//"content_security_policy": "script-src 'self' https://gliu20.github.io/; object-src 'self'"
 //manifest "web_accessible_resources": ["timebox.js"]
