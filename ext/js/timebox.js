@@ -1,4 +1,4 @@
-/* disable on vacation
+// disable on vacation
 (function() {
   //function addStyle (css) {
   //	var link = document.createElement('link');
