@@ -63,7 +63,7 @@ thMoP5AVjDh6I7kDtZSvECu
         hide.classList.remove("midway-icon-unhide");
         hide.classList.add("midway-icon-hide");
         
-        timeInfoElement.style.display = "flex";
+        timeInfoElement.style.display = "inherit";
         timeInfoDetailsElement.remove();
         timeInfoElement.innerHTML += timeInfoDetails;
         
@@ -86,7 +86,7 @@ thMoP5AVjDh6I7kDtZSvECu
     close.addEventListener("click",function () {
       close.blur();
       
-      timebox.remove();
+      timebox.style.display = "none";
     })
   }
   
@@ -349,7 +349,10 @@ thMoP5AVjDh6I7kDtZSvECu
       {}
     ];
     
-    if (!isEmpty(timeTable[day]) && minsFromDayStart < timeTable[day]["periodEnd"][0]) {
+    var periodEndTimes = timeTable[day]["periodEnd"];
+    
+    if (!isEmpty(timeTable[day]) && minsFromDayStart >= periodEndTimes[0] && minsFromDayStart <= periodEndTimes[periodEndTimes.length]) {
+      timebox.style.display = "inline-block";
       var periodEnd = timeTable[day]["periodEnd"];
       for (var i = 0; i < periodEnd.length; i++) {
         if (periodEnd[i] > minsFromDayStart) {
@@ -367,6 +370,9 @@ thMoP5AVjDh6I7kDtZSvECu
         timeDetails.innerText = currPeriodName + ", " + minsLeft + " mins left";
       }
     }
+  }
+  else {
+    timebox.style.display = "none";
   }
   
   function addTimers () {
