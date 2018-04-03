@@ -368,10 +368,11 @@ thMoP5AVjDh6I7kDtZSvECu
         timeDetails.innerText = currPeriodName + ", " + minsLeft + " mins left";
       }
     }
+    else {
+      timebox.style.display = "none";
+    }
   }
-  else {
-    timebox.style.display = "none";
-  }
+  
   
   function addTimers () {
     var minute = 1000 * 60;
