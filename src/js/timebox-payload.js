@@ -381,13 +381,11 @@ thMoP5AVjDh6I7kDtZSvECu
       
       if (DEBUG) {
         
-        var timeTableDayDebug = (timeTable[day] || {"periodEnd":[false]});
-        
         console.info("Not updating time");
         console.info("Closed?",closed);
         console.info("Weekday?",!isEmpty(timeTable[day]));
-        console.info("Morning?",minsFromDayStart >= timeTableDayDebug["periodEnd"][0]);
-        console.info("After-School?",minsFromDayStart <= timeTableDayDebug["periodEnd"][timeTableDayDebug["periodEnd"].length-1]);
+        console.info("Morning?",minsFromDayStart >= timeTable[day]["periodEnd"][0]);
+        console.info("After-School?",minsFromDayStart <= timeTable[day]["periodEnd"][timeTable[day]["periodEnd"].length-1]);
       }
       
     }
