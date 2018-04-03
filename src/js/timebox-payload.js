@@ -397,6 +397,7 @@ thMoP5AVjDh6I7kDtZSvECu
     
     if (DEBUG) {
       minute = 50;//50ms not minute
+      offset = 0;//remove offset
     }
     
     setTimeout(function () {
