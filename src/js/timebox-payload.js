@@ -18,7 +18,7 @@ thMoP5AVjDh6I7kDtZSvECu
   var updateInstance;
   
   var hidden = false;
-  var closed = true;
+  var closed = false;
   
   function allowDragging(b) {
     (function () {
@@ -94,10 +94,6 @@ thMoP5AVjDh6I7kDtZSvECu
   }
   
   function updateTime(shadow) {
-    
-    if (DEBUG) {
-      console.info("Attempting to update time");
-    }
     
     var time = shadow.querySelector(".midway-header-time-info-details-title");
     var timeDetails = shadow.querySelector(".midway-header-time-info-details-subtitle");
@@ -384,7 +380,14 @@ thMoP5AVjDh6I7kDtZSvECu
       timebox.style.display = "none";
       
       if (DEBUG) {
+        
+        var timeTableDayDebug = (timeTable[day] || {"periodEnd":[false]});
+        
         console.info("Not updating time");
+        console.info("Closed?",closed);
+        console.info("Weekday?",!isEmpty(timeTable[day]));
+        console.info("Morning?",minsFromDayStart >= timeTableDayDebug["periodEnd"][0]);
+        console.info("After-School?",minsFromDayStart <= timeTableDayDebug["periodEnd"][timeTableDayDebug["periodEnd"].length-1]);
       }
       
     }
