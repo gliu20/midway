@@ -349,9 +349,7 @@ thMoP5AVjDh6I7kDtZSvECu
       {}
     ];
     
-    var periodEndTimes = timeTable[day]["periodEnd"];
-    
-    if (!isEmpty(timeTable[day]) && minsFromDayStart >= periodEndTimes[0] && minsFromDayStart <= periodEndTimes[periodEndTimes.length]) {
+    if (!isEmpty(timeTable[day]) && minsFromDayStart >= timeTable[day]["periodEnd"][0] && minsFromDayStart <= timeTable[day]["periodEnd"][timeTable[day]["periodEnd"].length]) {
       timebox.style.display = "inline-block";
       var periodEnd = timeTable[day]["periodEnd"];
       for (var i = 0; i < periodEnd.length; i++) {
