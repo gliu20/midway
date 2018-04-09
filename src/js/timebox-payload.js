@@ -1,7 +1,10 @@
 thMoP5AVjDh6I7kDtZSvECu
 var DEBUG = true;
 (function () {
-  
+    class Midway extends HTMLElement {
+    
+    constructor() {
+      super();
   
   var VACATION = false;
   
@@ -14,7 +17,10 @@ var DEBUG = true;
   
   const timeboxCode = '<style>@font-face {font-family: "Ubuntu";font-style: normal;font-weight: 400;src: local("Ubuntu Regular"), local("Ubuntu-Regular"), url(' + font + ') format("woff2");unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}.midway--round-corners {border-radius: 2px;}.midway {display:inline-block;user-select:none;cursor:default;font-family:Ubuntu,"Ubuntu",Arial,sans-serif;font-size:13px;line-height:1;opacity:0.7;box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);-webkit-transition: opacity 0.3s ease;transition: all 0.3s ease}.midway:hover {opacity:1;box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)}.midway h1,.midway h2,.midway h3,.midway h4,.midway h5,.midway h6,.midway p{margin:0;display:block;}.midway .midway-header {background:#5892dc;}.midway .midway-header .midway-header-window-header {height:32px;background:rgba(0,0,0,0.12);display:flex;flex-direction:row;align-items:center;}.midway .midway-header .midway-header-window-header .midway-header-window-header-title h2 {margin-left:5px;margin-right:5px;display:inline-block;font-size: 16px;}.midway .midway-header .midway-header-window-header .midway-header-window-header-title p {margin-left:5px;margin-right:5px;display:inline-block;font-size: 13px;}.midway .midway-header .midway-header-window-header .midway-header-window-header-title {display: flex;flex-direction: row;align-items:center;flex:1;font-size: 16px;font-weight:normal;color:#fff;margin-left:8px;margin-right:8px;}.midway .midway-header .midway-header-window-header .midway-header-window-header-button {height:32px;width:32px;border:none;background-color:rgba(0,0,0,0);color:#fff;}.midway .midway-header .midway-header-window-header .midway-header-window-header-button:focus {outline:0;background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}.midway .midway-header .midway-header-window-header .midway-header-window-header-button:hover {background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}.midway .midway-header .midway-header-window-header .midway-header-window-header-button:active {background-color:rgba(0,0,0,0.16);color:rgb(200,200,200)}.midway .midway-header-time-info {padding:15px;color:#fff;display:flex;flex-direction:row;align-items:center;}.midway .midway-header-time-info .midway-header-time-info-details .midway-header-time-info-details-title {font-size: 24px;font-weight: bold;}.midway .midway-header-time-info .midway-header-time-info-details .midway-header-time-info-details-subtitle {font-size: 13px;font-weight: normal;}.midway .midway-header-time-info .midway-header-time-info-actions .midway-header-time-info-actions-button {height:32px;width:32px;border:none;border-radius:999px;background-color:rgba(0,0,0,0);color:#fff;margin:4.5px;}.midway .midway-header-time-info .midway-header-time-info-actions .midway-header-time-info-actions-button:focus {outline:0;background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}.midway .midway-header-time-info .midway-header-time-info-actions .midway-header-time-info-actions-button:hover {background-color:rgba(0,0,0,0.08);color:rgb(225,225,225)}.midway .midway-header-time-info .midway-header-time-info-actions .midway-header-time-info-actions-button:active {background-color:rgba(0,0,0,0.16);color:rgb(200,200,200)}.midway-icon-hide {background-image: url(' + hide + ');background-size: 32px;}.midway-icon-unhide {background-image: url(' + unhide + ');background-size: 32px;}#close {background-image: url(' + close + ');background-size: 32px;}</style><section class="midway midway--round-corners"><header class="midway-header midway--round-corners"><header class="midway--round-corners midway-header-window-header"><h1 class="midway-header-window-header-title"></h1><button id="hide" class="midway-icon-hide midway-header-window-header-button"></button><button id="close" class="midway-header-window-header-button"></button></header><section class="midway-header-time-info"><span class="midway-header-time-info-details"><h2 class="midway-header-time-info-details-title">Loading...</h2><p class="midway-header-time-info-details-subtitle"></p></span><!--<span class="midway-header-time-info-actions"><button id="expand" class="midway-header-time-info-actions-button">^</button></span>--></section></header><!--<section class="midway-details"></section>--></section>';
   
-  let timebox = document.createElement('section');
+
+
+  
+  let timebox = this;
   let shadow = timebox.attachShadow({mode:"open"});
   
   var updateInstance;
@@ -417,7 +423,7 @@ var DEBUG = true;
   timebox.style.display = "inline-block";
   timebox.style.position = "fixed";
   timebox.style.zIndex = "9999999999999999999";
-  document.body.appendChild(timebox);
+  
   
   allowDragging(timebox);
   allowHiding(shadow);
@@ -430,4 +436,11 @@ var DEBUG = true;
     addTimers();
   },1000 * 60 * 60 * 24);//day timer (edge case if you run this for days)
   
+      
+    }
+  }
+  
+  customElements.define('midway-time-box', Midway);
+  var midway = document.createElement("midway-time-box");
+  document.body.appendChild(midway);
 })();
