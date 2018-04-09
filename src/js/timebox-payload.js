@@ -420,9 +420,7 @@ var DEBUG = true;
   }
   
   shadow.innerHTML = timeboxCode;
-  timebox.style.display = "inline-block";
-  timebox.style.position = "fixed";
-  timebox.style.zIndex = "9999999999999999999";
+  
   
   
   allowDragging(timebox);
@@ -442,5 +440,8 @@ var DEBUG = true;
   
   customElements.define('midway-time-box', Midway);
   var midway = document.createElement("midway-time-box");
+    midway.style.display = "inline-block";
+  midway.style.position = "fixed";
+  midway.style.zIndex = "9999999999999999999";
   document.body.appendChild(midway);
 })();
