@@ -124,7 +124,14 @@ html,body {
 
 .card .card-list-item {
   padding:10px 15px 10px 15px;
+  display:flex;
+  flex-direction:row;
 }
+  
+.card .card-list-item .card-primary {
+  flex:1;
+}
+  
 .card .card-list-item:not(:last-child) {
   border-bottom:solid 1px #f2f2f2;
 }
