@@ -344,7 +344,9 @@ html,body {
 addShadow(document.querySelector(".toolbar"),document.querySelector(".content"));
 finishPreload();
 function finishPreload () {
-  document.body.classList.remove("preload");
+  setTimeout(function () {
+    document.body.classList.remove("preload");
+  },200);
 }
 function addShadow (shadow,scroll) {
   shadow.classList.remove("shadow");
