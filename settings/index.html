@@ -87,6 +87,11 @@ html,body {
   font-family:Roboto,Ubuntu,sans-serif;
 }
 
+  
+  body.preload * {
+    animation-duration: 0s !important;
+  }
+  
 .wrapper {
   height:100%;
   display:flex;
@@ -218,7 +223,7 @@ html,body {
   color:#757575;
 }
 </style>
-<body class="wrapper">
+<body class="wrapper preload">
   <header class="toolbar">
     <h1 class="title">Settings</h1>
   </header>
@@ -337,6 +342,10 @@ html,body {
 <script>
 //progressive enhancements
 addShadow(document.querySelector(".toolbar"),document.querySelector(".content"));
+finishPreload();
+function finishPreload () {
+  document.body.classList.remove("preload");
+}
 function addShadow (shadow,scroll) {
   shadow.classList.remove("shadow");
   
