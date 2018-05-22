@@ -4,6 +4,31 @@
 <title>Settings</title>
 
 <style>
+@keyframes ripple {
+  from {
+    background:none;
+    transform:scale(0.5,0.5);
+  }
+  
+  to {
+    background:rgba(0,0,0,0.12);
+    transform:scale(1,1);
+  }
+}
+
+@keyframes unripple {
+  
+  from {
+    background:rgba(0,0,0,0.12);
+  }  
+  
+  to {
+    background:none;
+  }
+  
+  
+}
+
 :root {
   /*theme colors*/
   --primary-color:#3167d7;
@@ -81,7 +106,7 @@ html,body {
 
 .toolbar.shadow {
   box-shadow:var(--toolbar-box-shadow);
-  transition:box-shadow 0.2s ease-out 0s;
+  transition:box-shadow 0.4s ease-out 0s;
 }
 
 .toolbar .title {
@@ -134,14 +159,34 @@ html,body {
 }
 
   .icon-button {
+    position:relative;
     border:none;
     border-radius:999px;
     background:none;
     outline:0;
+    padding:0;
+    width:36px;
+    height:36px;
+    color:#686868;
   }
   
-  .icon-button:active {
-    background:#3df;
+  
+  .icon-button:after {
+    content:"";
+    background:none;
+    width:36px;
+    height:36px;
+    border-radius:999px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    animation:unripple 0.2s ease-out 0s;
+    transition:background 0.2s ease-out;
+  }
+  
+  .icon-button:focus:after {
+    background:rgba(0,0,0,0.12);
+    animation:ripple 0.2s ease-out;
   }
   
   /*.card .card-list-item .card-list-item-secondary .card-icon-actions {
@@ -195,10 +240,20 @@ html,body {
         <section class="card-list-item-primary">
           <h2 class="card-title">Get help with Midway</h2>
         </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
+        </section>
       </section>
       <section class="card-list-item">
         <section class="card-list-item-primary">
           <h2 class="card-title">Report an issue</h2>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
         </section>
       </section>
       <section class="card-list-item">
@@ -221,6 +276,11 @@ html,body {
           <h2 class="card-title">Schedule</h2>
           <p class="card-subtitle">Scarsdale High School</p>
         </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
+        </section>
       </section>
     </section>
     <h2 class="subheader">Appearance</h2>
@@ -230,17 +290,32 @@ html,body {
           <h2 class="card-title">Theme</h2>
           <p class="card-subtitle">Blue</p>
         </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
+        </section>
       </section>
       <section class="card-list-item">
         <section class="card-list-item-primary">
           <h2 class="card-title">Timebox location</h2>
           <p class="card-subtitle">Top left</p>
         </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">v</button>
+          </div>
+        </section>
       </section>
       <section class="card-list-item">
         <section class="card-list-item-primary">
           <h2 class="card-title">Show timebox</h2>
           <p class="card-subtitle">5 minutes before the end of the period</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
         </section>
       </section>
     </section>
@@ -249,7 +324,12 @@ html,body {
       <section class="card-list-item">
         <section class="card-list-item-primary">
           <h2 class="card-title">Reset settings</h2>
-          <p class="card-subtitle">Reset settings to their original defaults</p>
+          <p class="card-subtitle">Reset settings to their defaults</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button">&gt;</button>
+          </div>
         </section>
       </section>
     </section>
