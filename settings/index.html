@@ -135,7 +135,7 @@ html,body {
 .content {
   background-color:var(--content-background-color);
   padding:var(--content-padding);
-  /*overflow:var(--content-overflow);*/
+  overflow:var(--content-overflow);
   display:flex;
   flex-direction:column;
   flex:1;
@@ -237,11 +237,18 @@ html,body {
     display:flex;
     flex-direction:column;
     flex:1;
-    
+    overflow:auto;
+    align-items:center;
+    padding:var(--content-padding);
   }
   .custom-content-wrapper .content {
     max-width:680px;
     overflow:unset;
+    width:100%;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    flex:1;
   }
 </style>
 <body class="wrapper preload">
