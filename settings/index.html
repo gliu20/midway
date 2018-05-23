@@ -135,7 +135,7 @@ html,body {
 .content {
   background-color:var(--content-background-color);
   padding:var(--content-padding);
-  overflow:var(--content-overflow);
+  /*overflow:var(--content-overflow);*/
   display:flex;
   flex-direction:column;
   flex:1;
@@ -230,6 +230,19 @@ html,body {
   font-size:13px;
   color:#757575;
 }
+  
+  .custom-content-wrapper {
+    background-color:var(--content-background-color);
+    
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    
+  }
+  .custom-content-wrapper .content {
+    max-width:680px;
+    overflow:unset;
+  }
 </style>
 <body class="wrapper preload">
   <header class="toolbar">
