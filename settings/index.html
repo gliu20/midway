@@ -85,6 +85,7 @@ html,body {
   margin:0;
   padding:0;
   font-family:Roboto,Ubuntu,sans-serif;
+  background-color:var(--content-background-color);
 }
 
   
@@ -133,7 +134,6 @@ html,body {
 }
 
 .content {
-  background-color:var(--content-background-color);
   padding:var(--content-padding);
   overflow:var(--content-overflow);
   display:flex;
@@ -141,6 +141,12 @@ html,body {
   flex:1;
 }
 
+  .content--max-680px {
+    max-width:680px;
+    width:100%;
+    margin:auto;
+  }
+  
 .subheader {
   margin:0;
   margin-top:var(--subheader-margin-top);
@@ -273,7 +279,7 @@ html,body {
   <header class="toolbar">
     <h1 class="title">Settings</h1>
   </header>
-  <section class="custom-content-wrapper">
+  
   <section class="content">
     <h2 class="subheader">About</h2>
     <section class="card">
@@ -386,10 +392,10 @@ html,body {
       </section>
     </section>
   </section>
-  </section>
+  
 <script>
 //progressive enhancements
-addShadow(document.querySelector(".toolbar"),document.querySelector(".custom-content-wrapper"));
+addShadow(document.querySelector(".toolbar"),document.querySelector(".content"));
 finishPreload();
 function finishPreload () {
   setTimeout(function () {
