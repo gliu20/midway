@@ -141,7 +141,7 @@ html,body {
   flex:1;
 }
 
-  .content--max-680px {
+  .content--max-680px > * {
     max-width:680px;
     width:100%;
     margin:auto;
@@ -149,8 +149,8 @@ html,body {
   
 .subheader {
   margin:0;
-  margin-top:var(--subheader-margin-top);
-  margin-bottom:var(--subheader-margin-bottom);
+  padding-top:var(--subheader-margin-top);
+  padding-bottom:var(--subheader-margin-bottom);
   font-size:var(--subheader-font-size);
   font-weight:var(--subheader-font-weight);
   line-height:var(--subheader-line-height);
@@ -280,7 +280,7 @@ html,body {
     <h1 class="title">Settings</h1>
   </header>
   
-  <section class="content">
+  <section class="content content--max-680px">
     <h2 class="subheader">About</h2>
     <section class="card">
       <section class="card-list-item">
