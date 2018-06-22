@@ -10,6 +10,4 @@ Midway is available
   <li>As a Chrome extension in the
     <a href='https://chrome.google.com/webstore/detail/midway/cgibedogghadelndgfacffoociffapii'>Chrome web store</a>
   </li>
-  <li>Will be available as a website https://gliu20.github.io/midway/settings/
-  </li>
 </ul>
