@@ -175,7 +175,7 @@
       },
       {
         "periodName": ["Period 1 (Special)", "Period 2 (Special)", "Period 3 (Special)", "Period 4 (Special)", "Pep Rally (Special)", "1st Lunch (Special)", "1st Class (Special)", "Period 5 (Special)", "Period 6 (Special)", "Period 7 (Special)"],
-        "periodEnd": [522,569,616,676,717,747,763,793,839,895]
+        "periodEnd": [522,569,616,663,717,743,763,793,839,895]
       },
       //{
       //  "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
