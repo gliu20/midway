@@ -1,15 +1,15 @@
 // renable on vacation
 
 (function() {
-  //function addStyle (css) {
-  //	var link = document.createElement('link');
-  //	link.href = css;
-  //	link.rel = "stylesheet";
-  //	document.head.appendChild(link);
-  //}
+  function addStyle (css) {
+  	var link = document.createElement('link');
+  	link.href = css;
+  	link.rel = "stylesheet";
+  	document.head.appendChild(link);
+  }
 
 
-  //addStyle("https://fonts.googleapis.com/css?family=Ubuntu");
+  addStyle("https://fonts.googleapis.com/css?family=Ubuntu");
 
   class Midway extends HTMLElement {
     constructor() {
