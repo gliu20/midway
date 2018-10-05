@@ -205,7 +205,7 @@
 })();
 
   (function () {
-    document.addEventListener('load',function () {
+    window.addEventListener('load',function () {
       setTimeout(function () {
         var m = document.querySelector("midway-time-box");
         
