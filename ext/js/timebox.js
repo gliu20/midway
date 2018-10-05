@@ -48,6 +48,8 @@
       m.style.left = "-1000px";
   });
 
+  
+  
   //make drag
   (function(b) {
     (function () {
@@ -77,26 +79,6 @@
         document.onmousemove = c
       }
     })();
-    //make sure not offscreen
-//    setInterval(function(){
-//var a = b;
-//var x = Number(a.style.top.substr(0,a.style.top.length-2));
-//var y = Number(a.style.left.substr(0,a.style.left.length-2));
-//stop if hidden
-//      if (x == -999 & y == -999) return;
-      
-//var w = document.body.offsetHeight > innerHeight ? innerHeight : document.body.offsetHeight
-//var h = document.body.offsetWidth > innerWidth ? innerWidth : document.body.offsetWidth
-
-//if (x > w-a.clientHeight) x = w-a.clientHeight;
-//if (y > h-a.clientWidth) y = h-a.clientWidth;
-//if (x < 0) x = 0;
-//if (y < 0) y = 0;
-//a.style.top = x + "px";
-//a.style.left = y + "px";
-
-//},50)
-    
   })(document.querySelector("midway-time-box"));
 
 })();
@@ -221,14 +203,12 @@
     }
   }
 })();
-(function () {
-  window.onload = function () {
+
+  (function () {
     setTimeout(function () {
       var m = document.querySelector("midway-time-box");
         
-      if (m.style.top == "-999px") m.style.top = "0px";
-      if (m.style.left == "-999px") m.style.left = "0px";
+      if (m.style.top == "-999px") {m.style.top = "0px";}
+      if (m.style.left == "-999px") {m.style.left = "0px";}
     },150);
-  }
-})();
-
+  })()
