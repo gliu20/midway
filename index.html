@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+	<meta charset="utf-8">
+	
+	<title>George Liu</title>
+	
+	<meta name="keywords" content="george,liu,scarsdale">
+	<meta name="description" content="Get the latest news, recent posts, and upcoming projects from George.">
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="geo.min.css">
+	
+	<style>
+		.geo-table {
+			border-collapse: collapse;
+			width:100%;
+			overflow-x:scroll;
+		}
+		.geo-table th {
+			text-align:left;
+		}
+		.geo-table tr td,.geo-table tr th {
+			padding-top:12px;
+			padding-bottom:12px;
+			padding-right: 10%;
+			word-break:break-all;
+		}
+		.geo-table tr {
+			border-bottom:1px solid #ddd;
+		}
+		
+		.fullpage--can-be {
+			height:512px;
+		}
+		
+		.fullpage {
+			height:1000px;
+			height:100%;
+			display:flex;
+			flex-direction:column;
+		}
+		.fullpage--expand {
+			flex:1;
+		}
+		
+		html {
+			overflow:hidden;
+		}
+		
+		body {
+			overflow-y: auto;
+		}
+	</style>
+</head>
+<body>
+	<noscript>
+		<aside class="geo-error-as-bg">
+		<section class="geo-container geo-padding-v-md">
+			<h1 class="geo-body-2 geo-text--center">Please enable javascript for a better experience.</h1>
+		</section>
+		</aside>
+	</noscript>
+	<!--[if lt IE 9]>
+		<aside class="geo-warn-as-bg">
+			<section class="geo-container geo-padding-v-md">
+				<h1 class="geo-body-2 geo-text--center">Please update your browser or switch to Chrome or Firefox for a better experience.</h1>
+			</section>
+		</aside>
+	<![endif]-->
+	<section class="fullpage" style="transition: all 0.2s 0.05s ease-out">
+		<article class="geo-primary-as-bg fullpage--expand">
+			<section style="background:transparent;display:flex;flex-direction:column;height:100%;">
+				<span style="flex:1;"></span>
+				<section class="geo-banner" style="width:100%;box-sizing:border-box;">
+					<section class="geo-padding-v-xl">
+						<h1 class="geo-display-4">8:30:27 PM</h1>
+						<h2 class="geo-headline">1/8/2019</h2>
+					</section>
+				</section>
+			</section>
+		</article>
+		<article class="geo-info-light-as-bg">
+			<section class="geo-container geo-padding-h-no">
+				<h1 class="material-icons geo-display-4 geo-padding-h-md geo-float-left geo-primary-as-text">info</h1>
+				<h2 class="geo-title">Period 3, 8:00-8:51</h2>
+				<p class="geo-subtitle-1">Chemistry, Ends in 45 minutes</p>
+			</section>
+		</article>
+	</section>
+	<article>
+		<section class="geo-container">
+			<section class="geo-padding-v-sm">
+				<h1 class="geo-display-1 geo-primary-as-text">Schedule</h1>
+				<h2 class="geo-subtitle-2">Scarsdale High School</h2>
+			</section>
+			<section>
+			<h2 class="geo-headline geo-padding-v-sm">Monday</h2>
+				<table class="geo-table geo-body-2">
+					<tr>
+						<th>Period</th>
+						<th>Subject</th>
+						<th>Time</th>
+					</tr>
+					<tr>
+						<td>Period 1</td>
+						<td>History</td>
+						<td>8:00-8:51</td>
+					</tr>
+					<tr>
+						<td>Period 2</td>
+						<td>Math</td>
+						<td>8:56-9:47</td>
+					</tr>
+					<tr>
+						<td>Period 3</td>
+						<td>Orchestra</td>
+						<td>9:52-10:43</td>
+					</tr>
+					<tr>
+						<td>Period 4</td>
+						<td>Free</td>
+						<td>10:48-11:39</td>
+					</tr>
+					<tr>
+						<td>Period 5</td>
+						<td>Physics</td>
+						<td>10:48-11:39</td>
+					</tr>
+					<tr>
+						<td>Lunch</td><td></td>
+						<td>10:48-11:39</td>
+					</tr>
+				</table>
+			</section>
+			<h2 class="geo-headline geo-padding-v-sm">Tuesday</h2>
+				<table class="geo-table geo-body-2">
+					<tr>
+						<th>Period</th>
+						<th>Subject</th>
+						<th>Time</th>
+					</tr>
+					<tr>
+						<td>Period 1</td>
+						<td>History</td>
+						<td>8:00-8:51</td>
+					</tr>
+					<tr>
+						<td>Period 2</td>
+						<td>Math</td>
+						<td>8:56-9:47</td>
+					</tr>
+					<tr>
+						<td>Period 3</td>
+						<td>Orchestra</td>
+						<td>9:52-10:43</td>
+					</tr>
+					<tr>
+						<td>Period 4</td>
+						<td>Free</td>
+						<td>10:48-11:39</td>
+					</tr>
+					<tr>
+						<td>Period 5</td>
+						<td>Physics</td>
+						<td>10:48-11:39</td>
+					</tr>
+					<tr>
+						<td>Lunch</td><td></td>
+						<td>10:48-11:39</td>
+					</tr>
+				</table>
+			</section>
+		</section>
+	</article>
+	
+	<script>
+document.body.addEventListener("scroll",function () {
+	if (document.body.scrollTop === 0) {
+		if (document.querySelector(".fullpage--can-be")) {
+			document.querySelector(".fullpage--can-be").className = "fullpage";
+			return;
+		}
+	}
+	else {
+		if (document.querySelector(".fullpage")) {
+			document.querySelector(".fullpage").className = "fullpage--can-be";
+			return;
+		}
+	}
+});
+function toggleFullpage () {
+	if (document.querySelector(".fullpage")) {
+		document.querySelector(".fullpage").className = "fullpage--can-be";
+		return;
+	}
+	if (document.querySelector(".fullpage--can-be")) {
+		document.querySelector(".fullpage--can-be").className = "fullpage";
+		return;
+	}
+}
+	</script>
+</body>
+</html>
