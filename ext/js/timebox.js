@@ -137,7 +137,7 @@
     var min = currTime.getMinutes();
     var minsFromDayStart = window["midwayMins"] || hrs * 60 + min;
 
-    var timeTable = [
+    var timeTableOld = [
       {},
       {
         "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
@@ -168,6 +168,31 @@
       {
         "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
         "periodEnd": [531, 587, 643, 699, 729, 754, 784, 839, 895]
+      },
+      {}
+    ];
+    
+    var timeTable = [
+      {},
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {}
     ];
