@@ -172,10 +172,10 @@
       {}
     ];
     
-    var timeTable = [
+    var timeTableOld2 = [
       {},
       {
-        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {
@@ -183,7 +183,7 @@
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {
-        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {
@@ -191,11 +191,39 @@
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {
-        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {}
     ];
+    
+    var timeTable = [
+      {},
+      {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Homeroom (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Homeroom (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {}
+    ];
+
+
+    
     
     if (!isEmpty(timeTable[day])) {
       var periodEnd = timeTable[day]["periodEnd"];
