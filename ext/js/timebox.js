@@ -137,7 +137,7 @@
     var min = currTime.getMinutes();
     var minsFromDayStart = window["midwayMins"] || hrs * 60 + min;
 
-    var timeTableOld = [
+    var timeTable = [
       {},
       {
         "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
@@ -197,7 +197,7 @@
       {}
     ];
     
-    var timeTable = [
+    var timeTableOld3 = [
       {},
       {
         "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
