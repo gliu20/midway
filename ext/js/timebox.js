@@ -141,7 +141,7 @@
       {},
       {
         "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
-        "periodEnd": [531, 587, 643, 699, 729, 754, 784, 839, 895]
+        "periodEnd": [613, 651, 677, 699, 729, 754, 784, 839, 895]
       },
       {
         "periodName": ["Period 1", "Period 2", "Homeroom", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
