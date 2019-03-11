@@ -197,7 +197,7 @@
       {}
     ];
     
-    var timeTableOld3 = [
+    var timeTable = [
       {},
       {
         "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
