@@ -229,13 +229,18 @@
     var timeTable = [
       {},
       {
+        "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      }
+      {
         "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Homeroom (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
-      {
-        "periodName": ["Period 1 (Special)", "Period 2 (Special)", "Homeroom (Special)", "Period 3A (Special)", "Period 3B (Special)", "1st Lunch (Special)", "1st Class (Special)", "Period 5 (Special)","Period 4 (Special)", "Period 6 (Special)", "Period 7 (Special)"],
-        "periodEnd": [_toMins(8,40), _toMins(9,25),  _toMins(9,35),  _toMins(10,30),  _toMins(11,30),  _toMins(12,00),  _toMins(12,15),  _toMins(12,45), _toMins(1,30,true), _toMins(2,15,true), _toMins(3,00,true)]
-      },
+      //{
+      //  "periodName": ["Period 1 (Special)", "Period 2 (Special)", "Homeroom (Special)", "Period 3A (Special)", "Period 3B (Special)", "1st Lunch (Special)", "1st Class (Special)", "Period 5 (Special)","Period 4 (Special)", "Period 6 (Special)", "Period 7 (Special)"],
+      //  "periodEnd": [_toMins(8,40), _toMins(9,25),  _toMins(9,35),  _toMins(10,30),  _toMins(11,30),  _toMins(12,00),  _toMins(12,15),  _toMins(12,45), _toMins(1,30,true), _toMins(2,15,true), _toMins(3,00,true)]
+      //},
+      
       {
         "periodName": ["Period 1 (Pilot 2)", "Period 2 (Pilot 2)", "Free (Pilot 2)", "Period 3 (Pilot 2)", "Period 4 (Pilot 2)", "1st Lunch (Pilot 2)", "1st Class (Pilot 2)", "Period 5 (Pilot 2)", "Period 6 (Pilot 2)", "Period 7 (Pilot 2)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
