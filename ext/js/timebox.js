@@ -141,7 +141,7 @@
     var min = currTime.getMinutes();
     var minsFromDayStart = window["midwayMins"] || hrs * 60 + min;
 
-    var timeTable1 = [
+    var timeTable = [
       {},
       //{
      //   "periodName": ["Period 1", "Period 2", "Period 3", "Period 4", "1st Lunch", "1st Class", "Period 5", "Period 6", "Period 7"],
@@ -179,7 +179,7 @@
       },
       {}
     ];
-    
+/*    
     var timeTableOld2 = [
       {},
       {
@@ -258,7 +258,7 @@
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {}
-    ];
+    ];*/
 
 
     
