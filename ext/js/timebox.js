@@ -140,7 +140,7 @@
     var hrs = currTime.getHours();
     var min = currTime.getMinutes();
     var minsFromDayStart = window["midwayMins"] || hrs * 60 + min;
-
+/*
     var timeTable = [
       {},
       //{
@@ -178,9 +178,9 @@
         "periodEnd": [531, 587, 643, 699, 729, 754, 784, 839, 895]
       },
       {}
-    ];
-/*    
-    var timeTableOld2 = [
+    ];*/
+    
+    var timeTable = [
       {},
       {
         "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
@@ -204,7 +204,7 @@
       },
       {}
     ];
-    
+    /*
     var timeTable533 = [
       {},
       {
