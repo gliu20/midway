@@ -183,6 +183,32 @@
     var timeTable = [
       {},
       {
+        "periodName": ["Period 1 (Special)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Homeroom (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {
+        "periodName": ["Period 1 (Special)", "Period 2 (Special)", "Homeroom (Special)", "Period 3 (Special)", "Period 4 (Special)","1st Lunch (Special)","1st Class (Special)","Period 5 (Special)","Period 6 (Special)","Period 7 (Special)"],
+        "periodEnd": [_toMins(8,50), _toMins(9,42),  _toMins(9,58),  _toMins(10,50), _toMins(11,45),                                 _toMins(12,15),       _toMins(12,40),       _toMins(1,40,true), _toMins(3,00,true), ]
+      },
+      {
+        "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
+        "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
+      },
+      {}
+    ];
+        
+        
+        /*[
+      {},
+      {
         "periodName": ["Period 1 (Pilot)", "Period 2 (Pilot)", "Free (Pilot)", "Period 3 (Pilot)", "Period 4 (Pilot)", "1st Lunch (Pilot)", "1st Class (Pilot)", "Period 5 (Pilot)", "Period 6 (Pilot)", "Period 7 (Pilot)"],
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
@@ -203,7 +229,7 @@
         "periodEnd": [530, 585, 595, 650, 705, 737, 759, 791, 845, 900]
       },
       {}
-    ];
+    ];*/
     /*
     var timeTable533 = [
       {},
