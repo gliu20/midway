@@ -1,5 +1,4 @@
-// renable on vacation
-
+/*
 (function() {
   function addStyle (css) {
   	var link = document.createElement('link');
@@ -179,7 +178,7 @@
       },
       {}
     ];*/
-    
+    /*
     var timeTable = [
       {},
       {
@@ -289,6 +288,7 @@
       },
       {}
     ];*/
+/*
 
 
     
@@ -335,3 +335,4 @@
       },150);
     });
   })()
+*/
