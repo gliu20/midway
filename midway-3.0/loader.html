@@ -1,0 +1,347 @@
+<!-- start loader -->
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    @keyframes midway-loader-spinner {
+        0% {
+            opacity: 0;
+            transform: scale(.3) translateY(0px);
+            filter: grayscale(1);
+        }
+
+        60% {
+            opacity: .2;
+            transform: scale(.5) translateY(-100px);
+            filter: grayscale(.86);
+            box-shadow: rgba(0, 0, 0, .6) 0px 5px 20px;
+        }
+
+        75% {
+            transform: scale(.75) translateY(0px);
+            opacity: .6;
+            filter: grayscale(.43);
+        }
+
+        100% {
+            transform: scale(1) translateY(0px);
+            opacity: 1;
+            filter: grayscale(0);
+            box-shadow: rgba(0, 0, 0, .6) 0px 5px 20px;
+        }
+    }
+
+    @keyframes midway-loader-spinner-wrapper {
+        0% {
+            transform: translateX(-50%) translateY(-50%) scale(.3);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateX(-50%) translateY(-50%) scale(1);
+            opacity: 0;
+            display:none;
+        }
+    }
+
+    @keyframes midway-loader-spinner-esc {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-70px);
+        }
+    }
+
+    @keyframes midway-loader-spinner-hand {
+        from {
+            transform: rotate(-135deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes midway-loader-loading-indicator {
+        0% {
+            width: 0%;
+        }
+
+        33% {
+            width: 20%;
+        }
+
+        66% {
+            width: 56%;
+        }
+
+        100% {
+            width: 80%;
+        }
+    }
+
+    @keyframes midway-loader-loading {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .midway-loader-spinner-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        animation: midway-loader-spinner-esc .3s 1.1s ease-in-out forwards;
+    }
+
+    .midway-loader-spinner-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 90vmin;
+        height: 90vmin;
+        transform: translateX(-50%) translateY(-50%);
+        background: #2196f333;
+        border-radius: 9999px;
+        opacity: 0;
+
+    }
+	/* hmm idk firefox performance is not *that* bad
+    @supports (-webkit-appearance:none) {
+        .midway-loader-spinner-wrapper:before {
+            animation: midway-loader-spinner-wrapper .5s .7s ease-out forwards;
+        }
+    }
+    firefox is very laggy with this animation; disable animation for it*/
+    
+	.midway-loader-spinner-wrapper:before {
+        animation: midway-loader-spinner-wrapper .5s .7s ease-out forwards;
+    }
+
+
+
+    .midway-loader-spinner {
+        max-width: 100%;
+        margin: auto;
+        display: block;
+        width: 192px;
+        height: 192px;
+        border-radius: 50%;
+        animation: midway-loader-spinner 1s 0s ease-out forwards;
+        position: relative;
+        background: #2196f3;
+        opacity: 0;
+        transform: scale(0);
+        filter: grayscale(1);
+    }
+
+    .midway-loader-spinner-hand {
+        transform-origin: 257px 257px;
+        transform: rotate(-135deg);
+        animation: midway-loader-spinner-hand .6s .8s ease-out forwards;
+    }
+
+    .midway-loader-loading-wrapper {
+        position: absolute;
+    	top: calc(50% + 70px);
+        width: 100%;
+        opacity: 0;
+        animation: midway-loader-loading .2s 1.4s ease-in forwards;
+        padding:20px 0px;
+        background:inherit;
+    }
+
+    .midway-loader-loading {
+        margin: auto;
+        width: 300px;
+        height: 8px;
+        border-radius: 999px;
+        background: #eee;
+    }
+	
+	/*.midway-loader-loading-positioner {
+        position: relative;
+        top: 70px;
+        background:#fff;
+        padding-top:24px;
+	}*/
+	
+    .midway-loader-loading-text {
+        margin: 0;
+        margin-top: 12px;
+        text-align: center;
+        font-family: Arial, sans, sans-serif;
+        color: rgba(0, 0, 0, .6);
+        font-size: 1.2rem;
+    }
+
+    .midway-loader-loading-indicator {
+        background: #2196f3;
+        height: 8px;
+        border-radius: 999px;
+        width: 0%;
+        transition: width .2s ease;
+    }
+
+    .p1 .midway-loader-loading-indicator {
+        width: 10%
+    }
+
+    .p2 .midway-loader-loading-indicator {
+        width: 20%
+    }
+
+    .p3 .midway-loader-loading-indicator {
+        width: 30%
+    }
+
+    .p4 .midway-loader-loading-indicator {
+        width: 40%
+    }
+
+    .p5 .midway-loader-loading-indicator {
+        width: 50%
+    }
+
+    .p6 .midway-loader-loading-indicator {
+        width: 60%
+    }
+
+    .p7 .midway-loader-loading-indicator {
+        width: 70%
+    }
+
+    .p8 .midway-loader-loading-indicator {
+        width: 80%
+    }
+
+    .p9 .midway-loader-loading-indicator {
+        width: 90%
+    }
+
+
+    #loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        opacity: 1;
+        display: block;
+        transition: opacity .2s 0s ease;
+        background: #fff;
+        z-index:9999;
+    }
+
+    #loader.loading-end {
+        opacity: 0;
+    }
+
+    #loader.loading-end .midway-loader-loading-indicator {
+        width: 100%;
+    }
+
+    @media (max-width: 420px) {
+        .midway-loader-spinner {
+        	width:160px;
+        	height:160px;
+        }
+        .midway-loader-loading {
+        	width:225px;
+        }
+        .midway-loader-loading-text {
+        	font-size:1rem;
+        }
+        @keyframes midway-loader-spinner-esc {
+        	0% {
+            	transform: translateY(0%);
+        	}
+        	100% {
+            	transform: translateY(-30px);
+        	}
+    	}
+    }
+    @media (max-height: 420px) {
+        .midway-loader-spinner {
+        	width:160px;
+        	height:160px;
+        }
+        .midway-loader-loading {
+        	width:225px;
+        }
+        .midway-loader-loading-text {
+        	font-size:1rem;
+        }
+        @keyframes midway-loader-spinner-esc {
+        	0% {
+            	transform: translateY(0%);
+        	}
+        	100% {
+            	transform: translateY(-30px);
+        	}
+    	}
+    }
+</style>
+<div id="loader">
+    <div class="midway-loader-spinner-wrapper">
+        <svg class="midway-loader-spinner" width="192px" height="192px" version="1.1" viewBox="0 0 512.0 512.0" fill="none" stroke="none"
+         stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <g>
+                <path fill="#000000" fill-opacity="0" d="m0 0l512.0 0l0 512.0l-512.0 0z" fill-rule="evenodd" />
+                <path fill="#2196f3" d="m3.56168E-4 256.3076l0 0c0 -141.55151 114.75017 -256.3017 256.30167 -256.3017l0 0c67.97543 0 133.16675 27.003134 181.23264 75.06902c48.065887 48.065887 75.06903 113.25722 75.06903 181.23267l0 0c0 141.55148 -114.75015 256.30167 -256.30167 256.30167l0 0c-141.55151 0 -256.30167 -114.75018 -256.30167 -256.30167z"
+                 fill-rule="evenodd" />
+                <g filter="url(#shadowFilter-p.1)">
+                    <use xlink:href="#p.1" transform="matrix(1.0 0 0 1.0 2.8284271320333003 2.8284271320333003)" />
+                </g>
+                <defs>
+                    <filter id="shadowFilter-p.1" filterUnits="userSpaceOnUse">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="4.5" result="blur" />
+                        <feComponentTransfer in="blur" color-interpolation-filters="sRGB">
+                            <feFuncR type="linear" slope="0" intercept="0" />
+                            <feFuncG type="linear" slope="0" intercept="0" />
+                            <feFuncB type="linear" slope="0" intercept="0" />
+                            <feFuncA type="linear" slope=".22" intercept="0" />
+                        </feComponentTransfer>
+                    </filter>
+                </defs>
+                <g id="p.1">
+                    <path fill="#efefef" d="m395.61508 256.33243l0 0c0 -76.940994 -62.373016 -139.314 -139.31403 -139.314l0 0c-36.94838 0 -72.38345 14.677681 -98.50989 40.80413c-26.12645 26.12645 -40.80414 61.56151 -40.80414 98.50987l0 0c0 76.94101 62.373016 139.31403 139.31403 139.31403l0 0c76.94101 0 139.31403 -62.373016 139.31403 -139.31403z"
+                     fill-rule="evenodd" />
+                </g>
+                <path fill="#434343" d="m116.99753 256.33115l0 0c0 -76.940994 62.373016 -139.31401 139.31403 -139.31401l0 0c36.948364 0 72.38342 14.677689 98.50989 40.80414c26.126434 26.126434 40.80414 61.56151 40.80414 98.50987l0 0c0 76.94101 -62.373016 139.31403 -139.31403 139.31403l0 0c-76.94101 0 -139.31403 -62.373016 -139.31403 -139.31403zm22.758347 0l0 0c0 64.37195 52.183746 116.555695 116.55568 116.555695c64.37192 0 116.555664 -52.183746 116.555664 -116.555695l0 0c0 -64.37192 -52.183746 -116.555664 -116.555664 -116.555664l0 0c-64.37193 0 -116.55568 52.183746 -116.55568 116.555664z"
+                 fill-rule="evenodd" />
+                <path fill="#434343" d="m153.50584 268.43048l0 0c6.672577 0 12.081772 -5.4091797 12.081772 -12.081757l0 0l0 0c0 -3.2042847 -1.2729034 -6.2773285 -3.5386658 -8.543106c-2.2657776 -2.2657623 -5.3388214 -3.5386658 -8.543106 -3.5386658l-46.832428 0c-6.672577 0 -12.081772 5.409195 -12.081772 12.081772l0 0l0 0c0 6.672577 5.409195 12.081757 12.081772 12.081757z"
+                 fill-rule="evenodd" />
+                <path fill="#434343" d="m405.94727 268.43048l0 0c6.672577 0 12.081787 -5.4091797 12.081787 -12.081757l0 0l0 0c0 -3.2042847 -1.2729187 -6.2773285 -3.5386658 -8.543106c-2.2657776 -2.2657623 -5.3388367 -3.5386658 -8.543121 -3.5386658l-46.832428 0c-6.672577 0 -12.081757 5.409195 -12.081757 12.081772l0 0l0 0c0 6.672577 5.4091797 12.081757 12.081757 12.081757z"
+                 fill-rule="evenodd" />
+                <path fill="#434343" d="m244.20409 153.51257l0 0c0 6.672577 5.409195 12.081772 12.081772 12.081772l0 0l0 0c3.2042847 0 6.277313 -1.2728882 8.543091 -3.5386658c2.2657776 -2.2657623 3.5386658 -5.3388214 3.5386658 -8.543106l0 -46.83242c0 -6.672577 -5.4091797 -12.081772 -12.081757 -12.081772l0 0l0 0c-6.672577 0 -12.081772 5.409195 -12.081772 12.081772z"
+                 fill-rule="evenodd" />
+                <path fill="#434343" d="m244.20409 405.9558l0 0c0 6.672577 5.409195 12.081787 12.081772 12.081787l0 0l0 0c3.2042847 0 6.277313 -1.2729187 8.543091 -3.5386658c2.2657776 -2.2657776 3.5386658 -5.3388367 3.5386658 -8.543121l0 -46.832428c0 -6.672577 -5.4091797 -12.081757 -12.081757 -12.081757l0 0l0 0c-6.672577 0 -12.081772 5.4091797 -12.081772 12.081757z"
+                 fill-rule="evenodd" />
+                <path fill="#434343" d="m244.18945 256.34872l0 0c0 6.672577 5.409195 12.081757 12.081787 12.081757l0 0l0 0c3.2042847 0 6.277313 -1.2728882 8.543091 -3.5386658c2.2657776 -2.2657776 3.5386658 -5.338806 3.5386658 -8.543091l0 -61.841232c0 -6.672577 -5.4091797 -12.081772 -12.081757 -12.081772l0 0l0 0c-6.672592 0 -12.081787 5.409195 -12.081787 12.081772z"
+                 fill-rule="evenodd" />
+                <path class="midway-loader-spinner-hand" fill="#434343" d="m265.10382 248.85626l0 0c-4.7464905 -4.746475 -12.442032 -4.746475 -17.188507 0l0 0l0 0c-2.2793274 2.2793427 -3.559845 5.3707886 -3.559845 8.594238c0 3.2234802 1.2805176 6.314911 3.559845 8.594269l34.6261 34.6261c4.7464905 4.74646 12.442047 4.74646 17.188507 0l0 0l0 0c4.74646 -4.74646 4.74646 -12.442017 0 -17.188507z"
+                 fill-rule="evenodd" />
+                <path fill="#000000" fill-opacity=".1115" d="m.021115223 256.3076l0 0c0 -141.55151 114.75017 -256.3017 256.30167 -256.3017c141.55151 0 256.30167 114.75017 256.30167 256.3017z"
+                 fill-rule="evenodd" />
+            </g>
+        </svg>
+    </div>
+    <div class="midway-loader-loading-wrapper">
+        <div class="midway-loader-loading">
+       	    <div class="midway-loader-loading-indicator"></div>
+       	</div>
+       	<p class="midway-loader-loading-text">Loading Midway</p>
+    </div>
+</div>
+
+
+<script src="loader.js"></script>
+<!-- end loader -->

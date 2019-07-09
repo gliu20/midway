@@ -1,0 +1,14 @@
+
+function authenticateSchoolCode (schoolCode) {
+	console.log(`Authenticate school code: ${schoolCode}`);
+	chrome.runtime.sendMessage({
+		type: "authSchoolCode",
+		schoolCode: schoolCode
+	}, function(response) {
+  		console.log(response);
+	});
+}
+
+function checkForSchoolCode () {
+	
+}
