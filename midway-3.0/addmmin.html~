@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/admin.css">
+<section class="content content--max-680px">
+	<section class="card" style="margin-top:15px;">
+		<div class="card-list-item">
+			<span class="avatar" style="flex-shrink:0;">1</span>
+			<div class="card-list-item-primary">
+				<h2 class="card-title card-title--large">List your classes</h2>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<textarea class="Input fluid" rows="10">Free
+Lunch
+English
+History</textarea>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<button class="Button fluid">Submit classes</button>
+			</div>
+		</div>
+	</section>
+	
+	
+	
+	<section class="card" style="margin-top:15px;">
+		<div class="card-list-item">
+			<span class="avatar" style="flex-shrink:0;">2</span>
+			<div class="card-list-item-primary">
+				<h2 class="card-title card-title--large">Check off when you have class</h2>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<table class="table">
+					<tr>
+						<th>Class</th>
+						<th>Monday</th>
+						<th>Tuesday</th>
+						<th>Wednesday</th>
+						<th>Thursday</th>
+						<th>Friday</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<button class="Button fluid">Submit classes</button>
+			</div>
+		</div>
+	</section>
+</section>

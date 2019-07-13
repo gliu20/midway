@@ -1,3 +1,14 @@
+
+@keyframes blink {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+.blink {
+    animation:blink .2s ease-out 0s;
+}
+
 @keyframes ripple {
   from {
     background:none;
@@ -67,7 +78,7 @@
   --whiteframe-8dp:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
   
   /*toolbar*/
-  --toolbar-background-color:var(--primary-color);
+  --toolbar-background-color:#0f5bff;
   --toolbar-color:var(--text-on-primary-color);
   --toolbar-min-height:56px;
   --toolbar-padding:0px 20px 0px 20px;

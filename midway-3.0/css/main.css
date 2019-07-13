@@ -1,3 +1,32 @@
+.card .card-list-item .avatar {
+  width:40px;
+  height:40px;
+  padding:0;
+  margin:0px 8px 0px 8px;
+  border-radius:999px;
+  font-size:18px;
+  line-height:40px;
+  text-align: center;
+  vertical-align: middle;
+  color:#fff;
+  background:rgba(0,0,0,0.38);
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+@keyframes blink {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+.blink {
+    animation:blink .2s ease-out 0s;
+}
+
 @keyframes ripple {
   from {
     background:none;

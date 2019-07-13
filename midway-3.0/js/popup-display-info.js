@@ -1,16 +1,21 @@
-
-function setCurrPeriodInfo (periodObj,minsLeft) {
-	const periodName = periodObj.periodName || "";
-	const periodTime = periodObj.periodTime || ["",""];
+function saniztize (input) {
+	return input.replace(/</g,"&lt;").replace(/>/g,"&gt;")
+}
+function setCurrPeriodInfo (periodObj) {
 	const subject = periodObj.subject || "";
+	const periodName = periodObj.periodName || "No ongoing periods currently";
+	const periodTime = periodObj.periodTime || ["0:00","0:00"];
 	
-	minsLeft = minsLeft || "";
+	minsLeft = timeToMins(periodTime[1]) - currTimeInMins();
+	
+	if (minsLeft < 0) {minsLeft = ""}
+	else {minsLeft += " mins left"}
 	
 	document.getElementById("currPeriodInfo").innerHTML = `
         <section class="card-list-item-primary">
-          <h2 class="card-title card-title--large">${minsLeft}</h2>
-          <h3 class="card-subtitle card-subtitle--large">${subject}</h3>
-          <p class="card-subtitle">${periodName}, ${periodTime[0]} - ${periodTime[1]}</p>
+          <h2 class="card-title card-title--large">${saniztize(minsLeft)}</h2>
+          <h3 class="card-subtitle card-subtitle--large">${saniztize(subject)}</h3>
+          <p class="card-subtitle">${saniztize(periodName)}, ${saniztize(periodTime[0])} - ${saniztize(periodTime[1])}</p>
         </section>
     `;
 }
@@ -52,22 +57,22 @@ function setTodaySchedule (schedule,isSpecial,scheduleVariant) {
 	let scheduleDomCache = "";
 	const todayDate = (new Date()).toLocaleDateString();
 	
-	scheduleVariant = scheduleVariant || getDayOfWeek();
+	scheduleVariant = scheduleVariant || "";
 	
 	for (var i = 0; i < schedule.length; i++) {
 		
 		
 		const subject = schedule[i].subject || "";
-		const periodName = schedule[i].periodName || "";
-		const periodTime = schedule[i].periodTime || ["",""];
+		const periodName = schedule[i].periodName || "Unknown period";
+		const periodTime = schedule[i].periodTime || ["0:00","0:00"];
 		const periodShortHand = shortHand(periodName);
 		
 		scheduleDomCache += `
 	        <section class="card-list-item">
-	          <span class="avatar">${periodShortHand}</span>
+	          <span class="avatar">${saniztize(periodShortHand)}</span>
 	          <section class="card-list-item-primary">
-	            <h2 class="card-title">${subject}</h2>
-	            <p class="card-subtitle">${periodName}, ${periodTime[0]} - ${periodTime[1]}</p>
+	            <h2 class="card-title">${saniztize(subject)}</h2>
+	            <p class="card-subtitle">${saniztize(periodName)}, ${saniztize(periodTime[0])} - ${saniztize(periodTime[1])}</p>
 	          </section>
 	        </section>
         	<span class="separator"></span>
@@ -78,8 +83,8 @@ function setTodaySchedule (schedule,isSpecial,scheduleVariant) {
 	
 	
 	document.getElementById("scheduleDetails").innerHTML = `
-        <h2 class="card-title">${scheduleVariant}</h2>
-        <p class="card-subtitle">${todayDate}${isSpecial ? " (Special)" : ""}</p>
+        <h2 class="card-title">${saniztize(scheduleVariant)}</h2>
+        <p class="card-subtitle">${saniztize(todayDate)}${isSpecial ? " (Special)" : ""}</p>
 	`;
 	
 	
@@ -103,42 +108,51 @@ function hideSetupSchedule () {
 	var eles = document.querySelectorAll(".setup-schedule");
 	
 	for (var i = 0; i < eles.length; i++) {
-		eles[i].remove();
+		eles[i].style = "display:none;";
 	}
 }
 
 function showWithSchoolCodeView () {
-	document.getElementById("withoutSchoolCodeView").remove();
+	document.getElementById("withSchoolCodeView").style = ""
+	document.getElementById("withoutSchoolCodeView").style = "display:none;";
+	
+	updateViews();
 }
 
 function showWithoutSchoolCodeView () {
-	document.getElementById("withSchoolCodeView").remove();
-	
-	document.getElementById("schoolCodeForm").addEventListener("submit",
-		function (e) {
-			e.preventDefault();
-			authenticateSchoolCode(
-				document.getElementById("schoolCode").value
-			);
-		}
-	)
+	document.getElementById("withSchoolCodeView").style = "display:none;"
+	document.getElementById("withoutSchoolCodeView").style = "";
 }
 
 function setAnnouncements (announce) {
-	document.getElementById("announcements").innerText = announce;
+	document.getElementById("announcements").innerText = announce || "No announcements";
 }
 
 function setAbsentTeachers (teacherList) {
 	var teacherDomCache = "";
 	
+	teacherList = teacherList || ["No absent teachers"];
+	
 	for (var i = 0; i < teacherList.length; i++) {
 		teacherDomCache += `
-			<li>${teacherList[i]}</li>
+			<li>${saniztize(teacherList[i])}</li>
 		`;
 	}
 
 	document.getElementById("absentTeachers").innerHTML = teacherDomCache;
 }
+
+
+document.getElementById("schoolCodeForm").addEventListener("submit",
+		function (e) {
+			e.preventDefault();
+			authenticateSchoolCode(
+				document.getElementById("schoolCode").value,true
+			);
+			chrome.runtime.sendMessage({type:"getSchoolCode"});
+		}
+	)
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // tabs ui

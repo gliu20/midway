@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/admin.css">
+<section class="content content--max-680px">
+	<section class="card" style="margin-top:15px;">
+		<div class="card-list-item">
+			<span class="avatar" style="flex-shrink:0;">1</span>
+			<div class="card-list-item-primary">
+				<h2 class="card-title card-title--large">List your classes</h2>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<textarea class="Input fluid" rows="10">Free
+Lunch
+English
+History</textarea>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<button class="Button fluid">Submit classes</button>
+			</div>
+		</div>
+	</section>
+	
+	
+	
+	<section class="card" style="margin-top:15px;">
+		<div class="card-list-item">
+			<span class="avatar" style="flex-shrink:0;">2</span>
+			<div class="card-list-item-primary">
+				<h2 class="card-title card-title--large">Indicate when you have class</h2>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary fluid" style="overflow:auto;">
+				<table class="table fluid">
+					<tr class="fluid">
+						<th>Class</th>
+						<th>M</th>
+						<th>T</th>
+						<th>W</th>
+						<th>T</th>
+						<th>F</th>
+					</tr>
+					<tr class="fluid">
+						<td class="fluid">English</td>
+						<td><input type="text" class="Input fluid" style="margin:0;padding:8px;width:60px;"></td>
+						<td><input type="text" class="Input fluid" style="margin:0;padding:8px;width:60px;"></td>
+						<td><input type="text" class="Input fluid" style="margin:0;padding:8px;width:60px;"></td>
+						<td><input type="text" class="Input fluid" style="margin:0;padding:8px;width:60px;"></td>
+						<td><input type="text" class="Input fluid" style="margin:0;padding:8px;width:60px;"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="card-list-item">
+			<div class="card-list-item-primary">
+				<button class="Button fluid">Submit classes</button>
+			</div>
+		</div>
+	</section>
+</section>
