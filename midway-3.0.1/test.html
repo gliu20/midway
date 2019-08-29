@@ -22,14 +22,26 @@ firebase.initializeApp(firebaseConfig);
 
 var midway = {};
 
+midway.cache = {};
+
 midway.handleError = function (errCode,errMesg) {
 	console.error(errCode,errMesg);
+	
+	errMesg = (errMesg || "")
+		.replace(/The user/g,"You")
+		.replace(/the user/g,"you")
+		.replace(/User/g,"You")
+		.replace(/user/g,"you");
+	
+	if (errMesg) {
+		alert(errCode + ": " + errMesg);
+	}
 }
 
 // rest api for handling data //////////////////////////////////////////////////
 midway.rest = {};
 
-midway.rest.fetch = function (path,token,options) {
+midway.rest.fetch = function (path,token,options,request) {
 	return new Promise (function (resolve,reject) {
 		
 		var url = firebaseConfig.databaseURL;
@@ -38,7 +50,7 @@ midway.rest.fetch = function (path,token,options) {
 		url += ".json?auth=" + token;
 		url += options ? "&" + options : "";
 		
-		fetch(url).then(function(response) {
+		fetch(url,request).then(function(response) {
 			if (response.ok) {
 				resolve(response);
 			}
@@ -51,6 +63,70 @@ midway.rest.fetch = function (path,token,options) {
 			reject();
 		})
 	});
+}
+
+midway.rest.getAbsentTeachers = async function () {
+	var token = await midway.auth.getToken();
+
+	if (!midway.auth.schoolCode) {
+		midway.handleError("auth/invalid-school-code","Invalid or missing school code")
+		
+		return;
+	}
+	
+	var absentTeacherUrl = "schools/" + midway.auth.schoolCode + "/absentTeachers";
+	var response = await midway.rest.fetch(absentTeacherUrl,token);
+	
+	var absentTeachers = await response.json();
+	
+	return absentTeachers;
+}
+
+midway.rest.getAnnouncements = async function () {
+	var token = await midway.auth.getToken();
+
+	if (!midway.auth.schoolCode) {
+		midway.handleError("auth/invalid-school-code","Invalid or missing school code")
+		
+		return;
+	}
+	
+	var announcementsUrl = "schools/" + midway.auth.schoolCode + "/announcements";
+	var response = await midway.rest.fetch(announcementsUrl,token);
+	
+	var announcements = await response.json();
+	
+	return announcements;
+}
+
+midway.rest.getSchedule = async function () {
+	var token = await midway.auth.getToken();
+
+	if (!midway.auth.schoolCode) {
+		midway.handleError("auth/invalid-school-code","Invalid or missing school code")
+		
+		return;
+	}
+	
+	var scheduleUrl = "schools/" + midway.auth.schoolCode + "/patches/";
+		
+	scheduleUrl += (new Date()).toDateString();
+	
+	var response = await midway.rest.fetch(scheduleUrl,token);
+	var schedule = await response.json();
+	
+	return schedule;
+}
+
+midway.rest.getUpdateInterval = async function () {
+	var token = await midway.auth.getToken();
+	
+	var updateIntervalUrl = "updateInterval";
+	
+	var response = await midway.rest.fetch(updateIntervalUrl,token);
+	var updateInterval = await response.json();
+	
+	return updateInterval;
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -113,7 +189,7 @@ midway.auth.getSchoolCodeFromEmail = async function () {
 	// getCurrentUser automatically signs in user if necessary. getToken will
 	// return the firebase token id which expires after an hour
 	var user = await midway.auth.getCurrentUser();
-	var domain = user.email.split("@")[1].replace(/\./,"-");
+	var domain = user.email.split("@")[1].replace(/\./g,"%25");
 	var token = await midway.auth.getToken();
 	
 	var schoolCodeUrl = "emailLookup/" + domain + "/0";
@@ -122,8 +198,8 @@ midway.auth.getSchoolCodeFromEmail = async function () {
 	return await response.json();
 }
 
-//TODO
-midway.auth.setSchoolCode = async function () {
+
+midway.auth.setSchoolCode = async function (schoolCode) {
 	// getCurrentUser automatically signs in user if necessary. getToken will
 	// return the firebase token id which expires after an hour
 	var user = await midway.auth.getCurrentUser();
@@ -131,20 +207,32 @@ midway.auth.setSchoolCode = async function () {
 	
 	var schoolCodeUrl = "users/" + user.uid + "/schoolCode";
 	
-	// TODO put/update command or whatever
-	var response = await midway.rest.fetch(schoolCodeUrl,token);
+	var response = await midway.rest.fetch(schoolCodeUrl,token,false,{
+		method: "PUT",
+		body: JSON.stringify(schoolCode)
+	});
 	
 	return await response.json();
 }
 
-midway.auth.checkSchoolCode = async function (code) {
+midway.auth.checkSchoolCode = async function (code,needUpload) {
+
+	if (code === null || code === undefined) {
+		return false;
+	}
+
 	// getCurrentUser automatically signs in user if necessary. getToken will
 	// return the firebase token id which expires after an hour
 	var user = await midway.auth.getCurrentUser();
 	var token = await midway.auth.getToken();
 	
 	var schoolCodeCheckUrl = "schools/" + code + "/schoolName";
-	var response,isValid;
+	var response,isValid,schoolName;
+	
+	if (needUpload) {
+		// initate log in to school via school code
+		await midway.auth.setSchoolCode(code);
+	}
 	
 	try {
 		response = await midway.rest.fetch(
@@ -152,13 +240,23 @@ midway.auth.checkSchoolCode = async function (code) {
 			token
 		);
 	
-		await response.json();// true or false if schoolCode is valid or not
+		schoolName = await response.json();// true or false if schoolCode is valid or not
 		
 		isValid = true;
 	}
 	catch (error) {
+		schoolName = undefined;
+	
 		isValid = false;
 	}
+	
+	// even if firebase returns a response, the data might not actually exist
+	// thus, we must check it
+	if (schoolName === null || schoolName === undefined) {
+		isValid = false;
+	}
+	
+	midway.cache.schoolName = schoolName;
 	
 	return isValid;
 }
@@ -189,12 +287,13 @@ midway.auth.initiateSignIn = async function () {
 	}
 	
 	
-	
 	// (step 3 cont...) get school code from email
 	try {
 		// get schoolCodeFromEmail and check if valid
 		schoolCode = await midway.auth.getSchoolCodeFromEmail();
-		isSchoolCodeValid = await midway.auth.checkSchoolCode(schoolCode);
+		
+		// check if valid
+		isSchoolCodeValid = await midway.auth.checkSchoolCode(schoolCode,true);
 	}
 	catch (error) {
 		// (step 4) assume school code is invalid
@@ -213,12 +312,17 @@ midway.auth.initiateSignIn = async function () {
 	return false;
 }
 
+
+// full sign in steps
+// 1. midway.auth.getCurrentUser()
+// 2. midway.auth.initiateSignIn()
+// 3. if step 2 fails, ask for schoolCode 
+//    aka midway.auth.checkSchoolCode(code,true)
 ////////////////////////////////////////////////////////////////////////////////
 
 
-  function gotData(data) {
-    console.log(data);
-  }
+
+
+
 </script>
 
-<script src="https://midway-application.firebaseio.com/users/AaWEMN7jezdslenNixI0wyWyiWA2/schoolCode.json?auth=eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2OGNhNTBjZTY0YjQxYWIzNGZhMDM1NzIwMmQ5ZTk0ZTcyYmQ2ZWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2VvcmdlIExpdSIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLUsxLS03Y3g1TUJZL0FBQUFBQUFBQUFJL0FBQUFBQUFBQVNrL29Da29jMV9oWXp3L3Bob3RvLmpwZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9taWR3YXktYXBwbGljYXRpb24iLCJhdWQiOiJtaWR3YXktYXBwbGljYXRpb24iLCJhdXRoX3RpbWUiOjE1NjY3MzU5NjEsInVzZXJfaWQiOiJBYVdFTU43amV6ZHNsZW5OaXhJMHd5V3lpV0EyIiwic3ViIjoiQWFXRU1ON2plemRzbGVuTml4STB3eVd5aVdBMiIsImlhdCI6MTU2NjczNjk4NiwiZXhwIjoxNTY2NzQwNTg2LCJlbWFpbCI6ImdsaXUyMEBzY2Fyc2RhbGVzY2hvb2xzLm9yZyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE1OTY4MTQ5NjIyMTg0OTUyNjUwIl0sImVtYWlsIjpbImdsaXUyMEBzY2Fyc2RhbGVzY2hvb2xzLm9yZyJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.u-_H-1edLCqdDzpejQElAaF8s2-8SYH0m5Fxuty8aquU7LamqAjRe7mmG2YnRDtkMJxknbLMb3Das-LEgdJ-P_UO2KhXzV5Ay3g4C2Mq7hTTD_4t_FpqrbYcut5eWVUxxG8p8SAqko89DHZqXAPG91ywtFlmj-t4sl2--n8BGgj6kQf2WixQijqjpLCv3uOv487McsQllC44_3UO0ERhRd-429E2u-avSGE3dGvvge2ymxpfq77MUTIm_Z1AyN_pvBhVvaJL8sFp7ZP8wESccjp4hMzYsICAmNpw4CR9_0EZw863k4ZJv1c9I14zCAKCAFsJuDCilU0qh3bdCNnARg&callback=gotData"></script>
