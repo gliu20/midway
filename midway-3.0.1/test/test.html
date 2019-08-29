@@ -163,6 +163,10 @@ midway.auth.getCurrentUser = async function () {
 	return user;
 }
 
+midway.auth.signOut = function () {
+	firebase.auth().signOut();
+}
+
 midway.auth.getToken = async function () {
 	var user = await midway.auth.getCurrentUser();
 	
