@@ -1,4 +1,3 @@
-
 var midway = {};
 
 midway.cache = {};
