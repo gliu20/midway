@@ -12,7 +12,7 @@ midway.handleError = function (errCode,errMesg) {
 		.replace(/user/g,"you");
 	
 	if (errMesg) {
-		alert(errCode + ": " + errMesg);
+		//alert(errCode + ": " + errMesg);
 	}
 }
 
@@ -43,7 +43,17 @@ midway.rest.fetch = function (path,token,options,request) {
 	});
 }
 
+
+// TODO re-factor for DRY (don't repear yourself) code... getAbsentTeachers, 
+// announcements, etc... all seem to be the same code copy pasted with
+// different url
 midway.rest.getAbsentTeachers = async function () {
+
+	if (midway.cache.absentTeachers &&
+		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
+		return midway.cache.absentTeachers;
+	}
+
 	var token = await midway.auth.getToken();
 
 	if (!midway.auth.schoolCode) {
@@ -57,10 +67,19 @@ midway.rest.getAbsentTeachers = async function () {
 	
 	var absentTeachers = await response.json();
 	
+	midway.cache.absentTeachers = absentTeachers;
+	midway.cache.lastUpdated = Date.now();
+	
 	return absentTeachers;
 }
 
 midway.rest.getAnnouncements = async function () {
+	
+	if (midway.cache.announcements &&
+		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
+		return midway.cache.announcements;
+	}
+
 	var token = await midway.auth.getToken();
 
 	if (!midway.auth.schoolCode) {
@@ -74,10 +93,26 @@ midway.rest.getAnnouncements = async function () {
 	
 	var announcements = await response.json();
 	
+	midway.cache.announcements = announcements;
+	midway.cache.lastUpdated = Date.now();
+	
 	return announcements;
 }
 
 midway.rest.getSchedule = async function () {
+
+	if (midway.cache.schedule &&
+		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
+		
+		// looks like the cached result was null; so we will return null
+		if (midway.cache.schedule === true) {
+			return null;
+		}
+		
+		return midway.cache.schedule;
+	}
+	
+	
 	var token = await midway.auth.getToken();
 
 	if (!midway.auth.schoolCode) {
@@ -93,10 +128,24 @@ midway.rest.getSchedule = async function () {
 	var response = await midway.rest.fetch(scheduleUrl,token);
 	var schedule = await response.json();
 	
+	midway.cache.schedule = schedule;
+	midway.cache.lastUpdated = Date.now();
+	
+	// we must make sure that if schedule is null, we note that in the cache
+	// that way we won't be always looking for it
+	if (schedule === null) {
+		midway.cache.schedule = true;
+	}
+	
 	return schedule;
 }
 
 midway.rest.getUpdateInterval = async function () {
+	// if already checked for updateInterval, don't check it again
+	if (midway.cache.updateInterval) {
+		return midway.cache.updateInterval;
+	}
+
 	var token = await midway.auth.getToken();
 	
 	var updateIntervalUrl = "updateInterval";
@@ -104,7 +153,7 @@ midway.rest.getUpdateInterval = async function () {
 	var response = await midway.rest.fetch(updateIntervalUrl,token);
 	var updateInterval = await response.json();
 	
-	return updateInterval;
+	return midway.cache.updateInterval = updateInterval;
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -130,10 +179,18 @@ midway.auth.authUser = function () {
 	});
 }
 
+midway.auth.isSignedIn = function () {
+	return !!firebase.auth().currentUser;
+}
+
+midway.auth.hasSchoolCode = function () {
+	return !!midway.auth.schoolCode;
+}
+
 midway.auth.getCurrentUser = async function () {
 	var user = firebase.auth().currentUser;
 
-	if (!user) {
+	if (!midway.auth.isSignedIn()) {
 		await midway.auth.authUser();
 		user = firebase.auth().currentUser;
 	}
@@ -303,3 +360,116 @@ midway.auth.initiateSignIn = async function () {
 ////////////////////////////////////////////////////////////////////////////////
 
 
+async function checkAuthStatus () {
+	var isSignedIn = midway.auth.isSignedIn();
+	var hasSchoolCode = midway.auth.hasSchoolCode();
+			
+	if (isSignedIn && !hasSchoolCode) {
+		// check if you have schoolCode and if it works
+		await midway.auth.initiateSignIn();
+		hasSchoolCode = midway.auth.hasSchoolCode();
+	}
+	
+	if (isSignedIn && hasSchoolCode) {
+		// it is okay to get update interval now
+		await midway.rest.getUpdateInterval();
+	}
+		
+	chrome.runtime.sendMessage({ 
+		type:"toPopup-returnAuthStatus",
+		isSignedIn: isSignedIn,
+		hasSchoolCode: hasSchoolCode
+	});
+}
+
+chrome.runtime.onMessage.addListener(
+	async function (request, sender, sendResponse) {
+		if (request.type === "toBackground-checkSchoolCode") {
+			if (await midway.auth.checkSchoolCode(
+				request.schoolCode,
+				request.needUpload
+			)) {
+				await checkAuthStatus();
+			}
+			else {
+				chrome.runtime.sendMessage({ type:"toPopup-invalidSchoolCode" });
+			}
+		}
+		else if (request.type === "toBackground-checkAuthStatus") {
+			await checkAuthStatus();
+		}
+		else if (request.type === "toBackground-forceSignIn") {
+			await midway.auth.authUser();
+		}
+		else if (request.type === "toBackground-getAnnouncements") {
+			chrome.runtime.sendMessage({
+				type: "toPopup-returnAnnouncements",
+				data: await midway.rest.getAnnouncements()
+			});
+		}
+		else if (request.type === "toBackground-getAbsentTeachers") {
+			chrome.runtime.sendMessage({
+				type: "toPopup-returnAbsentTeachers",
+				data: await midway.rest.getAbsentTeachers()
+			});
+		}
+		else if (request.type === "toBackground-getSchedule") {
+			var scheduleObj = await midway.rest.getSchedule() || {patch:[]};
+			
+			scheduleObj = scheduleObj.patch || [];
+			
+			scheduleObj.sort(schedule.sortBy("periodStartTime"));
+			scheduleObj.sort(schedule.sortBy("periodEndTime"));
+	
+			scheduleObj.forEach(function (item) {
+				item.periodShortHand = schedule.shortHand(item.periodName);
+			});
+			
+			chrome.runtime.sendMessage({
+				type: "toPopup-returnSchedule",
+				data: scheduleObj
+			});
+		}
+		else if (request.type === "toBackground-getCurrentPeriod") {
+			var scheduleObj = await midway.rest.getSchedule() || {patch:[]};
+			var currPeriod;
+			var currPeriodMinsUntil;
+			var currPeriodMinsLeft;
+			
+			scheduleObj = scheduleObj.patch || [];
+			
+			scheduleObj.sort(schedule.sortBy("periodStartTime"));
+			scheduleObj.sort(schedule.sortBy("periodEndTime"));
+	
+			scheduleObj.forEach(function (item) {
+				item.periodShortHand = schedule.shortHand(item.periodName);
+			});
+			
+			currPeriod = schedule.findCurrentPeriod(scheduleObj)
+			
+			currPeriodMinsUntil = schedule.timeToMins(currPeriod.periodTime[0]) - 
+				schedule.currTimeInMins();
+				
+			currPeriodMinsLeft = schedule.timeToMins(currPeriod.periodTime[1]) -
+				schedule.currTimeInMins();
+				
+			if (currPeriodMinsUntil > 0) {
+				currPeriod.minsLeft = currPeriodMinsUntil + " mins until start";
+			}
+			else {
+				currPeriod.minsLeft = currPeriodMinsLeft + " mins left";
+			}
+			
+			chrome.runtime.sendMessage({
+				type: "toPopup-returnCurrentPeriod",
+				data: currPeriod
+			});
+		}
+		else if (request.type === "toBackground-getSchoolName") {
+			chrome.runtime.sendMessage({
+				type: "toPopup-returnSchoolName",
+				data: midway.cache.schoolName
+			});
+		}
+	}
+);

@@ -59,6 +59,12 @@ chrome.runtime.onMessage.addListener(
 		}
 		else if (request.type === "toBackground-returnCurrentPeriodInfo") {
 			// TODO return current period info
+			
+			var line1 = "";
+			var line2 = "";
+			var line3 = "";
+			
+			timebox.display(line1,line2,line3)
 		}
 		else if (request.type === "toBackground-hideTimebox") {
 			timebox.hide();
