@@ -166,8 +166,7 @@ schedule.currTimeInMins = function () {
 	);
 }
 
-// returns current date snapped to the minute that is after the current minute
-// e.g. if it is 11:59:30 then it snaps to 12:00
+// returns current date snapped to the current time but forward a minute later
 schedule.nextMinute = function () {
 	return Math.ceil(Date.now() / 60000) * 60000;
 }

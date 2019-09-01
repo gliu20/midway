@@ -98,7 +98,7 @@ chrome.runtime.onMessage.addListener(
 			}
 		}
 		else if (request.type === "toBackground-returnCurrentPeriodInfo") {
-			timebox.updateDisplay();
+			//timebox.updateDisplay();
 		}
 		else if (request.type === "toBackground-hideTimebox") {
 			timebox.hide();

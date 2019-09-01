@@ -399,14 +399,12 @@ async function checkAuthStatus () {
 			
 	// TODO even if you have school code, should we check and remove cache?
 	if (isSignedIn) {
-		// clear cache
-		midway.cache = {};
-		
 		// check if you have schoolCode and if it works
 		await midway.auth.initiateSignIn();
 		hasSchoolCode = midway.auth.hasSchoolCode();
 		
-		
+		// clear cache
+		midway.cache = {};
 	}
 	
 	if (isSignedIn && hasSchoolCode) {

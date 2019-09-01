@@ -3,6 +3,7 @@ function sanitize (input) {
 }
 
 function populateViews () {
+	alert("pop")
 	chrome.runtime.sendMessage({ type: "toBackground-getAnnouncements" })
 	chrome.runtime.sendMessage({ type: "toBackground-getAbsentTeachers" })
 	chrome.runtime.sendMessage({ type: "toBackground-getSchedule" })

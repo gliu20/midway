@@ -176,6 +176,8 @@ timebox.init = function () {
 	timebox.makeDraggable();
 	timebox.makeHideable();
 	
+	alert("requesting curr period info")
+	
 	chrome.runtime.sendMessage({ type:"toBackground-returnCurrentPeriodInfo" });
 	chrome.runtime.sendMessage({ type:"toBackground-returnPosition" });
 }
