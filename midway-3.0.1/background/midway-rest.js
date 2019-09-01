@@ -51,6 +51,12 @@ midway.rest.getAbsentTeachers = async function () {
 
 	if (midway.cache.absentTeachers &&
 		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
+		
+		// looks like the cached result was null; so we will return null
+		if (midway.cache.absentTeachers === true) {
+			return null;
+		}
+		
 		return midway.cache.absentTeachers;
 	}
 
@@ -79,6 +85,12 @@ midway.rest.getAbsentTeachers = async function () {
 	midway.cache.absentTeachers = absentTeachers;
 	midway.cache.lastUpdated = Date.now();
 	
+	// we must make sure that if absentTeachers is null, we note that in the cache
+	// that way we won't be always looking for it
+	if (absentTeachers === null) {
+		midway.cache.absentTeachers = true;
+	}
+	
 	return absentTeachers;
 }
 
@@ -86,6 +98,12 @@ midway.rest.getAnnouncements = async function () {
 	
 	if (midway.cache.announcements &&
 		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
+		
+		// looks like the cached result was null; so we will return null
+		if (midway.cache.announcements === true) {
+			return null;
+		}
+		
 		return midway.cache.announcements;
 	}
 
@@ -114,11 +132,19 @@ midway.rest.getAnnouncements = async function () {
 	midway.cache.announcements = announcements;
 	midway.cache.lastUpdated = Date.now();
 	
+	// we must make sure that if announcements is null, we note that in the cache
+	// that way we won't be always looking for it
+	if (announcements === null) {
+		midway.cache.announcements = true;
+	}
+	
 	return announcements;
 }
 
 midway.rest.getSchedule = async function () {
 	
+	// make sure updateInterval is available so we can do proper checking
+	await midway.rest.getUpdateInterval();
 	
 	if (midway.cache.schedule &&
 		Date.now() - midway.cache.lastUpdated < midway.cache.updateInterval) {
@@ -178,7 +204,14 @@ midway.rest.getUpdateInterval = async function () {
 	if (midway.cache.updateInterval) {
 		return midway.cache.updateInterval;
 	}
-
+	
+	// prevent prompting of sign in
+	if (!midway.auth.isSignedIn()) {
+		midway.handleError("auth/not-signed-in","User not signed in")
+		
+		return;
+	}
+	
 	var token = await midway.auth.getToken();
 	
 	var updateIntervalUrl = "updateInterval";
@@ -312,7 +345,7 @@ midway.auth.checkSchoolCode = async function (code,needUpload) {
 			token
 		);
 	
-		schoolName = await response.json();// true or false if schoolCode is valid or not
+		schoolName = await response.json();
 		
 		isValid = true;
 	}
@@ -398,9 +431,10 @@ async function checkAuthStatus () {
 	var hasSchoolCode = midway.auth.hasSchoolCode();
 			
 	// TODO even if you have school code, should we check and remove cache?
-	if (isSignedIn) {
+	if (isSignedIn && !hasSchoolCode) {
+		
 		// clear cache
-		midway.cache = {};
+		//midway.cache = {};
 		
 		// check if you have schoolCode and if it works
 		await midway.auth.initiateSignIn();
@@ -410,7 +444,8 @@ async function checkAuthStatus () {
 	}
 	
 	if (isSignedIn && hasSchoolCode) {
-		// it is okay to get update interval now
+		// it is okay to get update interval now; anyway it won't check if
+		// its result is cached
 		await midway.rest.getUpdateInterval();
 	}
 		
@@ -530,6 +565,10 @@ chrome.runtime.onMessage.addListener(
 				type: "toSettings-returnSchoolName",
 				data: midway.cache.schoolName
 			});
+		}
+		else if (request.type === "toBackground-clearCache") {
+			midway.auth.schoolCode = false;
+			midway.cache = {};
 		}
 	}
 );

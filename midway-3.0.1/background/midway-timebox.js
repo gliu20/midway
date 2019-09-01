@@ -123,10 +123,11 @@ chrome.runtime.onMessage.addListener(
 		}
 	}
 );
-/*
+
 // offset the clock so it runs perfectly each minute
 setTimeout(function () {
+	timebox.updateDisplay()
 	setInterval(function () {
 		timebox.updateDisplay()
 	}, 60000)
-},schedule.nextMinute() - Date.now() + 20)*/
+},schedule.nextMinute() - Date.now() + 20)
