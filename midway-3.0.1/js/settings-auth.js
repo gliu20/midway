@@ -9,7 +9,7 @@ document.getElementById("signOut").addEventListener("click",function () {
 
 document.getElementById("schoolCodeForm").addEventListener("submit",function (e) {
 	e.preventDefault();
-	
+	chrome.runtime.sendMessage({ type: "toBackground-clearCache" })
 	chrome.runtime.sendMessage({
 		type: "toBackground-checkSchoolCode",
 		schoolCode:document.getElementById("schoolCode").value,
