@@ -125,44 +125,105 @@ timebox.display = function (line1,line2,line3) {
 timebox.makeDraggable = function () {
 	var ele = document.getElementById("midway-timebox");
 
+	let currX = 0;
+	let currY = 0;
+
 	let prevX = 0; 
 	let prevY = 0; 
 	
-	ele.onmousedown = function (ev) {
-		prevX = ev.clientX;
-		prevY = ev.clientY;
-		
-		document.addEventListener('mousemove', whileMouseDown, false);
-	};
+	let defer;
 	
-	ele.onmouseup = function () {
-		document.removeEventListener('mousemove', whileMouseDown, false);
-	};
+	function setCurrPos (ev) {
+		currX = ev.clientX || ev.touches && ev.touches[0] && ev.touches[0].clientX;
+		currY = ev.clientY || ev.touches && ev.touches[0] && ev.touches[0].clientY;
+	}
 	
-	function whileMouseDown (ev) {
+	function setPrevPos () {
+		prevX = currX;
+		prevY = currY;
+	}
+	
+	function calculateMove () {
+		ele.style.top = currY - prevY + ele.offsetTop + "px";
+		ele.style.left = currX - prevX + ele.offsetLeft + "px";
+	}
+	
+	function handleMouseMove (ev) {
+		setCurrPos(ev);
+		calculateMove();
 		
-		ele.style.top = ev.clientY - prevY + ele.offsetTop + "px";
-		ele.style.left = ev.clientX - prevX + ele.offsetLeft + "px";
-		
+		// save move results
 		chrome.runtime.sendMessage({
 			type:"toBackground-storePosition",
 			
 			x: ele.style.left,
 			y: ele.style.top
-		});
+		})
 		
-		prevX = ev.clientX;
-		prevY = ev.clientY;
+		setPrevPos();
 	}
+	
+	ele.addEventListener('mousedown',function (ev) {
+	
+		// update prevPos with current position
+		setCurrPos(ev);
+		setPrevPos();
+		
+		document.addEventListener('mousemove',handleMouseMove);
+	})
+	
+	ele.addEventListener('mouseup',function (ev) {
+		document.removeEventListener('mousemove',handleMouseMove);
+	})
+	
+	document.addEventListener('mouseout',function (ev) {
+		clearTimeout(defer);
+		
+		defer = setTimeout(function () {
+			document.removeEventListener('mousemove',handleMouseMove);
+		},500)
+	})
+	
+	ele.addEventListener('touchstart',function (ev) {
+		
+		// prevent mouse events from firing and doing default behavior
+		// like scrolling
+		ev.preventDefault();
+		
+		// update prevPos with current position
+		setCurrPos(ev);
+		setPrevPos();
+		
+		ele.addEventListener('touchmove',handleMouseMove);
+	})
+	
+	ele.addEventListener('touchend',function (ev) {
+	
+		// prevent mouse events from firing and doing default behavior
+		// like scrolling
+		ev.preventDefault();
+	
+		ele.removeEventListener('touchmove',handleMouseMove);
+	})
+	
+	
 }
 
 timebox.makeHideable = function () {
 	var ele = document.getElementById("midway-close");
 	
-	ele.onclick = function () {
+	// TODO DRY
+	
+	ele.addEventListener('click', function () {
 		timebox.hide();
 		chrome.runtime.sendMessage({ type:"toBackground-hideTimebox" });
-	}
+	})
+	
+	// this is essentially click for touch events
+	ele.addEventListener('touchend', function () {
+		timebox.hide();
+		chrome.runtime.sendMessage({ type:"toBackground-hideTimebox" });
+	})
 }
 
 timebox.init = function () {
