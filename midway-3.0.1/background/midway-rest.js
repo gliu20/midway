@@ -481,6 +481,9 @@ chrome.runtime.onMessage.addListener(
 		}
 		else if (request.type === "toBackground-forceSignIn") {
 			await midway.auth.authUser();
+			
+			// broadcast that user sign in status changed
+			await checkAuthStatus();
 			await timebox.updateDisplay();
 		}
 		else if (request.type === "toBackground-signOut") {
