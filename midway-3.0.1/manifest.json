@@ -59,7 +59,7 @@
         "default_title": "Midway"
     },
     "optional_permissions":["tabs"],
-    "content_security_policy": "script-src 'self' https://*.firebaseapp.com https://www.gstatic.com https://apis.google.com https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://www.gstatic.com https://apis.google.com https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
     "manifest_version": 2
 }
 

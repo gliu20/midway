@@ -1,10 +1,14 @@
 chrome.runtime.onInstalled.addListener(function(details){
 	if (details.reason == "install"){
-		chrome.tabs.create({//TODO research exact specs
+		chrome.tabs.create({
 			url:"../welcome.html#welcome"
         })
 	}
 	else if (details.reason == "update"){
-		//call a function to handle an update
+		// grr... teachers haven't realized they can sign in into an account!
+		// let's prompt them
+		chrome.tabs.create({
+			url:"../update.html#welcome"
+        })
 	}
 });

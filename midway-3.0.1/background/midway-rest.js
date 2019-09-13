@@ -484,10 +484,15 @@ chrome.runtime.onMessage.addListener(
 			
 			// broadcast that user sign in status changed
 			await checkAuthStatus();
+			
 			await timebox.updateDisplay();
 		}
 		else if (request.type === "toBackground-signOut") {
 			midway.auth.signOut();
+			
+			// make sure cache is cleared when signing out
+			midway.auth.schoolCode = false;
+			midway.cache = {};
 		}
 		else if (request.type === "toBackground-getAnnouncements") {
 			chrome.runtime.sendMessage({

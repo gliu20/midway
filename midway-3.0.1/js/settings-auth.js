@@ -9,7 +9,7 @@ document.getElementById("signOut").addEventListener("click",function () {
 
 document.getElementById("resetSchoolCode").addEventListener("click",function () {
 	chrome.runtime.sendMessage({ type: "toBackground-clearCache" })
-	
+
 	// this will delete schoolCode
 	// TODO is there better way to upload schoolCode?
 	chrome.runtime.sendMessage({
@@ -17,7 +17,7 @@ document.getElementById("resetSchoolCode").addEventListener("click",function () 
 		schoolCode:"",
 		needUpload:true
 	})
-	
+
 	// this will check if you have a school code by email
 	// if it exists, you will be signed in
 	// otherwise, nothing will happen
