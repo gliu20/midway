@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width">
+
+  <title>Settings</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="wrapper preload">
+  <header class="toolbar">
+    <h1 class="title">Settings</h1>
+  </header>
+
+  <section class="content content--max-680px" id="loggedIn">
+    <h2 class="subheader">About</h2>
+    <section class="card">
+      <a class="card-list-item" href="https://chrome.google.com/webstore/detail/midway/cgibedogghadelndgfacffoociffapii">
+        <img src="img/midway-icon.svg" alt="midway app icon" width=50 height=50 />
+        <section class="card-list-item-primary">
+
+          <h2 class="card-title card-title--large">Midway</h2>
+          <p class="card-subtitle">Version <span class="version">3.0.0</span></p>
+
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button open-in-new"></button>
+          </div>
+        </section>
+      </a>
+
+      <!-- Adding links to support site come later in future version -->
+      
+      <a class="card-list-item" href="https://gliu20.github.io/midway/help" target="_blank">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Get help with Midway</h2>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button open-in-new"></button>
+          </div>
+        </section>
+      </a><!--
+      <a class="card-list-item" href="https://gliu20.github.io/midway/issue" target="_blank">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Report an issue</h2>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button open-in-new"></button>
+          </div>
+        </section>
+      </a>-->
+
+
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <p class="card-subtitle">
+            Midway<br> Copyright <span class="year">2019</span> George Liu. All rights reserved.<br><br> Use of this software is governed by the
+            <a href="https://gliu20.github.io/midway/terms" target="_blank">Terms of Service</a>
+            and the
+            <a href="https://gliu20.github.io/midway/privacy" target="_blank">Privacy Policy</a>
+          </p>
+        </section>
+      </section>
+    </section>
+
+
+
+
+    <h2 class="subheader">School</h2>
+    <section class="card">
+      <div class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Current school: <span class="school">none set</span></h2>
+          <p class="card-subtitle">Enter a school code below to change schools</p>
+	  		<p id="schoolCodeError" style="color:red;"></p>
+        </section>
+      </div>
+      <div class="card-list-item" id="schoolCodeWrapper">
+          	<form class="row fluid" id="schoolCodeForm">
+		  		<input class="Input fluid" type="text" placeholder="School Code" name="schoolCode" id="schoolCode"/>
+		  		<input class="Button" style="flex-shrink:0;" type="submit" value="Submit"/>
+		  	</form>
+      </div>
+      
+    </section>
+    
+    <!--<h2 class="subheader">Schedule</h2>
+    <section class="card">
+      <a class="card-list-item" href="schedule.html">
+        <section class="card-list-item-primary">
+
+          <h2 class="card-title">Schedule</h2>
+          <p class="card-subtitle">Add or edit schedule</p>
+
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-right"></button>
+          </div>
+        </section>
+      </a>
+    </section>-->
+    
+    <!--<h2 class="subheader">Appearance</h2>
+    <section class="card">
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Theme</h2>
+          <p class="card-subtitle">Blue</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-right"></button>
+          </div>
+        </section>
+      </section>
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Adjust timebox format</h2>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-right"></button>
+          </div>
+        </section>
+      </section>
+    </section>
+    <h2 class="subheader">Behaviour</h2>
+    <section class="card">
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Timebox location</h2>
+          <p class="card-subtitle">Top left</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-down"></button>
+          </div>
+        </section>
+      </section>
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Notify me</h2>
+          <p class="card-subtitle">5 minutes before the end of the period</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-right"></button>
+          </div>
+        </section>
+      </section>
+    </section>-->
+    <h2 class="subheader">Account</h2>
+    <section class="card">
+      <a class="card-list-item" href="#" id="signOut">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Sign out</h2>
+          <p class="card-subtitle">Log out of your Midway Account</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button arrow-right"></button>
+          </div>
+        </section>
+      </a>
+    </section>
+  </section>
+  <section class="content content--max-680px" style="padding-top:15px;" id="loggedOut">
+    <section class="card" style="text-align:center;">
+      <div class="card-list-item" style="justify-content:center;">
+        <img src="img/midway-icon.svg" alt="midway app icon" width=128 height=128 />
+      </div>
+      <div class="card-list-item">
+      	<div class="column fluid" style="justify-content:center;">
+          	<h2 class="card-title card-title--large">Welcome to Midway!</h2>
+          	<p class="card-subtitle card-subtitle--large">Sign into an account by clicking the extension icon in the browser toolbar.</p>
+        </div>
+      </div>
+      <div class="card-list-item">
+      	<img src="img/midway-sign-in.png" alt="Click the extension icon in the browser toolbar to log in" class="fluid" />
+      </div>
+    </section>
+  </section>
+  <script src="js/enhancements.js"></script>
+  <script src="js/settings-auth.js"></script>
+</body>
+
+</html>
