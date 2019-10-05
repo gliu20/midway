@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width">
+
+  <title>Popup</title>
+  
+  <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/popup.css">
+</head>
+
+<body class="preload">
+
+
+
+<main class="wrapper" id="withSchoolCodeView">
+  <header class="toolbar">
+    <h1 class="title flex" style="font-family:Pacifico,sans-serif;">Midway</h1>
+    <a href="settings.html" target="_blank" class="icon-button settings"></a>
+  </header>
+  <header class="tabs">
+    <button id="schTab" class="flex title title--active button">
+      Schedule
+      <span class="activeBar activeBarLeft"></span>
+    </button>
+    <button id="absTab" class="flex title button">
+      Information
+      <span class="activeBar activeBarRight"></span>
+    </button>
+  </header>
+
+  <section class="row tabs-content">
+    <section class="content page1 currPage">
+    
+    <h2 class="subheader" style="margin:0;padding:0;margin-top:5px;">Timebox</h2>
+    <div class="row fluid">
+    	<button id="toggleTimeBox" class="Button" style="flex-shrink:0;flex:1;justify-content:center;"><span>Show/Hide</span></button>
+    	<button id="rePositionTimeBox" class="Button Button--outline" style="flex-shrink:0;flex:1;justify-content:center;"><span>Reset Position</span></button>
+    </div>
+    
+    
+    <h2 class="subheader">Current period</h2>
+    <section class="card">
+      <section class="card-list-item" id="currPeriodInfo">
+        <section class="card-list-item-primary">
+          <h2 class="card-title card-title--large">Loading...</h2>
+          <h3 class="card-subtitle card-subtitle--large"></h3>
+          <p class="card-subtitle"></p>
+        </section>
+      </section>
+      <!--<a class="card-list-item setup-schedule" target="_blank" href="schedule.html">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Add your schedule</h2>
+          <p class="card-subtitle">Set up your schedule to get personalized schedule reminders, absent teacher alerts, and more.</p>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button open-in-new"></button>
+          </div>
+        </section>
+      </a>-->
+    </section>
+    
+    
+    <h2 class="subheader">Today's schedule</h2>
+    <section class="card">
+      <section class="card-list-item">
+        <section class="card-list-item-primary" id="scheduleDetails">
+          <h2 class="card-title">Loading...</h2>
+          <p class="card-subtitle"></p>
+        </section>
+        <!--
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button edit"></button>
+          </div>
+        </section>-->
+      </section>
+      <div id="schedulePeriods">
+      </div>
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-subtitle">Schedule for <span class="school"></span></h2>
+        </section>
+      </section>
+    </section></section>
+    <section class="content page2"><!--<h2 class="subheader">Your teachers</h2>
+    	<section class="card">
+      	<section class="card-list-item setup-schedule">
+        	<section class="card-list-item-primary">
+        	  <h2 class="card-title">Set up your schedule</h2>
+        	  <p class="card-subtitle">After adding classes to your schedule, you can get automatic notifications when your teacher is absent.</p>
+        	</section>
+        	<section class="card-list-item-secondary">
+        	  <div class="card-icon-actions">
+        	    <button class="icon-button open-in-new"></button>
+        	  </div>
+        	</section>
+      	</section>
+      
+      	<section class="card-list-item">
+        	<section class="card-list-item-primary">
+          	<h2 class="card-title">Your absent teachers</h2>
+        	  <ul class="card-subtitle card-bullet-list">
+        	    <li>J Wagner</li>
+        	    <li>A Wagner</li>
+        	  </ul>
+        	</section>
+      	</section>
+      	
+      	<section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-subtitle">Absent teacher information for <span class="school"></span></h2>
+        </section>
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <button class="icon-button open-in-new"></button>
+          </div>
+        </section>
+      	</section>
+      </section>-->
+      <h2 class="subheader">Announcements</h2>
+      <section class="card">
+      	<div class="card-list-item">
+        	<div class="card-list-item-primary user-content" id="announcements"></div>
+      	</div>
+      </section>
+      
+      <h2 class="subheader">Absent teachers</h2>
+      <section class="card">
+      
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <ul class="card-subtitle card-bullet-list" id="absentTeachers">
+          </ul>
+        </section>
+      </section>
+      
+      <section class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-subtitle">Absent teacher information for <span class="school"></span></h2>
+        </section>
+      </section>
+      </section>
+    </section></section>
+  </section>
+
+  </section>
+</main>
+
+<article id="withoutSchoolCodeView">
+<header class="toolbar">
+    <h1 class="title flex" style="font-family:Pacifico,sans-serif;">Midway</h1>
+    <!--<a href="settings.html" target="_blank" class="icon-button settings"></a>-->
+  </header>
+<section class="content content--max-680px" style="padding-top:15px;">
+
+    <section class="card" style="text-align:center;">
+      <div class="card-list-item" style="justify-content:center;">
+        <img src="img/midway-icon.svg" alt="midway app icon" width=128 height=128 />
+      </div>
+      <div class="card-list-item">
+      	<div class="column fluid" style="justify-content:center;">
+          	<h2 class="card-title card-title--large">Welcome to Midway!</h2>
+          	<p class="card-subtitle card-subtitle--large" id="loginInformation">Sign in with Google <strong>using a school email account</strong>. If your school does not have one, use your personal account.</p>
+	  		<p id="schoolCodeError" style="color:red;"></p>
+        </div>
+      </div>
+      <div class="card-list-item" id="schoolCodeWrapper" style="display:none;">
+          	<form class="row fluid" id="schoolCodeForm">
+		  		<input class="Input fluid" type="text" placeholder="School Code" name="schoolCode" id="schoolCode"/>
+		  		<input class="Button" style="flex-shrink:0;" type="submit" value="Submit"/>
+		  	</form>
+      </div>
+	  <button class="Button Button--text" id="signInWithGoogle">
+		<img class="Icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20px"></img>
+		<span>Sign in with Google</span>
+	  </button>
+    </section>
+    
+    <h2 class="subheader" style="text-align:center;display:block;">By signing in, you have read and agree to the 
+            <a href="https://gliu20.github.io/midway/terms" target="_blank">Terms of Service</a>
+            and the
+            <a href="https://gliu20.github.io/midway/privacy" target="_blank">Privacy Policy</a>.</h2>
+</section>
+</article>
+
+  <script src="js/enhancements.js"></script>
+  <script src="js/popup-tabs.js"></script>
+  <script src="js/popup-auth.js"></script>
+  <script src="js/popup-info.js"></script>
+  <script src="js/popup-timebox.js"></script>
+</html>
