@@ -675,9 +675,64 @@ font:inherit;
 }
 
 .Input--round {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 24px;
+    padding-right: 24px;
     border-radius: 1000px
+}
+
+.Checkbox {
+	position:relative;
+	width:18px;
+	height:18px;
+	overflow:hidden;
+}
+
+.Checkbox:not(:checked):after {
+	content:"";
+	position:absolute;
+	z-index:99;
+	top:0;left:0;
+	width:18px;
+	height:18px;
+	background:#fff;
+    box-shadow: inset #0f5bff 0 0 0 2px;
+}
+
+.Checkbox:checked:after {
+	content:"";
+	position:absolute;
+	z-index:99;
+	top:0;left:0;
+	width:18px;
+	height:18px;
+    box-shadow: inset #0f5bff 0 0 0 2px;
+    border-radius:4px;
+}
+
+.Checkbox:checked:before {
+	content:"";
+	position:absolute;
+	z-index:49;
+	top:0;left:0;
+	border: 3px solid #fff;
+	box-shadow: #0f5bff 0 0 0 20px;
+	background:#0f5bff;
+	width:18px;
+	height:18px;
+	transform:rotate(45deg) translate(-14px,-6px);
+}
+
+.Radio {
+	width:18px;
+	height:18px;
+	background:none;
+	border:0;
+    box-shadow: inset #0f5bff 0 0 0 2px,inset #fff 0 0 0 4px;
+    border-radius:999px;
+}
+
+.active .Radio {
+	background:#0f5bff;
 }
 
 .user-content {

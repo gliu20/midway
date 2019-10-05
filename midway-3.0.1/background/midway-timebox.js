@@ -3,6 +3,8 @@ let timebox = {};
 timebox.x = "0px";
 timebox.y = "0px";
 
+timebox.type = localStorage.getItem('timebox-type') || "default";
+timebox.shouldConstrain = localStorage.getItem('timebox-shouldConstrain') || false;
 timebox.isVisible = true;
 
 timebox.sendMessageToAll = function (mesgObj) {
@@ -10,6 +12,12 @@ timebox.sendMessageToAll = function (mesgObj) {
 		for (var tab of tabs) {
   			chrome.tabs.sendMessage(tab.id, mesgObj);
 		}
+	});
+}
+
+timebox.updateConstrain = function () {
+	timebox.sendMessageToAll({ type: "toContentScript-updateConstrain",
+		shouldConstrain:timebox.shouldConstrain
 	});
 }
 
@@ -32,6 +40,30 @@ timebox.display = function (line1,line2,line3) {
 	});
 }
 
+timebox.displayFormat = function (currPeriod) {
+	var type = timebox.type;
+	if (type === "minsleft") {
+		timebox.display(
+			currPeriod.minsLeft,
+			(currPeriod.periodName || "") + ", " + currPeriod.periodTime.join(" - ")
+		);
+	}
+	else if (type === "compact") {
+		timebox.display(
+			currPeriod.minsLeft.replace(/( |)(mins|min)/g,"m").replace(/until/g,"till"),
+			(currPeriod.periodShortHand || "") + ", " + currPeriod.periodTime.join("-")
+		);
+	}
+	else {
+		// default
+		timebox.display(
+			currPeriod.periodTime.join(" - "),
+			(currPeriod.periodName || "") + ", " + currPeriod.minsLeft
+		);
+	}
+	
+} 
+
 timebox.updateDisplay = async function () {
 	
 	var scheduleObj = await midway.rest.getSchedule() || {patch:[]};
@@ -39,7 +71,14 @@ timebox.updateDisplay = async function () {
 	var currPeriodMinsUntil;
 	var currPeriodMinsLeft;
 	
-	scheduleObj = scheduleObj.patch;
+	scheduleObj = scheduleObj.patch || [];
+			
+	scheduleObj.sort(schedule.sortBy("periodStartTime"));
+	scheduleObj.sort(schedule.sortBy("periodEndTime"));
+			
+	scheduleObj.forEach(function (item) {
+		item.periodShortHand = schedule.shortHand(item.periodName);
+	});
 	
 	currPeriod = schedule.findCurrentPeriod(scheduleObj)
 	
@@ -62,10 +101,9 @@ timebox.updateDisplay = async function () {
 			timebox.show();
 		}
 		
-		timebox.display(
-			currPeriod.periodTime.join(" - "),
-			(currPeriod.periodName || "") + ", " + currPeriod.minsLeft
-		);
+		timebox.displayFormat(currPeriod)
+		
+		
 	}
 	else {
 		timebox.hide();
@@ -89,6 +127,7 @@ chrome.runtime.onMessage.addListener(
 		}
 		else if (request.type === "toBackground-returnPosition") {
 			timebox.updatePosition(timebox.x,timebox.y);
+			timebox.updateConstrain()
 			
 			if (timebox.isVisible) {
 				timebox.show();
@@ -99,6 +138,9 @@ chrome.runtime.onMessage.addListener(
 		}
 		else if (request.type === "toBackground-returnCurrentPeriodInfo") {
 			timebox.updateDisplay();
+		}
+		else if (request.type === "toBackground-returnConstrain") {
+			timebox.updateConstrain();
 		}
 		else if (request.type === "toBackground-hideTimebox") {
 			timebox.hide();
@@ -121,13 +163,39 @@ chrome.runtime.onMessage.addListener(
 		else if (request.type === "toBackground-resetPosition") {
 			timebox.updatePosition(timebox.x = "0px",timebox.y = "0px");
 		}
+		else if (request.type === "toBackground-doConstrainPos") {
+			timebox.shouldConstrain = true;
+			localStorage.setItem('timebox-shouldConstrain',timebox.shouldConstrain);
+			timebox.updateConstrain();
+		}
+		else if (request.type === "toBackground-dontConstrainPos") {
+			timebox.shouldConstrain = false;
+			localStorage.setItem('timebox-shouldConstrain',timebox.shouldConstrain);
+			timebox.updateConstrain();
+		}
+		else if (request.type === "toBackground-storeTimeboxType") {
+			timebox.type = request.format;
+			localStorage.setItem('timebox-type',request.format)
+			timebox.updateDisplay()
+			
+			// update settings just in case
+			chrome.runtime.sendMessage({ type:"toSettings-returnTimeboxType",
+				format:timebox.type 
+			})
+		}
+		else if (request.type === "toBackground-returnTimeboxType") {
+			chrome.runtime.sendMessage({ type:"toSettings-returnTimeboxType",
+				format:timebox.type 
+			})
+		}
 	}
 );
 
 // offset the clock so it runs perfectly each minute
 setTimeout(function () {
 	timebox.updateDisplay()
+	
 	setInterval(function () {
 		timebox.updateDisplay()
-	}, 60000)
-},schedule.nextMinute() - Date.now() + 20)
+	}, 5000)
+},schedule.nextMinute() - Date.now() + 200)

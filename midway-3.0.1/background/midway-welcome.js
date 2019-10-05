@@ -1,4 +1,4 @@
-chrome.runtime.onInstalled.addListener(function(details){
+/*chrome.runtime.onInstalled.addListener(function(details){
 	if (details.reason == "install"){
 		chrome.tabs.create({
 			url:"../welcome.html#welcome"
@@ -11,4 +11,11 @@ chrome.runtime.onInstalled.addListener(function(details){
 			url:"../update.html#welcome"
         })
 	}
-});
+});*/
+
+//setTimeout(async function () {
+
+//alert(midway.auth.getToken() ? "signed in" : "not signed in")
+
+//},200)
+

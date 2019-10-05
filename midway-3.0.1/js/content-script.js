@@ -6,6 +6,7 @@ let timebox = {};
 
 timebox.hasReceivedData = false;
 timebox.shouldShow = false;
+timebox.shouldConstrain = false;
 
 timebox.add = function () {
 
@@ -117,9 +118,9 @@ timebox.show = function () {
 }
 
 timebox.display = function (line1,line2,line3) {
-	document.getElementById("midway-line-1").innerText = line1 || "";
-	document.getElementById("midway-line-2").innerText = line2 || "";
-	document.getElementById("midway-line-3").innerText = line3 || "";
+	document.getElementById("midway-line-1").innerHTML = line1 || "";
+	document.getElementById("midway-line-2").innerHTML = line2 || "";
+	document.getElementById("midway-line-3").innerHTML = line3 || "";
 }
 
 timebox.makeDraggable = function () {
@@ -131,11 +132,16 @@ timebox.makeDraggable = function () {
 	let prevX = 0; 
 	let prevY = 0; 
 	
-	let defer;
 	
 	function setCurrPos (ev) {
 		currX = ev.clientX || ev.touches && ev.touches[0] && ev.touches[0].clientX;
 		currY = ev.clientY || ev.touches && ev.touches[0] && ev.touches[0].clientY;
+		
+		if (currX < 0) { currX = 0; }
+		if (currY < 0) { currY = 0; }
+		
+		if (currY > innerHeight) { currY = innerHeight; }
+		if (currX > innerWidth) { currX = innerWidth; }
 	}
 	
 	function setPrevPos () {
@@ -143,9 +149,34 @@ timebox.makeDraggable = function () {
 		prevY = currY;
 	}
 	
+	function pxToNum (px) {
+		return Number(px.substr(0,px.length - 2));
+	}
+	
+	function constrainPos () {
+		if (pxToNum(ele.style.top) < 0) { ele.style.top = "0px"; }
+		if (pxToNum(ele.style.left) < 0) { ele.style.left = "0px"; }
+		
+		if (pxToNum(ele.style.top) > innerHeight - ele.offsetHeight) { ele.style.top = innerHeight - ele.offsetHeight + "px"; }
+		if (pxToNum(ele.style.left) > innerWidth - ele.offsetWidth) { ele.style.left = innerWidth - ele.offsetWidth + "px"; }
+		
+		chrome.runtime.sendMessage({
+			type:"toBackground-storePosition",
+			
+			x: ele.style.left,
+			y: ele.style.top
+		})
+		
+	}
+	
+	
 	function calculateMove () {
 		ele.style.top = currY - prevY + ele.offsetTop + "px";
 		ele.style.left = currX - prevX + ele.offsetLeft + "px";
+		
+		if (timebox.shouldConstrain) {
+			constrainPos();
+		}
 	}
 	
 	function handleMouseMove (ev) {
@@ -172,17 +203,10 @@ timebox.makeDraggable = function () {
 		document.addEventListener('mousemove',handleMouseMove);
 	})
 	
-	ele.addEventListener('mouseup',function (ev) {
+	document.addEventListener('mouseup',function (ev) {
 		document.removeEventListener('mousemove',handleMouseMove);
 	})
 	
-	document.addEventListener('mouseout',function (ev) {
-		clearTimeout(defer);
-		
-		defer = setTimeout(function () {
-			document.removeEventListener('mousemove',handleMouseMove);
-		},500)
-	})
 	
 	ele.addEventListener('touchstart',function (ev) {
 		
@@ -197,7 +221,7 @@ timebox.makeDraggable = function () {
 		ele.addEventListener('touchmove',handleMouseMove);
 	})
 	
-	ele.addEventListener('touchend',function (ev) {
+	document.addEventListener('touchend',function (ev) {
 	
 		// prevent mouse events from firing and doing default behavior
 		// like scrolling
@@ -206,7 +230,11 @@ timebox.makeDraggable = function () {
 		ele.removeEventListener('touchmove',handleMouseMove);
 	})
 	
-	
+	window.addEventListener('resize',function () {
+		if (timebox.shouldConstrain) {
+			constrainPos();
+		}
+	})
 }
 
 timebox.makeHideable = function () {
@@ -239,12 +267,14 @@ timebox.init = function () {
 	
 	chrome.runtime.sendMessage({ type:"toBackground-returnCurrentPeriodInfo" });
 	chrome.runtime.sendMessage({ type:"toBackground-returnPosition" });
+	chrome.runtime.sendMessage({ type:"toBackground-returnConstrain" });
 }
 
 chrome.runtime.onMessage.addListener(
 	function (request, sender, sendResponse) {
 		if (request.type === "toContentScript-updatePosition") {
 			var ele = document.getElementById("midway-timebox");
+			
 			
 			ele.style.top = request.y;
 			ele.style.left = request.x;
@@ -255,6 +285,10 @@ chrome.runtime.onMessage.addListener(
 			// because it leads to early stopping of timebox dragging
 			// making the timebox budge very little
 			//ele.onmouseup(); 
+		}
+		else if (request.type === "toContentScript-updateConstrain") {
+			timebox.shouldConstrain = request.shouldConstrain;
+			
 		}
 		else if (request.type === "toContentScript-showTimebox") {
 			// hide when no data is available;

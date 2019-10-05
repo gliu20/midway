@@ -22,7 +22,7 @@
         <section class="card-list-item-primary">
 
           <h2 class="card-title card-title--large">Midway</h2>
-          <p class="card-subtitle">Version <span class="version">3.0.0</span></p>
+          <p class="card-subtitle">Version <span class="version">0.0.0</span></p>
 
         </section>
         <section class="card-list-item-secondary">
@@ -68,7 +68,57 @@
       </section>
     </section>
 
-
+	<h2 class="subheader">Timebox</h2>
+    <section class="card">
+      <div class="card-list-item">
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Timebox format</h2>
+          <p class="card-subtitle">Change the format of the timebox information</p>
+        </section>
+      </div>
+      <a href="javascript:;" data-type="default" class="card-list-item timebox-format">
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <div class="Radio"></div>
+          </div>
+        </section>
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Default</h2>
+        </section>
+      </a>
+      <a href="javascript:;" data-type="minsleft" class="card-list-item timebox-format">
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <div class="Radio"></div>
+          </div>
+        </section>
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Mins Left</h2>
+        </section>
+      </a>
+      <a href="javascript:;" data-type="compact" class="card-list-item timebox-format">
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <div class="Radio"></div>
+          </div>
+        </section>
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Compact</h2>
+        </section>
+      </a>
+      <label class="card-list-item">
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <input type="checkbox" class="Checkbox" id="timeboxConstrainPos">
+          </div>
+        </section>
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Constrain timebox position</h2>
+          <p class="card-subtitle">Prevents the timebox from being dragged offscreen</p>
+        </section>
+      </label>
+      
+    </section>
 
 
     <h2 class="subheader">School</h2>
@@ -84,7 +134,7 @@
           	<form class="row fluid" id="schoolCodeForm">
 		  		<input class="Input fluid" type="text" placeholder="School Code" name="schoolCode" id="schoolCode"/>
 		  		<input class="Button" style="flex-shrink:0;" type="submit" value="Submit"/>
-				<input class="Button Button--outline" type="button" value="Reset" id="resetSchoolCode" />
+				<input class="Button Button--outline" style="flex-shrink:0;" type="button" value="Reset" id="resetSchoolCode" />
 		  	</form>
       </div>
       
@@ -189,6 +239,8 @@
   </section>
   <script src="js/enhancements.js"></script>
   <script src="js/settings-auth.js"></script>
+  <script src="js/settings-details.js"></script>
+  <script src="js/settings-timebox.js"></script>
 </body>
 
 </html>

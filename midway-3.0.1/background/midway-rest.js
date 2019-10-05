@@ -513,7 +513,7 @@ chrome.runtime.onMessage.addListener(
 			
 			scheduleObj.sort(schedule.sortBy("periodStartTime"));
 			scheduleObj.sort(schedule.sortBy("periodEndTime"));
-	
+			
 			scheduleObj.forEach(function (item) {
 				item.periodShortHand = schedule.shortHand(item.periodName);
 			});
