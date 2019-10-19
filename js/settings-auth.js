@@ -1,9 +1,11 @@
+document.getElementById("signInWithGoogle").addEventListener("click",function () {
+	chrome.runtime.sendMessage({type: "toBackground-forceSignIn"})
+})
+
 document.getElementById("signOut").addEventListener("click",function () {
 	chrome.runtime.sendMessage({ type:"toBackground-signOut" });
 	
-	// show ui for signed out people
-	document.getElementById("loggedOut").style.display = "";
-	document.getElementById("loggedIn").style.display = "none";
+	notSignedIn();
 })
 
 
@@ -35,6 +37,16 @@ document.getElementById("schoolCodeForm").addEventListener("submit",function (e)
 })
 
 
+function notSignedIn () {
+	document.getElementById("notSignedIn").style.display = "";
+	document.getElementById("signedIn").style.display = "none";
+}
+
+function signedIn () {
+	document.getElementById("notSignedIn").style.display = "none";
+	document.getElementById("signedIn").style.display = "";
+}
+
 function invalidSchoolCode () {
 
 	document.querySelector(".school").innerText = "none set";
@@ -53,12 +65,11 @@ chrome.runtime.onMessage.addListener(
 	async function (request, sender, sendResponse) {
 		if (request.type === "toSettings-returnAuthStatus") {
 			if (request.isSignedIn) {
-				document.getElementById("loggedOut").style.display = "none";
-				document.getElementById("loggedIn").style.display = "";
+				signedIn();
 			}
 			else {
-				document.getElementById("loggedOut").style.display = "";
-				document.getElementById("loggedIn").style.display = "none";
+				// not good
+				notSignedIn()
 			}
 			
 			if (request.hasSchoolCode) {
@@ -82,4 +93,10 @@ chrome.runtime.onMessage.addListener(
 	}
 )
 
-chrome.runtime.sendMessage({ type:"toBackground-checkAuthStatus"  });
+
+
+// check authstatus
+setTimeout(function () {
+	chrome.runtime.sendMessage({ type:"toBackground-checkAuthStatus"  });
+},200)
+

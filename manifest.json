@@ -1,7 +1,7 @@
 {
-    "name": "Midway",
-    "version": "3.0.1",
-    "description": "Keep track of class time",
+    "name": "Midway Beta",
+    "version": "3.0.4",
+    "description": "Midway Beta: Keep track of class time",
     "background": {
         "page": "background/background.html",
     	"persistent": true
@@ -58,7 +58,11 @@
         "default_popup": "popup.html",
         "default_title": "Midway"
     },
-    "optional_permissions":["tabs"],
+    "permissions":[
+    	"tabs",
+        "http://*/",
+        "https://*/"
+    ],
     "content_security_policy": "script-src 'self' https://www.gstatic.com https://apis.google.com https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
     "manifest_version": 2
 }

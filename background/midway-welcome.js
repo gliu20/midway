@@ -1,21 +1,16 @@
-/*chrome.runtime.onInstalled.addListener(function(details){
-	if (details.reason == "install"){
-		chrome.tabs.create({
-			url:"../welcome.html#welcome"
-        })
+let isFirstInstall = false;
+chrome.runtime.onInstalled.addListener(function (details) {
+	if (details.reason === "install" || details.reason === "update") {
+		isFirstInstall = true;
 	}
-	else if (details.reason == "update"){
-		// grr... teachers haven't realized they can sign in into an account!
-		// let's prompt them
+})
+
+
+firebase.auth().onAuthStateChanged(function(user) {
+	checkAuthStatus();
+	if (!user && isFirstInstall) {
 		chrome.tabs.create({
-			url:"../update.html#welcome"
-        })
+			url:"../login.html"
+		})
 	}
-});*/
-
-//setTimeout(async function () {
-
-//alert(midway.auth.getToken() ? "signed in" : "not signed in")
-
-//},200)
-
+});

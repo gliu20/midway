@@ -5,7 +5,7 @@ midway.cache = {};
 midway.handleError = function (errCode,errMesg) {
 	console.warn(errCode,errMesg);
 	
-	errMesg = (errMesg || "")
+	/*errMesg = (errMesg || "")
 		.replace(/The user/g,"You")
 		.replace(/the user/g,"you")
 		.replace(/User/g,"You")
@@ -13,7 +13,7 @@ midway.handleError = function (errCode,errMesg) {
 	
 	if (errMesg) {
 		//alert(errCode + ": " + errMesg);
-	}
+	}*/
 }
 
 // rest api for handling data //////////////////////////////////////////////////
@@ -37,7 +37,7 @@ midway.rest.fetch = function (path,token,options,request) {
 				reject();
 			}
 		}).catch(function(error) {
-			midway.handleError(undefined,error);
+			midway.handleError("fetch/error",error);
 			reject();
 		})
 	});

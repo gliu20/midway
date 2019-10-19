@@ -1,10 +1,11 @@
 let timebox = {};
 
-timebox.x = "0px";
-timebox.y = "0px";
+timebox.x = localStorage.getItem('timebox-xpos') || "0px";
+timebox.y = localStorage.getItem('timebox-ypos') || "0px";
 
-timebox.type = localStorage.getItem('timebox-type') || "default";
-timebox.shouldConstrain = localStorage.getItem('timebox-shouldConstrain') || false;
+timebox.type = localStorage.getItem('timebox-type') || "minsleft";
+timebox.shouldConstrain = (localStorage.getItem('timebox-shouldConstrain') || "true") === "true";
+timebox.shouldShimmer = (localStorage.getItem('timebox-shouldShimmer') || "true") === "true";
 timebox.isVisible = true;
 
 timebox.sendMessageToAll = function (mesgObj) {
@@ -23,15 +24,25 @@ timebox.updateConstrain = function () {
 
 timebox.updatePosition = function (x,y) {
 	timebox.sendMessageToAll({ type: "toContentScript-updatePosition",x,y });
+	
+	localStorage.setItem('timebox-xpos',x);
+	localStorage.setItem('timebox-ypos',y);
 }
 
 timebox.show = function () {
+	timebox.shimmerIfShould();
 	timebox.sendMessageToAll({ type: "toContentScript-showTimebox" });
 }
 
 timebox.hide = function () {
 	timebox.sendMessageToAll({ type: "toContentScript-hideTimebox" });
 }
+
+timebox.shimmerIfShould = function () {
+	timebox.sendMessageToAll({ type:"toContentScript-updateShimmer", shimmer:timebox.shouldShimmer });
+}
+
+
 
 timebox.display = function (line1,line2,line3) {
 	timebox.sendMessageToAll({
@@ -103,10 +114,11 @@ timebox.updateDisplay = async function () {
 		
 		timebox.displayFormat(currPeriod)
 		
-		
+		chrome.runtime.sendMessage({ type: "toPopup-enableTimebox" })
 	}
 	else {
 		timebox.hide();
+		chrome.runtime.sendMessage({ type: "toPopup-disableTimebox" })
 	}
 }
 
@@ -142,6 +154,11 @@ chrome.runtime.onMessage.addListener(
 		else if (request.type === "toBackground-returnConstrain") {
 			timebox.updateConstrain();
 		}
+		else if (request.type === "toBackground-returnShimmer") {
+			chrome.runtime.sendMessage({ type:"toSettings-returnShimmer", 
+				shimmer: timebox.shouldShimmer
+			})
+		}
 		else if (request.type === "toBackground-hideTimebox") {
 			timebox.hide();
 			timebox.isVisible = false;
@@ -173,6 +190,25 @@ chrome.runtime.onMessage.addListener(
 			localStorage.setItem('timebox-shouldConstrain',timebox.shouldConstrain);
 			timebox.updateConstrain();
 		}
+		else if (request.type === "toBackground-enableShimmer") {
+			timebox.shouldShimmer = true;
+			localStorage.setItem('timebox-shouldShimmer',timebox.shouldShimmer);
+			timebox.shimmerIfShould();
+			
+			chrome.runtime.sendMessage({ type:"toSettings-returnShimmer", 
+				shimmer: timebox.shouldShimmer
+			})
+		}
+		else if (request.type === "toBackground-disableShimmer") {
+			timebox.shouldShimmer = false;
+			localStorage.setItem('timebox-shouldShimmer',timebox.shouldShimmer);
+			timebox.shimmerIfShould();
+			
+			
+			chrome.runtime.sendMessage({ type:"toSettings-returnShimmer", 
+				shimmer: timebox.shouldShimmer
+			})
+		}
 		else if (request.type === "toBackground-storeTimeboxType") {
 			timebox.type = request.format;
 			localStorage.setItem('timebox-type',request.format)
@@ -191,11 +227,24 @@ chrome.runtime.onMessage.addListener(
 	}
 );
 
-// offset the clock so it runs perfectly each minute
-setTimeout(function () {
+
+timebox.updateDisplay()
+setInterval(function () {
 	timebox.updateDisplay()
-	
-	setInterval(function () {
-		timebox.updateDisplay()
-	}, 5000)
-},schedule.nextMinute() - Date.now() + 200)
+}, 1000)
+
+
+// push midway to all tabs (just in case)
+chrome.tabs.query( {} ,function (tabs) {
+    for (var i = 0; i < tabs.length; i++) {
+      chrome.tabs.executeScript(tabs[i].id, {file: "js/content-script.js"});
+    }
+});
+setInterval(function () {
+	// push midway to all tabs (just in case)
+	chrome.tabs.query( {} ,function (tabs) {
+	    for (var i = 0; i < tabs.length; i++) {
+	      chrome.tabs.executeScript(tabs[i].id, {file: "js/content-script.js"});
+	    }
+	});
+},5000)

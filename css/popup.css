@@ -68,6 +68,10 @@ html,body {
   margin:0;
 }
 
+.Button.disabled {
+	opacity:0.6;
+}
+
 /*
 
 

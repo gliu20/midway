@@ -1,27 +1,66 @@
-// STATUS:
-// 1. timebox location and visibility persistence works
-// 2. add code to request and display time info works
+
+if (!runCode) {
+// prevent double runs
+let runCode = (function () {
 
 let timebox = {};
+
+// the style.top / style.left values of the timebox
+let timeboxOffsetX = 0;
+	timeboxOffsetY = 0;
 
 timebox.hasReceivedData = false;
 timebox.shouldShow = false;
 timebox.shouldConstrain = false;
 
 timebox.add = function () {
-
+	
+	var dragShield = document.createElement("div");
+	
+	dragShield.style.display = "none";
+	dragShield.style.position = "fixed";
+	dragShield.style.zIndex = "2147483647";
+	dragShield.style.width = "100%";
+	dragShield.style.height = "100%";
+	dragShield.style.top = "0px";
+	dragShield.style.left = "0px";
+	
+	timebox.dragShield = dragShield;
+	
+	document.body.appendChild(dragShield);
+	
 	var e = document.createElement("div");
 	
 	// hide by default to prevent timebox blinking
 	e.style.display = "none";
 	
+	//e.style.transition = "all 0.05s ease-out";
 	e.style.position = "fixed";
 	e.style.zIndex = "2147483647";
 	e.id = "midway-timebox";
 	
 	// load in midway timebox
 	// no need to sanitize here; this is hard-coded input (not user input)
+	
+	// shimmer is for those who take screenshot but don't realize it's
+	// a screenshot (and thus not live)
 	e.innerHTML = `<style>
+		@keyframes shimmer {
+			0% {
+    			background-position-x: 0;
+ 			}
+  			100% {
+    			background-position-x: 999999px;
+  			}
+		}
+		.midway-shimmer #midway-override-all-styles.midway {
+			animation: shimmer 6000s infinite linear!important;
+			background-image: linear-gradient(to right, #296dff 10%, #0f5bff 30%, #296dff 50%)!important;
+		}
+	</style>`;
+		
+	e.innerHTML += `<style>
+		
 		#midway-override-all-styles, #midway-override-all-styles * {
 			all:initial;
 		}
@@ -124,117 +163,160 @@ timebox.display = function (line1,line2,line3) {
 }
 
 timebox.makeDraggable = function () {
-	var ele = document.getElementById("midway-timebox");
+	let ele = document.querySelector("#midway-timebox");
 
-	let currX = 0;
-	let currY = 0;
+let inDrag = false;
 
-	let prevX = 0; 
-	let prevY = 0; 
-	
-	
-	function setCurrPos (ev) {
-		currX = ev.clientX || ev.touches && ev.touches[0] && ev.touches[0].clientX;
-		currY = ev.clientY || ev.touches && ev.touches[0] && ev.touches[0].clientY;
-		
-		if (currX < 0) { currX = 0; }
-		if (currY < 0) { currY = 0; }
-		
-		if (currY > innerHeight) { currY = innerHeight; }
-		if (currX > innerWidth) { currX = innerWidth; }
+// position adjusted to coordinates in the timebox (w/ 0,0 being the to left
+// corner of the timebox)
+let posInTimeboxX = 0,
+	posInTimeboxY = 0;
+
+// mouse/touch position
+let currX = 0,
+	currY = 0;
+
+
+
+let dragDebouncer = false,
+	resizeDebouncer = false;
+
+function debugDrag () {
+	//console.log(`
+	//	inDrag: ${inDrag}
+	//	MouseX: ${currX}
+	//	MouseY: ${currY}
+	//	Adjusted MouseX: ${posInTimeboxX}
+	//	Adjusted MouseY: ${posInTimeboxY}
+	//`)
+}
+
+function constrainPos () {
+	if (timeboxOffsetX < 0) { timeboxOffsetX = 0; }
+	if (timeboxOffsetY < 0) { timeboxOffsetY = 0; }
+	if (timeboxOffsetX > innerWidth - ele.offsetWidth) { 
+		timeboxOffsetX = innerWidth - ele.offsetWidth; 
 	}
-	
-	function setPrevPos () {
-		prevX = currX;
-		prevY = currY;
+	if (timeboxOffsetY > innerHeight - ele.offsetHeight) { 
+		timeboxOffsetY = innerHeight - ele.offsetHeight; 
 	}
+}
+
+function calculateTimeboxPos (ev) {
+	// record mouse/touch position
+	currX = ev.clientX || ev.touches && ev.touches[0] && ev.touches[0].clientX || 0;
+	currY = ev.clientY || ev.touches && ev.touches[0] && ev.touches[0].clientY || 0;
 	
-	function pxToNum (px) {
-		return Number(px.substr(0,px.length - 2));
+	// limit mouse/touch position to only visible portion of screen
+	if (currX < 0) { currX = 0; }
+	if (currY < 0) { currY = 0; }
+	
+	if (currY > innerHeight) { currY = innerHeight; }
+	if (currX > innerWidth) { currX = innerWidth; }
+	
+	// only record the change in mouse position in timebox if not dragging it
+	// (you want the timebox to be in a location such that the posInTimeboxX 
+	// and Y matches w/ when you first had mousedown)
+	if (!inDrag) {
+		posInTimeboxX = currX - ele.offsetLeft;
+		posInTimeboxY = currY - ele.offsetTop;
 	}
-	
-	function constrainPos () {
-		if (pxToNum(ele.style.top) < 0) { ele.style.top = "0px"; }
-		if (pxToNum(ele.style.left) < 0) { ele.style.left = "0px"; }
-		
-		if (pxToNum(ele.style.top) > innerHeight - ele.offsetHeight) { ele.style.top = innerHeight - ele.offsetHeight + "px"; }
-		if (pxToNum(ele.style.left) > innerWidth - ele.offsetWidth) { ele.style.left = innerWidth - ele.offsetWidth + "px"; }
-		
-		chrome.runtime.sendMessage({
-			type:"toBackground-storePosition",
-			
-			x: ele.style.left,
-			y: ele.style.top
-		})
-		
-	}
-	
-	
-	function calculateMove () {
-		ele.style.top = currY - prevY + ele.offsetTop + "px";
-		ele.style.left = currX - prevX + ele.offsetLeft + "px";
+	else {
+		timeboxOffsetX = currX - posInTimeboxX;
+		timeboxOffsetY = currY - posInTimeboxY;
 		
 		if (timebox.shouldConstrain) {
 			constrainPos();
 		}
 	}
+}
+
+function updateTimeboxPos () {// save move results
+	// wait for browser to tell me to move instead of moving on my own
+	// this means no race conditions
+	ele.style.left = timeboxOffsetX + "px";
+	ele.style.top = timeboxOffsetY + "px";
+	chrome.runtime.sendMessage({
+		type: "toBackground-storePosition",
+		x: timeboxOffsetX +"px",
+		y: timeboxOffsetY +"px"
+	})
+}
+
+function handleDrag (ev) {
+
+	if (dragDebouncer)
+		return;
 	
-	function handleMouseMove (ev) {
-		setCurrPos(ev);
-		calculateMove();
+	dragDebouncer = true;
+	
+	// ensure it is not over running for performance
+	requestAnimationFrame(function () {
+		calculateTimeboxPos(ev);
 		
-		// save move results
-		chrome.runtime.sendMessage({
-			type:"toBackground-storePosition",
+		// only update position if dragging
+		if (inDrag) {
+			updateTimeboxPos();
 			
-			x: ele.style.left,
-			y: ele.style.top
-		})
+			if (timebox.dragShield.style.display !== "") {
+				timebox.dragShield.style.display = "";
+			}
+		}
+		else {
+			if (timebox.dragShield.style.display !== "none") {
+				timebox.dragShield.style.display = "none";
+			}
+		}
 		
-		setPrevPos();
-	}
-	
-	ele.addEventListener('mousedown',function (ev) {
-	
-		// update prevPos with current position
-		setCurrPos(ev);
-		setPrevPos();
+		debugDrag();
 		
-		document.addEventListener('mousemove',handleMouseMove);
-	})
+		dragDebouncer = false;
+	});
+} 
+
+function startDrag (ev) {
+	ev.preventDefault();
+	// first record cursor position info
+	inDrag = false;
+	calculateTimeboxPos(ev);
 	
-	document.addEventListener('mouseup',function (ev) {
-		document.removeEventListener('mousemove',handleMouseMove);
-	})
-	
-	
-	ele.addEventListener('touchstart',function (ev) {
-		
-		// prevent mouse events from firing and doing default behavior
-		// like scrolling
-		ev.preventDefault();
-		
-		// update prevPos with current position
-		setCurrPos(ev);
-		setPrevPos();
-		
-		ele.addEventListener('touchmove',handleMouseMove);
-	})
-	
-	document.addEventListener('touchend',function (ev) {
-	
-		// prevent mouse events from firing and doing default behavior
-		// like scrolling
-		ev.preventDefault();
-	
-		ele.removeEventListener('touchmove',handleMouseMove);
-	})
+	// now let dragging do its thing
+	inDrag = true;
+	debugDrag();
+}
+
+function endDrag (ev) {
+	inDrag = false;
+	debugDrag();
+}
+
+function attachListeners () {
+	document.addEventListener("mousemove",handleDrag);
+	document.addEventListener("touchmove",handleDrag, { passive: true });
+
+	ele.addEventListener("mousedown",startDrag);
+	ele.addEventListener("touchstart",startDrag);
+
+	document.addEventListener("mouseup",endDrag);
+	document.addEventListener("touchend",endDrag, { passive: true });
 	
 	window.addEventListener('resize',function () {
-		if (timebox.shouldConstrain) {
-			constrainPos();
-		}
+		if (resizeDebouncer)
+			return;
+	
+		resizeDebouncer = true;
+		
+		requestAnimationFrame(function () {
+			if (timebox.shouldConstrain) {
+				constrainPos();
+				updateTimeboxPos();
+			}
+			resizeDebouncer = false;
+		})
 	})
+}
+
+attachListeners();
 }
 
 timebox.makeHideable = function () {
@@ -275,6 +357,9 @@ chrome.runtime.onMessage.addListener(
 		if (request.type === "toContentScript-updatePosition") {
 			var ele = document.getElementById("midway-timebox");
 			
+			
+			timeboxOffsetX = request.x;
+			timeboxOffsetY = request.y;
 			
 			ele.style.top = request.y;
 			ele.style.left = request.x;
@@ -318,13 +403,35 @@ chrome.runtime.onMessage.addListener(
 				timebox.show();
 			}
 		}
+		else if (request.type === "toContentScript-updateShimmer") {
+			var ele = document.getElementById("midway-timebox");
+			
+			if (request.shimmer) {
+				ele.className = "midway-shimmer";
+			}
+			else {
+				ele.className = "";
+			}
+		}
 	}
 );
 
 timebox.init();
 
 
+})
 
 
+if (document.readyState === "complete" || document.readyState === "interactive") {
 
+	runCode();
+}
+else {
+	window.addEventListener("load",function () {
+
+		runCode();
+	})
+}
+
+}
 

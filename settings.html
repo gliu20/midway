@@ -13,8 +13,41 @@
   <header class="toolbar">
     <h1 class="title">Settings</h1>
   </header>
+  <section class="content content--max-680px" style="margin-top:16px;display:none;" id="notSignedIn">
+    <section class="card fluid" style="text-align:center;">
 
-  <section class="content content--max-680px" id="loggedIn">
+
+      <div class="card-list-item" style="justify-content:center;">
+        <img src="img/midway-icon.svg" alt="midway app icon" width=128 height=128 />
+      </div>
+      <div class="card-list-item">
+      	<div class="column fluid" style="justify-content:center;">
+          	<h2 class="card-title card-title--large">Welcome to Midway!</h2>
+          	<p class="card-subtitle card-subtitle--large" id="loginInformation">Sign in with Google <strong>using a school email account</strong>. If your school does not have one, use your personal account.</p>
+	  
+        </div>
+      </div>
+	  <div class="card-list-item" style="padding:0;">
+      	<div class="row fluid" style="justify-content:center;padding:0;">
+      		<button class="Button Button--text" id="signInWithGoogle">
+				<img class="Icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20px"></img>
+				<span>Sign in with Google</span>
+	  		</button>
+      	</div>
+      </div>
+	  
+	  <div class="card-list-item" style="justify-content:center;">
+			<h2 class="subheader" style="text-align:center;display:block;margin:0;padding-top:0;">By signing in, you have read and agree to the 
+            <a href="https://gliu20.github.io/midway/terms" target="_blank">Terms of Service</a>
+            and the
+            <a href="https://gliu20.github.io/midway/privacy" target="_blank">Privacy Policy</a>.</h2>
+    	</div>
+    
+
+    	  	
+    	</section>
+  </section>
+  <section class="content content--max-680px" id="signedIn">
     <h2 class="subheader">About</h2>
     <section class="card">
       <a class="card-list-item" href="https://chrome.google.com/webstore/detail/midway/cgibedogghadelndgfacffoociffapii">
@@ -115,6 +148,17 @@
         <section class="card-list-item-primary">
           <h2 class="card-title">Constrain timebox position</h2>
           <p class="card-subtitle">Prevents the timebox from being dragged offscreen</p>
+        </section>
+      </label>
+      <label class="card-list-item">
+        <section class="card-list-item-secondary">
+          <div class="card-icon-actions">
+            <input type="checkbox" class="Checkbox" id="timeboxShimmer">
+          </div>
+        </section>
+        <section class="card-list-item-primary">
+          <h2 class="card-title">Timebox shimmer</h2>
+          <p class="card-subtitle">Quickly differentiate between a SMART board "pause" vs the actual live timebox by adding a moving gradient to the timebox</p>
         </section>
       </label>
       
@@ -221,26 +265,11 @@
       </a>
     </section>
   </section>
-  <section class="content content--max-680px" style="padding-top:15px;" id="loggedOut">
-    <section class="card" style="text-align:center;">
-      <div class="card-list-item" style="justify-content:center;">
-        <img src="img/midway-icon.svg" alt="midway app icon" width=128 height=128 />
-      </div>
-      <div class="card-list-item">
-      	<div class="column fluid" style="justify-content:center;">
-          	<h2 class="card-title card-title--large">Welcome to Midway!</h2>
-          	<p class="card-subtitle card-subtitle--large">Sign into an account by clicking the extension icon in the browser toolbar.</p>
-        </div>
-      </div>
-      <div class="card-list-item">
-      	<img src="img/midway-sign-in.png" alt="Click the extension icon in the browser toolbar to log in" class="fluid" />
-      </div>
-    </section>
-  </section>
   <script src="js/enhancements.js"></script>
   <script src="js/settings-auth.js"></script>
   <script src="js/settings-details.js"></script>
   <script src="js/settings-timebox.js"></script>
+  <script src="js/content-script.js"></script>
 </body>
 
 </html>

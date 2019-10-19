@@ -10,6 +10,16 @@ document.getElementById("timeboxConstrainPos").addEventListener("change",functio
 	
 })
 
+document.getElementById("timeboxShimmer").addEventListener("change",function (e) {
+	if (document.getElementById("timeboxShimmer").checked) {
+		chrome.runtime.sendMessage({ type:"toBackground-enableShimmer" });
+	}
+	else {
+		chrome.runtime.sendMessage({ type:"toBackground-disableShimmer" });
+	}
+	
+})
+
 document.querySelectorAll(".timebox-format").forEach(function (ele) {
 	ele.addEventListener("click",function () {
 		chrome.runtime.sendMessage({ type:"toBackground-storeTimeboxType",
@@ -24,8 +34,7 @@ document.querySelectorAll(".timebox-format").forEach(function (ele) {
 	})
 })
 
-chrome.runtime.sendMessage({ type:"toBackground-returnConstrain" });
-chrome.runtime.sendMessage({ type:"toBackground-returnTimeboxType" });
+
 
 chrome.runtime.onMessage.addListener(
 	function (request, sender, sendResponse) {
@@ -43,7 +52,20 @@ chrome.runtime.onMessage.addListener(
 			})
 
 		}
+		else if (request.type === "toSettings-returnShimmer") {
+			document.getElementById("timeboxShimmer").checked = request.shimmer;
+			
+		}
 	}
 );
 
 
+chrome.runtime.sendMessage({ type:"toBackground-returnConstrain" });
+chrome.runtime.sendMessage({ type:"toBackground-returnTimeboxType" });
+chrome.runtime.sendMessage({ type:"toBackground-returnShimmer" });
+
+setTimeout(function () {
+	chrome.runtime.sendMessage({ type:"toBackground-returnConstrain" });
+	chrome.runtime.sendMessage({ type:"toBackground-returnTimeboxType" });
+	chrome.runtime.sendMessage({ type:"toBackground-returnShimmer" });
+},200)
