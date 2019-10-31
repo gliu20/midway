@@ -1,5 +1,4 @@
 
-if (!runCode) {
 // prevent double runs
 let runCode = (function () {
 
@@ -352,14 +351,18 @@ timebox.init = function () {
 	chrome.runtime.sendMessage({ type:"toBackground-returnConstrain" });
 }
 
+function pxToNum (px) {
+		return Number(px.substr(0,px.length - 2));
+	}
+
 chrome.runtime.onMessage.addListener(
 	function (request, sender, sendResponse) {
 		if (request.type === "toContentScript-updatePosition") {
 			var ele = document.getElementById("midway-timebox");
 			
 			
-			timeboxOffsetX = request.x;
-			timeboxOffsetY = request.y;
+			timeboxOffsetX = pxToNum(request.x);
+			timeboxOffsetY = pxToNum(request.y);
 			
 			ele.style.top = request.y;
 			ele.style.left = request.x;
@@ -433,5 +436,5 @@ else {
 	})
 }
 
-}
+
 

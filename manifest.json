@@ -1,7 +1,7 @@
 {
-    "name": "Midway Beta",
+    "name": "Midway",
     "version": "3.0.4",
-    "description": "Midway Beta: Keep track of class time",
+    "description": "Keep track of class time",
     "background": {
         "page": "background/background.html",
     	"persistent": true
@@ -63,6 +63,7 @@
         "http://*/",
         "https://*/"
     ],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAha06FvNqDlK8F6jKJlaFz71D2F6JrYddLmdNQfTPZ/nrIGqn+GCVWsur4bo2TR9IMGX6ybl+9dicrIRWK/TWH2j3w+/oAFtAUy7bnxHRDTdGbDzehNmT2PoECxedxaD+cf88W3YCNsgQY9yyyOGvnRb11dk14MHdUGejBlmnKGxPt0xVnOwHxvk4k6LHPWZLwVF7rH+X/Bo1Cc6SyGcY/gSD8CTvK+QPhMlfH0Z4vjvPL5Z1NE+bvrvaMLbe9u19IPgX12Khu5JK8NxLPjOCtcnyEHD7/V2rQWTDdp0krkswazphJs7xjmFEIXovTqQe+sdPg47z3/U1XjqVhC11IQIDAQAB",
     "content_security_policy": "script-src 'self' https://www.gstatic.com https://apis.google.com https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
     "manifest_version": 2
 }
