@@ -1,4 +1,5 @@
-https://midway.web.app
+<a href='https://midway.web.app'>Link to the Midway Chrome extension</a>
+
 
 # Midway
 Never end your class midway through the lesson ever again.
