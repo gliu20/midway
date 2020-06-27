@@ -12,4 +12,5 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  
+  //firebase.analytics(); //don't run analytics in respecting privacy
