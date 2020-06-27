@@ -8,6 +8,8 @@ cache.set = function (key, value) {
         timestamp: Date.now(),
         data: value
     }
+
+    return value;
 }
 
 cache.get = function (key) {
