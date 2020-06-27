@@ -2,20 +2,25 @@ const fetchLookup = {
     absentTeachers: ({schoolId}) => `schools/${schoolId}/absentTeachers`,
     announcements: ({schoolId}) => `schools/${schoolId}/announcements`,
     schoolSchedule: ({schoolId,dateString}) => `schools/${schoolId}/schoolSchedule/${dateString}`,
-    updateInterval: ({schoolId}) => `schools/${schoolId}/updateInterval`,
-    schoolCode: ({userId}) => `users/${user.uid}/schoolCode`
+    schoolCode: ({userId}) => `users/${userId}/schoolCode`,
+    $lastUpdated: ({schoolId}) => `schools/${schoolId}/lastUpdated`
 };
 
 midway.fetch = async function (type,identifiers,idToken,{urlParams,requestOptions}) {
+
+    if (type.charAt(0) === "$") {
+        return new Error ("Fetch should not be used to obtain special/non-cachable values");
+    }
 
     // check cache
     const cachedData = cache.get(type);
 
     if (cachedData.success) {
-        // skip fetch if recent cached data is found
         return cachedData.data;
     }
 
+    // cache missed
+    // now we need to figure out if we should update
     const fetchPath = fetchLookup[type](identifiers);
     const fullUrl = [
         firebaseConfig.databaseURL,
