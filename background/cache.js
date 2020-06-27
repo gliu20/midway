@@ -3,6 +3,10 @@ const cache = {};
 cache.storage = {};
 cache.maxAge = 24 * 60 * 60 * 1000; // 1 day
 
+cache.clear = function () {
+    return cache.storage = {};
+}
+
 cache.set = function (key, value) {
     cache.storage[key] = {
         timestamp: Date.now(),
