@@ -27,7 +27,8 @@ midway.fetch = async function (type,identifiers,idToken,{urlParams,requestOption
         .then(response => {
             if (!response.ok) { throw new Error (response.statusText) }
             return response;
-        });
+        })
+        .then(response => response.json());
 
     // update cache
     cache.set(type,data);
