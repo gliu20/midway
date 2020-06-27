@@ -1,4 +1,5 @@
 # Stuff to be re-done in v4
+
 ## Timebox
 
 ### States
@@ -25,3 +26,7 @@
     if not use school code provided by email, 
     if not available ask for school code
 
+## Scheduling Service
+ * find current period(s)
+ * display special shorthand
+ * (optional) add patches for user schedules
