@@ -22,12 +22,8 @@ midway.fetch = async function (type,identifiers,idToken,{urlParams,requestOption
     // cache missed
     // now we need to figure out if we should update
     const fetchPath = fetchLookup[type](identifiers);
-    const fullUrl = [
-        firebaseConfig.databaseURL,
-        `/${fetchPath}`,
-        `.json?auth=${idToken}`,
-        urlParams ? `&${urlParams}` : ""
-    ].join("");
+    const urlParams = urlParams ? `&${urlParams}` : "";
+    const fullUrl = `${firebaseConfig.databaseURL}/${fetchPath}.json?auth=${idToken}${urlParams}`;
 
     const data = fetch(fullUrl, requestOptions)
         .then(response => {
