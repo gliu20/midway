@@ -1,6 +1,6 @@
 {
     "name": "Midway",
-    "version": "3.0.4",
+    "version": "4.0.0",
     "description": "Keep track of class time",
     "background": {
         "page": "background/background.html",
