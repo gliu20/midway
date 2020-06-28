@@ -11,14 +11,16 @@ midway.auth.signInWithWeb = async function () {
     // authentication will use website to sign in
 
     // now we should have received a refresh token
-    midway.auth.user.refreshToken = refreshToken;
+    return midway.auth.user.refreshToken = refreshToken;
 }
 
 midway.auth.signInWithPopup = async function () {
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    return firebase.auth().signInWithPopup(provider)
-        .then((result) => midway.auth.user.refreshToken = result.user.refreshToken )
+    const refreshToken = await firebase.auth().signInWithPopup(provider)
+        .then((result) => result.user.refreshToken );
+
+    return midway.auth.user.refreshToken = refreshToken;
 }
 
 // convert refresh token to id token
