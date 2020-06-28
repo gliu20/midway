@@ -25,6 +25,11 @@ midway.auth.signInWithPopup = async function () {
 midway.auth.getIdToken = async function () {
 
     const refreshToken = midway.auth.user.refreshToken;
+
+    if (!refreshToken) {
+        throw new Error ("To generate an id token, you must supply a refresh token.");
+    }
+
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
     const tokenRequestUrl = `https://securetoken.googleapis.com/v1/token?key=${firebaseConfig.apiKey}`;
     const tokenRequestOptions = {
@@ -60,7 +65,7 @@ midway._secondsToMillis = (seconds) => seconds * 1000;
 
 ///////////////////////// PART 2: SCHOOL CODE AUTH //////////////////////////
 // assuming that sign in process worked, we now have an id token
-
+midway.auth
 
 
 
