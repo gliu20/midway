@@ -1,6 +1,6 @@
 
   // Your web app's Firebase configuration
-  var firebaseConfig = {
+  const firebaseConfig = {
     apiKey: "AIzaSyBNCdvM5pzkiSuHKGOolx0HuFgM2VBWITU",
     authDomain: "midway-application.firebaseapp.com",
     databaseURL: "https://midway-application.firebaseio.com",
