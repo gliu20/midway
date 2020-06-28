@@ -44,13 +44,16 @@ midway.auth.getIdToken = async function () {
 
     const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
 
+    if (data.hasOwnProperty(error)) {
+        throw new Error (data.error.message);
+    }
+
     // data.expires_in (seconds)
+    midway.auth.user.id = data.user_id;
     midway.auth.user.idToken = data.id_token;
     midway.auth.user.expirationDate = midway._secondsToMillis(data.expires_in) + Date.now();
 
     return data.id_token;
-
-    // TODO error handling
 }
 
 // gets new id token only if necessary
@@ -63,11 +66,31 @@ midway.auth.autoGetIdToken = async function () {
     return midway.auth.getIdToken()
 }
 
+// gets information like the user's email
+midway.auth.getUserDetails = async function () {
+    // refer to https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
+}
+
 midway._secondsToMillis = (seconds) => seconds * 1000;
 
 ///////////////////////// PART 2: SCHOOL CODE AUTH //////////////////////////
 // assuming that sign in process worked, we now have an id token
-midway.auth
+
+midway.auth.getSchoolCodeFromStorage = async function () {
+    const userId = midway.auth.user.id;
+    const idToken = midway.auth.user.idToken;
+
+    const schoolCode = await midway.fetch.fromCache("schoolCode",userId,idToken);
+
+    return schoolCode;
+}
+
+midway.auth.getSchoolCodeFromEmail = async function () {
+    const userId = midway.auth.user.id;
+    const idToken = midway.auth.user.idToken;
+
+    // process won't work w/o email
+}
 
 
 
