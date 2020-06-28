@@ -29,7 +29,7 @@ midway.fetch.fromDatabase = async function (type, identifiers, idToken, { urlPar
 midway.fetch.fromCache = async function (type, identifiers, idToken, { urlParams, requestOptions }) {
 
     if (type.charAt(0) === "$") {
-        return new Error("cachedFetch should not be used to obtain special/non-cachable values");
+        throw new Error("cachedFetch should not be used to obtain special/non-cachable values");
     }
 
     // check cache
