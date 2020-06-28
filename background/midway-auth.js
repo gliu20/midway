@@ -1,6 +1,6 @@
 
 midway.auth = {};
-midway.auth.user = { isSignedIn: false };
+midway.auth.user = {};
 
 ///////////////////////// PART 1: GENERAL SIGN-IN ///////////////////////////
 midway.auth.signInWithWeb = async function () {
@@ -8,7 +8,6 @@ midway.auth.signInWithWeb = async function () {
 
     // now we should have received a refresh token
     midway.auth.user.refreshToken = refreshToken;
-    midway.auth.user.isSignedIn = true;
 }
 
 midway.auth.signInWithPopup = async function () {
@@ -32,10 +31,26 @@ midway.auth.getIdToken = async function (refreshToken) {
 
     const data = await midway.fetch.fetch(tokenRequestUrl,tokenRequestOptions);
 
+    // data.expires_in (seconds)
+    midway.auth.user.idToken = data.id_token;
+    midway.auth.user.expirationDate = midway._secondsToMillis(data.expires_in) + Date.now();
+
     return data.id_token;
 
     // TODO error handling
 }
+
+// gets new id token only if necessary
+midway.auth.autoGetIdToken = async function (refreshToken) {
+    if (midway.auth.user.expirationDate &&
+        midway.auth.user.expirationDate > Date.now()) {
+        return midway.auth.user.idToken;
+    }
+    
+    return midway.auth.getIdToken()
+}
+
+midway._secondsToMillis = (seconds) => seconds * 1000;
 
 ///////////////////////// PART 2: SCHOOL CODE AUTH //////////////////////////
 // assuming that sign in process worked
