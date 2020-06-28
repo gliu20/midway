@@ -5,7 +5,8 @@ midway.fetch.fetchLookup = {
     announcements: ({ schoolId }) => `schools/${schoolId}/announcements`,
     schoolSchedule: ({ schoolId, dateString }) => `schools/${schoolId}/schoolSchedule/${dateString}`,
     schoolCode: ({ userId }) => `users/${userId}/schoolCode`,
-    $lastUpdated: ({ schoolId }) => `schools/${schoolId}/lastUpdated`
+    $lastUpdated: ({ schoolId }) => `schools/${schoolId}/lastUpdated`,
+    $clock: () => `util/time`
 };
 
 midway.fetch.fetch = async function (url, requestOptions) {
