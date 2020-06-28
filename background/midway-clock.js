@@ -22,6 +22,9 @@ midway.clock.getSkew = async function () {
     // due to limited access to performance of requests
     // we will not account for network latency
 
+    if (midway.clock.hasOwnProperty("skew")) {
+        return midway.clock.skew
+    }
     // ensure id token is in memory before running time sensitive operations
     await midway.auth.autoGetIdToken();
 
@@ -29,5 +32,15 @@ midway.clock.getSkew = async function () {
     const clientEndTime = Date.now();
     const averageOneWayLatency = 35;
 
-    return Math.max(clientEndTime - serverTime - averageOneWayLatency, 0);
+    const skew = clientEndTime - serverTime - averageOneWayLatency;
+
+    return midway.clock.skew = skew;
+}
+
+midway.clock.now = function () {
+    if (!midway.clock.hasOwnProperty("skew")) {
+        throw new Error("Clock skew not available. Please run getSkew.")
+    }
+
+    return Date.now() + midway.clock.skew;
 }
