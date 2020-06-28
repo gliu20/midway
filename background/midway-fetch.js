@@ -31,12 +31,14 @@ midway.fetch.fromDatabase = async function (type, identifiers, idToken, { urlPar
 
 midway.fetch.fromCache = async function (type, identifiers, idToken, { urlParams, requestOptions }) {
 
+    const cacheId = midway.fetch.generateCacheId(type,identifiers);
+
     if (type.charAt(0) === "$") {
         throw new Error("cachedFetch should not be used to obtain special/non-cachable values");
     }
 
     // check cache
-    const cachedData = cache.get(type);
+    const cachedData = cache.get(cacheId);
 
     if (cachedData.success) {
         // cache age is appropriate and available, so return cached data
@@ -47,6 +49,12 @@ midway.fetch.fromCache = async function (type, identifiers, idToken, { urlParams
     const data = midway.fetch.fromDatabase(type, identifiers, idToken, { urlParams, requestOptions });
 
     // update cache and return data
-    return cache.set(type, data);
+    return cache.set(cacheId, data);
 
+}
+
+midway.fetch.generateCacheId = (type,identifiers) => {
+    const identifiersStr = JSON.stringify(identifiers);
+    
+    return type + encodeURIComponent(identifiersStr);
 }
