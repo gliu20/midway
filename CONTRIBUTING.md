@@ -10,3 +10,4 @@ Midway consists of several pieces:
 * Welcome/Update page (showing user how to sign in and display what midway does)
 
 ## Reporting Bugs
+Feel free to post issues on the [Github issue tracker](https://github.com/gliu20/midway/issues)
