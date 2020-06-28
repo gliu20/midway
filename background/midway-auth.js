@@ -3,6 +3,10 @@ midway.auth = {};
 midway.auth.user = {};
 
 ///////////////////////// PART 1: GENERAL SIGN-IN ///////////////////////////
+midway.auth.isSignedIn = function () {
+    return !!midway.auth.user.refreshToken;
+}
+
 midway.auth.signInWithWeb = async function () {
     // authentication will use website to sign in
 
@@ -17,8 +21,10 @@ midway.auth.signInWithPopup = async function () {
         .then((result) => { result.user.refreshToken })
 }
 
-midway.auth.getIdToken = async function (refreshToken) {
-    // convert refresh token to id token
+// convert refresh token to id token
+midway.auth.getIdToken = async function () {
+
+    const refreshToken = midway.auth.user.refreshToken;
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
     const tokenRequestUrl = `https://securetoken.googleapis.com/v1/token?key=${firebaseConfig.apiKey}`;
     const tokenRequestOptions = {
@@ -29,7 +35,7 @@ midway.auth.getIdToken = async function (refreshToken) {
         body: `grant_type=refresh_token&refresh_token=${refreshToken}`
     }
 
-    const data = await midway.fetch.fetch(tokenRequestUrl,tokenRequestOptions);
+    const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
 
     // data.expires_in (seconds)
     midway.auth.user.idToken = data.id_token;
@@ -41,19 +47,21 @@ midway.auth.getIdToken = async function (refreshToken) {
 }
 
 // gets new id token only if necessary
-midway.auth.autoGetIdToken = async function (refreshToken) {
+midway.auth.autoGetIdToken = async function () {
     if (midway.auth.user.expirationDate &&
         midway.auth.user.expirationDate > Date.now()) {
         return midway.auth.user.idToken;
     }
-    
+
     return midway.auth.getIdToken()
 }
 
 midway._secondsToMillis = (seconds) => seconds * 1000;
 
 ///////////////////////// PART 2: SCHOOL CODE AUTH //////////////////////////
-// assuming that sign in process worked
+// assuming that sign in process worked, we now have an id token
+
+
 
 
 
