@@ -5,6 +5,7 @@ midway.fetch.fetchLookup = {
     announcements: ({ schoolId }) => `schools/${schoolId}/announcements`,
     schoolSchedule: ({ schoolId, dateString }) => `schools/${schoolId}/schoolSchedule/${dateString}`,
     schoolCode: ({ userId }) => `users/${userId}/schoolCode`,
+    emailLookup: ({ schoolDomain }) => `emailLookup/${schoolDomain}`,
     $lastUpdated: ({ schoolId }) => `schools/${schoolId}/lastUpdated`,
     $clock: () => `util/time`
 };

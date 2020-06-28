@@ -125,8 +125,6 @@ midway.auth.getSchoolCodesFromEmail = async function () {
     const {email} = await midway.auth.getUserDetails();
 
     const domain = midway.auth.getDomainFromEmail(email);
-	
-	var schoolCodeUrl = "emailLookup/" + domain;
 }
 
 midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g,"%25");
