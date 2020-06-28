@@ -20,8 +20,9 @@ midway.fetch.fetch = async function (url, requestOptions) {
 
 midway.fetch.fromDatabase = async function (type, identifiers, idToken, { urlParams, requestOptions }) {
 
+    urlParams = urlParams ? `&${urlParams}` : "";
+
     const fetchPath = fetchLookup[type](identifiers);
-    const urlParams = urlParams ? `&${urlParams}` : "";
     const fullUrl = `${firebaseConfig.databaseURL}/${fetchPath}.json?auth=${idToken}${urlParams}`;
 
     return midway.fetch.fetch(fullUrl, requestOptions);
