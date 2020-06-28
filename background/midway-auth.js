@@ -2,6 +2,9 @@
 midway.auth = {};
 midway.auth.user = {};
 
+// TODO standardize when id token needs to be obtained 
+// manually and when it is autotomatically retrieved
+
 ///////////////////////// PART 1: GENERAL SIGN-IN ///////////////////////////
 midway.auth.isSignedIn = function () {
     return !!midway.auth.user.refreshToken;
@@ -58,8 +61,11 @@ midway.auth.getIdToken = async function () {
 
 // gets new id token only if necessary
 midway.auth.autoGetIdToken = async function () {
-    if (midway.auth.user.expirationDate &&
-        midway.auth.user.expirationDate > Date.now()) {
+    const expirationDate = midway.auth.user.expirationDate;
+    const timeBuffer = 5;// allow 5 seconds of leeway for id token to expire
+
+    if (expirationDate &&
+        expirationDate - timeBuffer > Date.now()) {
         return midway.auth.user.idToken;
     }
 
@@ -76,8 +82,8 @@ midway.auth.getUserDetails = async function () {
     }
 
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
-    const tokenRequestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`;
-    const tokenRequestOptions = {
+    const requestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`;
+    const requestOptions = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -85,11 +91,20 @@ midway.auth.getUserDetails = async function () {
         body: JSON.stringify({ idToken })
     }
 
-    const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
+    const data = await midway.fetch.fetch(requestUrl, requestOptions);
 
     if (data.hasOwnProperty("error")) {
         throw new Error(data.error.message);
     }
+
+    midway.auth.user.email = data[0].email;
+    midway.auth.user.emailVerified = data[0].emailVerified;
+    midway.auth.user.displayName = data[0].displayName;
+    midway.auth.user.disabled = data[0].disabled;
+    midway.auth.user.createdAt = data[0].createdAt;
+    midway.auth.user.lastLoginAt = data[0].lastLoginAt;
+
+    return midway.auth.user;
 }
 
 midway._secondsToMillis = (seconds) => seconds * 1000;
@@ -106,12 +121,15 @@ midway.auth.getSchoolCodeFromStorage = async function () {
     return schoolCode;
 }
 
-midway.auth.getSchoolCodeFromEmail = async function () {
-    const userId = midway.auth.user.id;
-    const idToken = midway.auth.user.idToken;
+midway.auth.getSchoolCodesFromEmail = async function () {
+    const {email} = await midway.auth.getUserDetails();
 
-    // process won't work w/o email
+    const domain = midway.auth.getDomainFromEmail(email);
+	
+	var schoolCodeUrl = "emailLookup/" + domain;
 }
+
+midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g,"%25");
 
 
 
