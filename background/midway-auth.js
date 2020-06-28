@@ -124,7 +124,12 @@ midway.auth.getSchoolCodeFromStorage = async function () {
 midway.auth.getSchoolCodesFromEmail = async function () {
     const {email} = await midway.auth.getUserDetails();
 
-    const domain = midway.auth.getDomainFromEmail(email);
+    const idToken = midway.auth.user.idToken;
+    const schoolDomain = midway.auth.getDomainFromEmail(email);
+
+    const schoolCodes = await midway.fetch.fromCache("emailLookup",{schoolDomain},idToken);
+
+    return schoolCodes;
 }
 
 midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g,"%25");
