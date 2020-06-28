@@ -133,8 +133,3 @@ midway.auth.getSchoolCodesFromEmail = async function () {
 }
 
 midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g,"%25");
-
-
-
-
-///////////////////////// PART 3: USE UPDATE INTERVAL ///////////////////////

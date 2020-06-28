@@ -20,13 +20,13 @@
  * show different displays depending on preferences
 
 
-## Authentication Flow
+## Authentication Flow | DONE
  1. Check if authenticated, if not authenticate
  2. Check if school code is registered, 
     if not use school code provided by email, 
     if not available ask for school code
 
-## Scheduling Service
+## Scheduling Service 
  * find current period(s)
  * display special shorthand
  * (optional) add patches for user schedules
