@@ -18,7 +18,7 @@ midway.auth.signInWithPopup = async function () {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     const refreshToken = await firebase.auth().signInWithPopup(provider)
-        .then((result) => result.user.refreshToken );
+        .then((result) => result.user.refreshToken);
 
     return midway.auth.user.refreshToken = refreshToken;
 }
@@ -29,7 +29,7 @@ midway.auth.getIdToken = async function () {
     const refreshToken = midway.auth.user.refreshToken;
 
     if (!refreshToken) {
-        throw new Error ("To generate an id token, you must supply a refresh token.");
+        throw new Error("To generate an id token, you must supply a refresh token.");
     }
 
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
@@ -45,7 +45,7 @@ midway.auth.getIdToken = async function () {
     const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
 
     if (data.hasOwnProperty("error")) {
-        throw new Error (data.error.message); 
+        throw new Error(data.error.message);
     }
 
     // data.expires_in (seconds)
@@ -68,7 +68,28 @@ midway.auth.autoGetIdToken = async function () {
 
 // gets information like the user's email
 midway.auth.getUserDetails = async function () {
+
+    const idToken = midway.auth.user.idToken;
+
+    if (!idToken) {
+        throw new Error("idToken must be available before getting user details")
+    }
+
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
+    const tokenRequestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`;
+    const tokenRequestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken })
+    }
+
+    const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
+
+    if (data.hasOwnProperty("error")) {
+        throw new Error(data.error.message);
+    }
 }
 
 midway._secondsToMillis = (seconds) => seconds * 1000;
@@ -80,7 +101,7 @@ midway.auth.getSchoolCodeFromStorage = async function () {
     const userId = midway.auth.user.id;
     const idToken = midway.auth.user.idToken;
 
-    const schoolCode = await midway.fetch.fromCache("schoolCode",userId,idToken);
+    const schoolCode = await midway.fetch.fromCache("schoolCode", userId, idToken);
 
     return schoolCode;
 }
