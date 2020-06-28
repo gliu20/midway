@@ -44,7 +44,7 @@ midway.auth.getIdToken = async function () {
 
     const data = await midway.fetch.fetch(tokenRequestUrl, tokenRequestOptions);
 
-    if (data.hasOwnProperty(error)) {
+    if (data.hasOwnProperty("error")) {
         throw new Error (data.error.message); 
     }
 
