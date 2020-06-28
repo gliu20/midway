@@ -59,7 +59,7 @@ midway.fetch.fromCache = async function (type, identifiers, idToken, { urlParams
 
     // new data is required since cache doesn't have it or the data 
     // isn't recent enough
-    const data = midway.fetch.fromDatabase(type, identifiers, idToken, { urlParams, requestOptions });
+    const data = await midway.fetch.fromDatabase(type, identifiers, idToken, { urlParams, requestOptions });
 
     // update cache and return data
     return cache.set(cacheId, data);
