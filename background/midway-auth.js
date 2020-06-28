@@ -11,6 +11,12 @@ midway.auth.isSignedIn = function () {
 }
 
 midway.auth.signInWithWeb = async function () {
+
+    if (midway.config.platform !== "CHROME_EXT" ||
+        midway.config.platform !== "FIREFOX_ADDON") {
+        throw new Error("Signing in with a web browser is only for Chrome Extensions or Firefox Addons.")
+    }
+
     // authentication will use website to sign in
 
     // now we should have received a refresh token
@@ -122,14 +128,14 @@ midway.auth.getSchoolCodeFromStorage = async function () {
 }
 
 midway.auth.getSchoolCodesFromEmail = async function () {
-    const {email} = await midway.auth.getUserDetails();
+    const { email } = await midway.auth.getUserDetails();
 
     const idToken = midway.auth.user.idToken;
     const schoolDomain = midway.auth.getDomainFromEmail(email);
 
-    const schoolCodes = await midway.fetch.fromCache("emailLookup",{schoolDomain},idToken);
+    const schoolCodes = await midway.fetch.fromCache("emailLookup", { schoolDomain }, idToken);
 
     return schoolCodes;
 }
 
-midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g,"%25");
+midway.auth.getDomainFromEmail = (email) => email.split("@")[1].replace(/\./g, "%25");

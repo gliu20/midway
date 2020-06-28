@@ -1,7 +1,7 @@
 const midway = {};
 
 midway.config = {
-    platform: "EXTENSION", // EXTENSION || WEB
+    platform: "CHROME_EXT", // CHROME_EXT || FIREFOX_ADDON || WEB
     firebaseConfig: {
         apiKey: "AIzaSyBNCdvM5pzkiSuHKGOolx0HuFgM2VBWITU",
         authDomain: "midway-application.firebaseapp.com",
@@ -16,15 +16,16 @@ midway.config = {
 }
 
 midway.init = function () {
-    // start up clock service
-    // start up authentication process (check if sign in available)
-    // start up storage process and syncing with different accounts
-    // check for welcome message or onboarding process
-
     // init firebase
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(midway.config.firebaseConfig);
 
     if (enableAnalytics) {
         firebase.analytics();
     }
+
+    // start up storage
+    // start up clock service
+    // start up authentication process (check if sign in available)
+    // start up storage process and syncing with different accounts
+    // check for welcome message or onboarding process
 }
