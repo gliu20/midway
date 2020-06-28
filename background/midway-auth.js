@@ -18,7 +18,7 @@ midway.auth.signInWithPopup = async function () {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     return firebase.auth().signInWithPopup(provider)
-        .then((result) => { result.user.refreshToken })
+        .then((result) => midway.auth.user.refreshToken = result.user.refreshToken )
 }
 
 // convert refresh token to id token
