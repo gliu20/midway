@@ -19,7 +19,7 @@ midway.init = function () {
     // init firebase
     firebase.initializeApp(midway.config.firebaseConfig);
 
-    if (enableAnalytics) {
+    if (midway.config.enableAnalytics) {
         firebase.analytics();
     }
 
