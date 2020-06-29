@@ -2,7 +2,7 @@ const midway = {};
 
 midway.config = {
     platform: "CHROME_EXT", // CHROME_EXT || FIREFOX_ADDON || WEB
-    firebaseConfig: {
+    firebase: {
         apiKey: "AIzaSyBNCdvM5pzkiSuHKGOolx0HuFgM2VBWITU",
         authDomain: "midway-application.firebaseapp.com",
         databaseURL: "https://midway-application.firebaseio.com",
@@ -17,7 +17,7 @@ midway.config = {
 
 midway.init = function () {
     // init firebase
-    firebase.initializeApp(midway.config.firebaseConfig);
+    firebase.initializeApp(midway.config.firebase);
 
     if (midway.config.enableAnalytics) {
         firebase.analytics();
