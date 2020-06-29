@@ -30,3 +30,9 @@
  * find current period(s)
  * display special shorthand
  * (optional) add patches for user schedules
+
+## Storage
+ * Sync settings
+
+## Sync/Messenger
+ * Synchronize shared state of data through message passing
