@@ -42,7 +42,7 @@ midway.auth.getIdToken = async function () {
     }
 
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-refresh-token
-    const tokenRequestUrl = `https://securetoken.googleapis.com/v1/token?key=${firebaseConfig.apiKey}`;
+    const tokenRequestUrl = `https://securetoken.googleapis.com/v1/token?key=${midway.config.firebaseConfig.apiKey}`;
     const tokenRequestOptions = {
         method: "POST",
         headers: {
@@ -88,7 +88,7 @@ midway.auth.getUserDetails = async function () {
     }
 
     // refer to https://firebase.google.com/docs/reference/rest/auth#section-get-account-info
-    const requestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`;
+    const requestUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${midway.config.firebaseConfig.apiKey}`;
     const requestOptions = {
         method: "POST",
         headers: {
