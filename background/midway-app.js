@@ -23,7 +23,7 @@ midway.init = function () {
         firebase.analytics();
     }
 
-    // start up storage
+    // start up storage and/or messenger sync
     // start up clock service
     // start up authentication process (check if sign in available)
     // start up storage process and syncing with different accounts
