@@ -31,7 +31,7 @@
  * display special shorthand
  * (optional) add patches for user schedules
 
-## Storage
+## Storage | IN PROGRESS
  * Sync settings
 
 ## Sync/Messenger
