@@ -32,7 +32,7 @@ midway.clock.getSkew = async function () {
     const clientEndTime = Date.now();
     const averageOneWayLatency = 35;
 
-    const skew = clientEndTime - serverTime - averageOneWayLatency;
+    const skew = serverTime - (clientEndTime - averageOneWayLatency);
 
     return midway.clock.skew = skew;
 }
